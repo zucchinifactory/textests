@@ -6,7 +6,7 @@ This is more or less a test project to learn more about useful workflows when co
 
 ## About this branch
 
-This is the `master` branch. It doesn't contain true content but exemplary `.tex` files only.
+FP-F83
 
 ## Instructions
 
