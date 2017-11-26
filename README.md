@@ -6,7 +6,7 @@ This is more or less a test project to learn more about useful workflows when co
 
 ## About this branch
 
-Minimal example with usage of BibLaTeX.
+FP-F83
 
 ## Instructions
 

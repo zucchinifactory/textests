@@ -1,0 +1,18 @@
+\makeatletter
+\newcommand*{\header}[1]{\gdef\@header{#1}}
+\def\@maketitle{
+    \begin{flushleft}
+    \Large
+    \textsf{\@header}
+    \par
+    \vskip 0mm
+    \LARGE
+    \textsf{\textbf{\@title}}
+    \par
+    \vskip 2mm
+    \large
+    \textsf{{\@author} | durchgeführt in der Woche vom \@date}
+    \end{flushleft}
+    \vskip 2mm
+    }
+\makeatother
