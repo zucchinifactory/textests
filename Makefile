@@ -16,3 +16,4 @@ clean: ;\
   rm -f $(MAIN).pdfsync ;\
   rm -rf *~ *.tmp ;\
   rm -f *.bbl *.blg *.aux *.end *.fls *.log *.out *.fdb_latexmk ;\
+  rm -f *.run.xml ;\
