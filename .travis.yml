@@ -21,7 +21,7 @@ before_install:
       sleep infinity
     fi
   - sudo apt-get -qq update
-  - sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
+  - sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk biber
 script:
   - make
 deploy:
