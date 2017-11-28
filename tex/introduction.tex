@@ -1,4 +1,6 @@
 \section{Introduction}
+% Versuch geht um radioaktiven Zerfall und die Untersuchung der entstehenden Gammaquanten mithilfe Szintillationsspektroskopie
+This article is about our experiment on radioactive decay of different radioactive elements and the study on the subsequently appearing $\gamma$ rays with the aid of scintillation spectroscopy.
 %
 \subsection{Radioactive decay}
 % Atomkerne mehrere Stadien außer stabil.
@@ -29,15 +31,49 @@ The process of \textbf{internal conversion} (IC) means the transfer of energy of
 If $\gamma$ rays encounter matter, there are various possibilities of interaction. These interactions can be detected and used to build spectrometers.
 %
 \subsection{Photo effect}
+% Photoeffekt tritt auf wenn Photonen passender Energie auf Materie treffen und somit Elektronen rausschlagen
+The photo effect occurs when photons of adequate energy strike matter which results in emission of electrons.
+% Gamma überträgt seine gesamte Energie auf ein Elektron und schlägt es damit aus der Hülle eines Atoms heraus
+A $\gamma$ quantum transfers its complete energy onto an electron and thereby liberates it from the atom.
 %
 \subsection{Compton scattering}
+% Stoß von gamma mit Elektron heißt Compton
+Inelastic scattering of a $\gamma$ quantum with an electron is called Compton scattering.
+% Photon verliert Energie
+The photon transfers energy onto the electron which consequently increases the photon's wavelength.
+% Energie hängt vom Winkel ab
+The amount of energy which is transferred onto the electron depends on the scattering angle $\theta$:
+\begin{align}
+    \label{eq:PhotonNachStoss}
+    \begin{split}
+        {E_{\gamma}}'(\theta) &= E_{\gamma} - \frac{E_{\gamma}}{1 + \left ( 1 - \cos(\theta) \right ) \frac{E_{\gamma}}{m_{\text{e}} c^2}}
+    \end{split}
+    \\
+    \label{eq:ElektronNachStoss}
+    \begin{split}
+        E_{\text{e}}(\theta) &= E_{\gamma} - {E_{\gamma}}'(\theta)
+    \end{split}
+\end{align}
+where $E_{\gamma}$ and ${E_{\gamma}}'$ are the energies of the photon before and after the collision, $E_{\text{e}}$ is the energy of the electron after the collision, $m_{\text{e}}$ is the mass of the electron and $c$ is the speed of light. \cite{AnleitungZusatz2}
 %
 \subsection{Pair production}
+% Falls Energie von gamma größer als Ruheenergie dann Paarbildung möglich was das Photon zu Elektron Positron Paar macht
+If the energy of the $\gamma$ quantum exceeds \SI{1022}{\kilo\electronvolt}, which is the rest mass of an electron-positron pair, pair production may take place and the photon is converted into an electron-positron pair. \cite{AnleitungZusatz1}
 %
 \subsection{Scintillators}
+% Angeregter Szintillator emittiert sichtbares oder UV-Licht
+When a scintillator is being excited with high energy photons, it emits light of visible or ultraviolet range.
+% Wir nutzen anorganischen Szintillator weil besser laut Aussagen in Anleitung
+Even though organic scintillators exist as well, anorganic scintillators are better suited to detect $\gamma$ rays due to their higher atomic number and density. \cite{Anleitung}
 %
 \subsection{Scintillation spectrometer}
-%
-% Wir nutzen anorganischen Szintillator.
-Even though organic scintillators exist as well, anorganic scintillators are better suited to detect $\gamma$ rays due to their higher atomic number and density. [TODO: REFERENZ PRAKTIKUMSANLEITUNG]
-% Funktionsweise Szintillator
+% Auftreffende gamma geben Energie an Elektronen
+Impacting $\gamma$ rays transfer their energy onto electrons of the scintillator material as described above.
+% Diese Elektronen gehen ins Leitungsband oder bilden Exziton
+In turn, these electrons leave the valence band for the conduction band while creating an electron hole as well or - in case of an insufficient amount of transferred energy - form an exciton.
+% Danach diffundieren die Energieträger zu den angelegten Fehlstellen
+Either way, electrons, electron holes and excitons diffuse through the semiconductor until they encounter one of the inhomogeneities which have actively been created by doping.
+% Dort existieren Energielevel zwischen Valenz- und Leitungsband sodass die Energieträger dort Energie abgeben können, was Photonen erzeugt
+They act as an emission center by creating energy levels between the levels of the conduction and valence band - therefore promoting the energy carriers to dispose their energy which results in generated photons.
+% Die Lichtblitze werden mit Photomultiplier detektiert
+These flashes of light can then be detected with a photomultiplier tube.
