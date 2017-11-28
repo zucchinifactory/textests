@@ -1,4 +1,478 @@
 \section{Materials and Methods}
-\subsection{Scientific computing}
-We are using \pythoninline{scipy.curvefit} for blablabla
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+%
+\subsection{Setup}
+%
+In the following text, the counter on the left (labeled "1") of our setup will be called "counter 1" and the one on the right (labeled "2") "counter 2".
+%
+We set the voltage for counter 1 to $\SI{540 \pm 2}{\volt}$ and for counter 2 to $\SI{490 \pm 2}{\volt}$.
+The signals from the spectroscope are plugged directly into the oscilloscope.
+We insert the $^{60}\text{Co}$ sample (labeled "NN258") into the detector chamber and close the sliding door.
+%
+Pulses of different height and length can be seen.
+Exemplary screenshots for a quantitative analysis are listed in Appendix ... [TODO]
+%
+tek00000.png
+Signal 1
+with pulse height $\SI{50 \pm 5}{\milli\volt}$
+pulse length $\SI{100 \pm 10}{\micro\second}$
+%
+tek00001.png
+Signal 2
+pulse height $\SI{240 \pm 20}{\milli\volt}$, pulse length $\SI{50 \pm 5}{\micro\second}$
+pulse height $\SI{50 \pm 5}{\milli\volt}$, pulse length $\SI{30 \pm 5}{\micro\second}$
+(Errors only from reading the scale)
+%
+Now we connect the signals of both counters to the corresponding amplifiers and set the Coarse Gain to $16$, the Fine Gain to its maximal value (see circuit schematic in figure \ref{fig:Schaltung1}).
+On the oscilloscope we look at both amplified signals at the same time:
+tek00003.png [TODO]
+%
+[TODO tek00004.png] shows the bipolar signal form of counter 1. To achieve this, we set the amplifier to "negative input" and "unipolar" (because the signal is already bipolar).
+tek00004.png [TODO]
+%
+We now use signal 1 to control the Timing Single Channel Analyzer (TSCA) as in seen in figure \ref{fig:Schaltung2} and get the following shape on the oscilloscope (Input one: amplifier, Input two: TSCA positive output, window fully open)
+tek00006.png [TODO]
+%
+The TSCA sends a rectangular pulse of constant height when the input signal crosses the zero line.
+With the energy window knob we can control for which different input pulse heights the TSCA sends a pulse.
+The minimal energy knob respectively controls the minimal height of the signals to trigger an output.
+%
+Using the TSCA output to control the Linear Gate as in figure \ref{fig:Schaltung3} we get [TODO tek00007.png]
+tek00007.png [TODO]
+%
+Here we set the delay in the Delay Amplifier to \SI{2.75}{\micro\second}, which ensures that the gate is opened right before the original amplified signal peak reaches the gate.
+%
+\subsection{Measurements}
+%
+To analyze further samples we connect the Linear Gate output to the Multi Channel Analyzer (MCA) which delivers its signals to the LabVIEW software.
+There we set a Threshold of 200.
+%
+Now we measure the spectra of five different sources for around \SIrange{300}{400}{\second} each.
+We mark the concise peaks and edges and estimate their full width half maxima (FWHM).
+%
+Sample $^{60}\text{Co}$ ("NN258") shows two clear peaks and am continuum with multiple spikes.
+Sample $^{137}\text{Cs}$ ("NN256") shows one peak and Compton continuum.
+Sample $^{54}\text{Mn}$ ("NN260", "AC9339") shows one strong peak and Compton continuum, more jagged.
+Sample $^{133}\text{Ba}$ ("NN255") shows three more broad and less separated peaks.
+Sample $^{22}\text{Na}$ ("NN261") shows two high energy peaks and one very intense peak caused by electron-positron annihilation.
+%
+For the night measurement, we remove the sample holder and close the sliding door.
+For \SI{68898}{\second}, the counters and the software are left running to detect background radiation.
+%
+\subsection{Coincidence measurement setup}
+%
+We setup the second scintillator in the same way as the first (Amplifier Corse Gain set to $16$, Fine Gain to maximum value, TSCA window fully open) and use its output signal to trigger the Linear Gate (see circuit figure \ref{fig:Schaltung4}).
+[TODO 1 und 2 vertauscht erwähnen?]
+Now we will only register the signal of counter 1, if counter 2 also is triggered.
+%
+We insert the $^{137}\text{Cs}$ sample and take the spectrum [137Cskoinz1.txt] which shows three clear lines (left to right: backscatter, Compton, photo).
+%
+Looking at the spectrum of counter 2 directly we note, that it is slightly shifted to the right (around 100 channels), because the scintillators are different and we use the same amplification factor.
+[TODO Fragen S. 20 I und II]
+%
+\subsection{Coincidence measurement with random coincidence}
+%
+To measure the random coincidence we remove the Delay Amplifier of signal 1 and turn the Delay on the TSCA of signal to is maximum value.
+We get [37Cskoinz2.txt].
+The two lower energy peaks loose their relative height compared to the high energy photo peak.
+[TODO Fragen S. 20]
+%
+\subsection{Coincidence measurement with improvements}
+%
+To improve the circuit we use a Time to Pulse Height Converter (TPHC) which translates the time difference between two input signals to a pulse with respective height.
+We set up the circuit as seen in figure \ref{fig:Schaltung5}.
+[TODO 1 und 2 vertauscht erwähnen?]
+TSCA 2 delay is set to 7.32 (potentiometer scale \SI{0.1}{\micro\second}).
+We vary the delay on the Delay Amplifier (\SI{20}{\nano\second}, \SI{40}{\nano\second}, \SI{60}{\nano\second}) to be able to calibrate the resulting time spectrum.
+[137CsTPHC.txt]
+[137CsTPHC20ns.txt]
+[137CsTPHC40ns.txt]
+[137CsTPHC60ns.txt]
+[TODO Fragen S. 21]
+%
+\subsection{Coincidence measurement with time window}
+%
+We use the time window settings of the TPHC to only send a signal if the time difference corresponds to a backscattered photon of the Compton scattering at the oposite scintillator.
+We use this signal to trigger the Linear Gate (see figure \ref{fig:Schaltung6}).
+[TODO 1 und 2 vertauscht erwähnen?]
+Slowly changing lower value and window size yields: ULD set to 1.0 and LLD set to 1.1.
+We get time spectrum [137CsTPHC_geschnitten_neu.txt] and the corresponding energy spectrum [137CsmitTPHC_gated].
+During the experiment, there were technical dificulties with the equipment and the circuit had to be set up fresh from the start again.
+Therefore, our spectrum for this specific measurement has slightly different settings for the time window and delay time.
+However, qualitatively the observable results were the same, we just neglected to record the spectrum with our new settings.
+[TODO Warum schlafende Hunde wecken? ;-)]
+[TODO Neues Spektrum Energiespektrum-keinenergiefenster-mit-TPHC.txt sieht ganz anders aus - was bedeutet das?]
+%
+\subsection{Coincidence measurement with time and energy window}
+%
+Now we want to use the TSCA 2 to only allow signals resulting from backscattered photons to trigger the TPHC.
+To achieve this we return to the schematic according to figure \ref{fig:Schaltung3} for scintillator 2 and close the energy window to only show the Backscatter peak (lowest of the three).
+We get the result in [signal2eneriewindow.txt] by using Lower set to 0.5, Window set to 0.4.
+Finally, we change the circuit back to figure \ref{fig:Schaltung6} and measure [comptonpeak.txt].
+[TODO 1 und 2 vertauscht erwähnen?]
+Only peak left (the middle one) belongs to the Compton edge.
+%
+\subsection{Coincidence Measurement of $^{60}\text{Co}$ cascade decay}
+%
+Using the above method we want to show, that the photons in the $^{60}\text{Co}$ cascade decay are emitted coincidentally. 
+We insert the $^{60}\text{Co}$ sample which is labeled with an activity of $\SI{404}{\kilo\becquerel} \pm 3\%$ on 01.08.2005.
+%
+We chose the energy window on both TSCAs to only trigger around the two photon peaks and take the respective spectra (Signal 1 Lower Level: 3.2, Window: 1.0, Signal 2 Lower Level: 2.8, Window: 1.0).
+To calculate the photon rates we also note the time and total event number
+87576 Events in 300 s => 60CoEnergiewindow1.txt
+92712 Events in 317 s => 60CoEnergiewindow2.txt
+[Buffer von 50, als Fehler für die Events, entsprechende Zeit als Fehler für die Zeit?]
+%
+Now we take a time measurement with figure \ref{fig:Schaltung5} using a delay of 4.3 (scale \SI{0.1}{\micro\second}) on TSCA2
+60CoZeitspektrum.txt, 3174 Events in 361 s (vgl. mit ges. Events in Daten)
+%
+For energy calibration we again use different delays in the stop signal of the TPHC.
+60CoZeitspektrum20ns.txt
+60CoZeitspektrum40ns.txt
+60CoZeitspektrum60ns.txt
+%
+To qualitatively examine the coincidence, we close the energy window on TCSA2 to only show the peak with higher energy (Lower 3.15, Window 0.45 -> 60CoEnergiewindow2-peak2.txt)
+%
+Now, with schematic seen in figure \ref{fig:Schaltung6}, we only see the coincident lower energy peak in the spectrum.
+60CoKaskadenEnergiewindowBeiPeak2.txt mit 4796 events über 1422 s
+%
+\subsection{Setup}
+%
+We digitize and record our data with an ADC.
+Such a device always has a finite dead time $\tau$ after detecting an incoming signal.
+If another signal follows in that time it is not registered.
+This changes the accepted detection rate $R_{\text{acc}}$ compared to the actual rate $R_{\text{in}}$.
+Over a time corresponding to $\tau \cdot R_{\text{acc}}$ we do not record any additional photons.
+The rate of additional incoming photons in that time can be calculated by multiplying with $R_{\text{in}}$.
+We get:
+\begin{align}
+    \label{eq:}
+    \begin{split}
+        R_{\text{in}} &= R_{\text{acc}} \cdot (1 + R_{\text{in}} )
+    \end{split}
+\end{align}
+[TODO: Umgestellt noch dazu schreiben?]
+%
+\subsection{Energy calibration}
+%
+Using the recorded spectra we can determine a functional relation between channel $ch$ and energy.
+We plot the the channel number of the very apparent photo peaks against the theoretic energy value taken from [TODO Abb].
+As an error we use the FWHM of the peak.
+With the \pythoninline{scipy.curvefit} Python function we fit an affine linear function to the data.
+From the fit parameters (see figure [TODO Abb]) we now can calculate the energy corresponding to any channel:
+\begin{align}
+    \label{eq:}
+    \begin{split}
+        E &= \frac{ch - b}{a}
+    \end{split}
+    \\
+    \label{eq:}
+    \begin{split}
+        \Delta E &= \sqrt{ \left ( \frac{ch - b}{a^2} \Delta a \right ) ^2 + \left ( \frac{\Delta b}{a} \right ) ^2 }
+    \end{split}
+\end{align}
+%
+\subsection{Energy resolution}
+%
+The energy $E$ registered by our computer is proportional to the number of photons $N$ coming from the photo multiplier:
+\begin{align}
+    \label{eq:}
+    \begin{split}
+        E \sim N \implies \Delta E \sim \Delta N = \sqrt{N}
+    \end{split}
+    \\
+    \label{eq:}
+    \begin{split}
+        \implies \frac{\Delta E}{E} \sim \frac{1}{\sqrt{N}} \sim \frac{1}{\sqrt{E}}
+    \end{split}
+\end{align}
+%
+In [TODO Abb] we plot the relative error $\Delta E / E$ of all marked features against the energy $E$ to see this relation.
+To calculate the FWHM $\Delta E$ we effectively use the difference between two channels.
+With the energy calibration values $a$ and $b$ we get in total:
+\begin{align}
+    \label{eq:}
+    \begin{split}
+        \frac{\Delta E}{E} = \frac{ch_{\text{FWHM}}}{ch - b}
+    \end{split}
+    \\
+    \label{eq:}
+    \begin{split}
+        \Delta \frac{\Delta E}{E} =  \sqrt{ \left( \frac{ch_{\text{FWHM}}}{(ch-b)^2} \Delta b \right)^2 }
+    \end{split}
+\end{align}
+%
+To these data points we fit the above described relation $f(x) = \frac{A}{\sqrt{x}} + B$ and obtain the fit parameters [TODO Abb].
+Here, $B$ is an additional bias term not motivated by physics to account for systematic errors.
+[TODO: B weglassen? macht fit nicht besser, aber in anderen papern auch drin]
+%
+\subsection{Spectra of different radionuclei}
+%
+To analyze our recorded spectra we take a look at the the concise peaks and edges.
+In table [TODO] we compare the experimentally measured and the theoretic energies for all spectra quantitatively.
+The theoretical values are taken from the experiment manual \cite{Anleitung} if not stated otherwise.
+Below we give a physical explanation for the most prominent features of each spectrum.
+The sharp cutoff at channel 130 is most likely due to software configuration as it is observable in all spectra.
+%
+\begin{multicolfloat}
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Isotope & (Peak) Type & $E_{\text{exp}} +/-$ & Deviation \\
+\midrule
+1 & 1 & 1 & 1 \\
+1 & 1 & 1 & 1 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Comparison of experimental and theoretical energies of relevant processes for different isotopes}
+\label{tab:EnergyComparison}
+\end{center}
+\end{multicolfloat}
+[TODO Tabellentitel?]
+%
+\par
+In 99\% of all cases \textbf{$^{60}\text{Co}$} decays in a $\beta^{+}$ decay into an exited state of $^{60}\text{Ni}$, which emits its energy in two stages [Abb].
+The corresponding photons cause the two most intense peaks.
+Their energies do not deviate significantly from the theoretically expected values.
+The spectrum also shows the characteristic Compton continuum with an edge visible at roughly \SI{0.89}{\mega\electronvolt}.
+The measurement corresponds to the theoretical edge for the lower energy disexcitation.
+Since the two values overlap, the edge is not very sharp and also lies within the general region of the second expected value.
+At \SI{0.217}{\mega\electronvolt}, we see one peak of backscattered photons resulting from the Compton effect.
+Here, the theoretical peaks overlap a lot and the measured data fits both of them.
+%
+\par
+\textbf{$^{137}\text{Cs}$} decays trough $\beta^{+}$ into an exited $^{137}\text{Ba}$, which is a metastable state with a \SI{2.55}{\minute} lifespan caused by the forbidden high polarity transmission 11/2- -> 3/2+ [Abb].
+Eventually it decays by photon emission (90\%) resulting an the peak at \SI{0.668}{\mega\electronvolt} or internal conversion (10\%), where the nucleus transfers energy electromagnetically to a shell electron.
+This not only results in the detection of electrons of different energy after ionization, but also yields additional coincident photons emitted when the ion absorbs a free electron.
+These effects smear out spectrum a bit, but we still see the relevant peaks.
+Again we also see the Compton edge and backscatter peak of the main photon at their expected positions.
+%
+\par
+\textbf{$^{54}\text{Mn}$} decays by electron capture leading to an exited state of $^{54}\text{Cr}$ (see figure \ref{fig:54MnDecayScheme}).
+The resulting photons create the visible peak with matching energy.
+We also get the expected Compton edge and backscatter peak.
+%
+\par
+\textbf{$^{133}\text{Ba}$} decays through electron capture into two different exited states of $^{133}\text{Cs}$.
+As can be seen in [Abb] the term diagram allows many possible electron transitions enabling a multitude of different peaks in the spectrum.
+Many of these however are either rather unlikely (high polarity transmission) or overlap.
+Quantitatively we can only examine three pronounced peaks (see table \ref{tab:EnergyComparison}). [TODO Stimmt die Ref?]
+The highest energy one matches the energy of the 1/2+ -> 5/2+ transmission with 91\% probability.
+Since it is the most likely transmission it also shows the highest peak.
+The second peak presumably belongs to the 3/2+ -> 5/2+ transmission (65\%), the energy here also corresponds within its margin of error.
+The lowest peak is very wide but could be caused by the 5/2+ -> 7/2+ transmission (12\%).
+The energies do not differ significantly.
+At this energy we also expect the Compton continuum and backscatter peaks, explaining the width of the peak.
+At around \SI{0.062}{\mega\electronvolt} (channel 95) we can see a very faint peak, which could correspond to the 5/2+ -> 5/2+ transmission with 88\% probability.
+However the position and error can not be estimates due to the low count number.
+Here we could have used a higher coarse gain at the amplifier.
+We can not quantitatively observe any of the coincident events, since they are either unlikely or of to lower energy for us to register.
+The electron for the electron capture is taken from the electron shell.
+Therefor after the decay the daughter nucleus is in an ionized state.
+During the following neutralization there is a photon emitted, with a characteristic energy depending on the energy level of the captured electron.
+For the $^{133}\text{Cs}$ radionuclide we find binding energies of around \SI{36}{\kilo\electronvolt} \cite{KayeLaby}.
+These are to low for us to detect in the spectrum with our setup.
+%
+\par
+\textbf{$^{22}\text{Na}$} decays mostly in $\beta^{+}$ and electron capture into an exited state of $^{22}\text{Ne}$ which then loses its energy after \SI{3}{\pico\second} in a simple dipole transmission.
+This energy matches the one of out high energy peak at \SI{1.272}{\mega\electronvolt}.
+These photons can also lose their energy in the Compton effect creating the slightly visible Compton edge at channel 945, matching the theoretical value.
+The intense peak at channel 509 is caused by the $\beta^{+}$ decay.
+The created positrons are slowed down and annihilate with surrounding electrons.
+Due to spin conservation this yields two photons with one electron resting energy (\SI{511}{\kilo\electronvolt}) each.
+At low energies we see the Compton edge and backscatter peak of the annihilation photons.
+Their energies match the theoretical values.
+As one would expect, because of the high intensity of the annihilation peak the backscatter peak of the high energy photons is predominated and not separately visible.
+%
+\par
+In the \textbf{night measurement} we can observe two clear peaks.
+The high energy one matches the value for the $^{40}\text{K}$ $\beta^{-}$ decay (90\%) \cite{WikiPotassium}.
+Potassium is a naturally occurring element on earth and about 0,0117\% is of the radioactive isotope $^{40}\text{K}$.
+The second peak lies very close to the electron resting energy.
+This leads to the suspicion, that it is caused by electron annihilation as in $^{22}\text{Na}$.
+However $\beta^{+}$ decay of $^{40}\text{K}$ is actually quite unlikely (0,001\%) \cite{WikiPotassium}, so other explanations may be more likely.
+For lower energies we see an increase in the spectrum.
+This is the expected result for bosonic particles, lower energies are more probable.
+%
+\subsection{Coincidence measurement of $^{137}\text{Cs}$}
+%
+Simple coincidence spectrum
+%
+As before the spectrum [Abb] shows the three expected peaks at their theoretical positions. However because the Linear Gate only allows detection on counter 1 when there is also a signal registered at counter 2, the photo peak is reduced in intensity because it is only registered due to random coincidence. The Compton and backscatter peak in contrast occur coincidentally and are more prominent.
+By using the Delay Amplifier with a time $t_{\text{delay}}$ we made sure that signal 1 coming in at $t_1$ entered the Linear Gate after signal 2 at tine $t_2$ went trough the TSCA and opened the Linear Gate. If the latter is then open for a time of $t_{\text{trigger}}$ we get the following constraint for the respective times:
+$t_2 < t_1 + t_{\text{trigger}} < t_2 +  t_{\text{delay}}$
+The coincidence resolution is then given directly by $t_{\text{trigger}}$
+%
+Random coincidence
+%
+If we deliberately increase $t_{\text{delay}}$ the two coincident events of Compton and backscatter peak will never arise at the same time. This results in [Abb] where only the photo peak is visible, because  random coincidence still occurs as before.
+%
+Improved Method
+%
+The time spectra [Abb] all show a single peak which which corresponds tho the time between the detection of a Compton scattered electron in one detector and the corresponding photon in the other.
+The noise level is cause by random coincidence which happened with has no particular time difference.
+The added delay only shifts the peak along the channel axis. This relation between channel time allows to calculate the time calibration of the circuit.
+In [Abb] we plot the peak channels of the differently delayed spectra against the delay time. To the linear relation we fit a respective function [Abb] to get the channel-energy relation $a$.
+We now can use the calibration to calculate the coincidence time which is defined by the with of the peak in the time spectrum:
+%
+\begin{align}
+    \label{eq:}
+    \begin{split}
+        t = \frac{ch_{\text{right}}-ch_{\text{left}}}{a}
+    \end{split}
+    \\
+    \label{eq:}
+    \begin{split}
+        \Delta t = \sqrt{ \left (  \frac{ch_{\text{right}}-ch_{\text{left}}}{a^2} \Delta a \right)^2 + 2 \left ( \frac{ch_{\text{right}}-ch_{\text{left}}}{a} \Delta ch \right)^2 }
+    \end{split}
+\end{align}
+%
+We only use the first spectrum, because taking the mean of the four spectra would not decrease the systematic error significantly. We get $t = $.
+%
+Time window
+In the spectrum with the adjusted time window at the Single Channel Analyzer we managed to significantly reduce the height of the photo peak and reduce the background noise of random coincidence, while leaving the actually coincidental peaks untouched.
+[137CsmitTPHC_gated]
+%
+Energy and time window
+Having blocked all signals from counter 2 that do not fall in the energy window of the backscatter peak, the spectrum now only shows the coincident Compton peak at its expected energy of  $E_exp = \SI{4.62 \pm 0.44 e-1}{\mega\electronvolt}$. The derivation to the theoretical value from above is not significant (0.353996030708 $\sigma$).
+The random coincidence is highly suppressed.
+%
+Coincidence measurement of $^{60}\text{Co}$ cascade decay
+%
+The two photons of the $^{60}\text{Co}$ cascade decay can be considered simultaneous, because the live span of the intermediate state is only about $0.7 ps$.
+%
+Time resolution
+As with the $^{137}Cs$ measurements we calibrate the time spectrum [Abb] and calculate the coincidence resolution to $t =$ with (formel) and (formel).
+Because the peaks in the time spectrum are much more narrow the time resolution is appropriately smaller.
+%
+Source strength and detection rates
+The detection rates $R$ of the scintillation detectors are given by:
+%
+\begin{align}
+    \label{eq:DetectionRates}
+    \begin{split}
+        R_i &= M_i \cdot Q \cdot \eta_i ~~~~~ i element {1,2}
+    \end{split}
+\end{align}
+%
+with the source strength $Q$, the detection probability of the detector $\eta_i$ and the photon multiplicity $M_i$ of the relevant radiation process.
+In the same way the coincident rate is given by:
+%
+\begin{align}
+    \label{eq:CoincidenceDetectionRates}
+    \begin{split}
+        R_{\text{c}} &= M_{\text{c}} \cdot Q \cdot \eta_1 \cdot \eta_2
+    \end{split}
+\end{align}
+%
+While we do not know the detection probabilities, we can still combine the measured detection rates to calculate the source strength. In our setup coincident photons have two possibilities to be detected, so we use $M_{\text{c}} = 2$, while $M_i = 1$
+%
+\begin{align}
+    \label{eq:SourceStrength}
+    \begin{split}
+        Q &= \frac{R_1 R_2}{R_{\text{c}}} \frac{ M_{\text{c}}}{M_1 M_2} = 2 \frac{R_1 R_2}{R_{\text{c}}}
+    \end{split}
+\end{align}
+%
+The rates are calculated from the measured times $t_i$ and counts $N_i$ by
+%
+\begin{align}
+    \label{eq:RateMeasured}
+    \begin{split}
+        R_i  &= \frac{N_i}{t_i}
+    \end{split}
+    \\
+    \label{eq:DeltaRateMeasured}
+    \begin{split}
+        \Delta R_i &= \frac{\sqrt{N_i}}{t_i}
+    \end{split}
+\end{align}
+%
+with an statistical error for $N_i$. This leads to an error in the source strength of:
+%
+\begin{align}
+    \label{eq:DeltaSourceStrength}
+    \begin{split}
+        \Delta Q &= \sqrt{ \left ( \frac{\Delta R_1}{R_1} \right ) ^2 +
+                            \left ( \frac{\Delta R_2}{R_2} \right ) ^2 +
+                            \left ( \frac{\Delta R_{\text{c}}}{R_{\text{c}}} \right ) ^2 }
+    \end{split}
+\end{align}
+%
+The data is presented in table \ref{tab:DetectionRates}.
+In total, we get a source strength of $Q = \pm $ [TODO]
+%
+\begin{multicolfloat}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Time [s] & Counts & detection rate [s$^{-1}$] \\
+\midrule
+300 & 818,8 $\pm$ 5 & 818,8 $\pm$ 2,0 \\
+300 & 818,8 $\pm$ 5 & 818,8 $\pm$ 2,0 \\
+300 & 818,8 $\pm$ 5 & 818,8 $\pm$ 2,0 \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Experimental results of detection rates}
+\label{tab:DetectionRates}
+\end{center}
+\end{multicolfloat}
+%
+The theoretical value $O_{\text{theo}}$ can be calculated from the half life $t_{\nicefrac{1}{2}}$ of the isotope and the noted source strength $Q_0$ at a time $t$ before the experiment:
+[TODO hier die zahlenwerte nochmal im test angeben?]
+\begin{align}
+    \label{eq:TheoSourceStrength}
+    \begin{split}
+        Q_{\text{theo}} &= Q_0 \cdot \exp(-\ln(2) \frac{t}{t_{\nicefrac{1}{2}}})
+    \end{split}
+    \\
+    \label{eq:DeltaTheoSourceStrength}
+    \begin{split}
+        \Delta Q_{\text{theo}} &= \Delta Q_0 \cdot \exp(-\ln(2) \frac{t}{t_{\nicefrac{1}{2}}})
+    \end{split}
+\end{align}
+%
+This gives $O_{\text{theo}} = \pm $
+The extremely high derivation will be discussed later.
+%
+Now we can use the source strength to calculate the detection probabilities and compare them:
+% 
+\begin{align}
+    \label{eq:DetectionProb}
+    \begin{split}
+        \eta_i &= \frac{R_i}{Q}
+    \end{split}
+    \\
+    \label{eq:DeltaDetectionProb}
+    \begin{split}
+        \Delta \eta_i &= \sqrt{ \left ( \frac{\Delta R_i}{Q} \right ) ^2 +
+                                  \left ( \frac{R_i}{Q^2} \Delta Q \right ) ^2 }
+    \end{split}
+\end{align}
+%
+This yields $\eta_1 = \pm $ and $\eta_2 = \pm $. [TODO]
+%
+Random coincidence
+From the measurement of the coincident rate (spectrum [60CoZeitspektrum]) we can extract the rate of random coincidence by counting the number of data not in the maximum with the real coincidence time and using equation ($\ref{eq:RateMeasured}$).
+We get $R_{\text{rand}} = \pm $. [TODO]
+Again, the error is the statistical error given by $\sqrt{R_{\text{rand}}}$.
+%
+The theoretical value can be sustained by
+%
+\begin{align}
+    \label{eq:RandomCoincidence}
+    \begin{split}
+        R_{\text{rand}}^{\text{theo}} &= R_1 \cdot R_2 \cdot t_{\text{c}}
+    \end{split}
+    \\
+    \label{eq:DeltaRandomCoincidence}
+    \begin{split}
+        \Delta \eta_i &= \sqrt{ \left ( R_2 \cdot t_{\text{c}} \cdot \Delta R_1 \right ) ^2 +
+                                  \left ( R_1 \cdot t_{\text{c}} \cdot \Delta R_2 \right ) ^2 +
+                                  \left ( R_1 \cdot R_2 \cdot \Delta t_{\text{c}} \right ) ^2 }
+    \end{split}
+\end{align}
+%
+with the determined coincidence time $t_{\text{c}}$. This results in $R_{\text{rand}}^{\text{theo}} = \pm $. The deviation of the values is $ \sigma$. [TODO]
+%
+Qualitative observation of coincidence
+When we only allow simultaneous photons with an energy of one of the peaks to trigger the detection we accordingly only detect photons of the other, thus proving the coincident relationship.
