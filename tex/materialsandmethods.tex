@@ -49,11 +49,12 @@ There we set a Threshold of 200.
 Now we measure the spectra of five different sources for around \SIrange{300}{400}{\second} each.
 We mark the concise peaks and edges and estimate their full width half maxima (FWHM).
 %
-Sample $^{60}\text{Co}$ ("NN258") shows two clear peaks and am continuum with multiple spikes.
+Sample $^{60}\text{Co}$ ("NN258") shows two clear peaks and an continuum with multiple spikes.
 Sample $^{137}\text{Cs}$ ("NN256") shows one peak and Compton continuum.
 Sample $^{54}\text{Mn}$ ("NN260", "AC9339") shows one strong peak and Compton continuum, more jagged.
 Sample $^{133}\text{Ba}$ ("NN255") shows three more broad and less separated peaks.
 Sample $^{22}\text{Na}$ ("NN261") shows two high energy peaks and one very intense peak caused by electron-positron annihilation.
+[TODO Grafiken referenzieren]
 %
 For the night measurement, we remove the sample holder and close the sliding door.
 For \SI{68898}{\second}, the counters and the software are left running to detect background radiation.
@@ -109,7 +110,7 @@ To achieve this we return to the schematic according to figure \ref{fig:Schaltun
 We get the result in [signal2eneriewindow.txt] by using Lower set to 0.5, Window set to 0.4.
 Finally, we change the circuit back to figure \ref{fig:Schaltung6} and measure [comptonpeak.txt].
 [TODO 1 und 2 vertauscht erwähnen?]
-Only peak left (the middle one) belongs to the Compton edge.
+The only peak left (the middle one) belongs to the Compton edge.
 %
 \subsection{Coincidence Measurement of $^{60}\text{Co}$ cascade decay}
 %
@@ -155,14 +156,14 @@ We get:
 \subsection{Energy calibration}
 %
 Using the recorded spectra we can determine a functional relation between channel and energy.
-We plot the channel number $ch$ of the very apparent photo peaks against the theoretic energy value $E$ taken from [TODO Praktikumsanleitung] in figure [TODO Abbildung Energy calibration].
+We plot the channel number $\chi$ of the very apparent photo peaks against the theoretic energy value $E$ taken from [TODO Praktikumsanleitung] in figure [TODO Abbildung Energy calibration].
 As an error we use the FWHM of the peak.
 With the \pythoninline{scipy.curvefit} Python function we fit an affine linear function to the data.
 From the fit parameters (see figure [TODO Abb]) we now can calculate the energy corresponding to any channel:
 \begin{align}
     \label{eq:}
     \begin{split}
-        E &= \frac{ch - b}{a}
+        E &= \frac{\chi - b}{a}
     \end{split}
     \\
     \label{eq:}
@@ -186,18 +187,18 @@ The energy $E$ registered by our computer is proportional to the number of photo
     \end{split}
 \end{align}
 %
-In [TODO Abb] we plot the relative error $\delta E / E$ of all marked features against the energy $E$ to see this relation.
-To calculate the FWHM $\delta ch$ we effectively use the difference between two channels.
+In [TODO Abb] we plot the relative error $\frac{\delta E}{E}$ of all marked features against the energy $E$ to see this relation.
+To calculate the FWHM $\delta \chi$ we effectively use the difference between two channels.
 With the energy calibration values $a$ and $b$ we get in total:
 \begin{align}
     \label{eq:}
     \begin{split}
-        \frac{\delta E}{E} &= \frac{ \delta ch }{ch - b}
+        \frac{\delta E}{E} &= \frac{ \delta \chi }{\chi - b}
     \end{split}
     \\
     \label{eq:}
     \begin{split}
-        \Delta \frac{\delta E}{E} &=  \frac{ \Delta b }{ b } \cdot \frac{\delta E}{E}
+        \Delta \left ( \frac{\delta E}{E} \right ) &= \frac{ \Delta b }{ b } \cdot \frac{\delta E}{E}
     \end{split}
 \end{align}
 %
@@ -217,7 +218,7 @@ The sharp cutoff at channel 130 is most likely due to software configuration as 
 \begin{center}
 \begin{tabular}{lllll}
 \toprule
-Samlpe & Type & $E_{\text{exp}}$ [MeV] & $E_{\text{theo}}$ [MeV] & Deviation \\
+Samlpe & Type & $E_{\text{exp}}$ [\SI{}{\mega\electronvolt}] & $E_{\text{theo}}$ [\SI{}{\mega\electronvolt}] & Deviation \\
 \midrule
 $^{60}\text{Co}$ & b & 0.22 $\pm$ 0.04 & 0.21 & 0.17 $\sigma$ \\
 ~ & c & 0.89 $\pm$ 0.07 & 0.96 & 1.1 $\sigma$ \\
@@ -246,7 +247,7 @@ night & - & 0.51 $\pm$ 0.05 & 0.51 & 0.056 $\sigma$ \\
 ~ & - & 1.44 $\pm$ 0.08 & 1.31 & 1.6 $\sigma$ \\
 \bottomrule
 \end{tabular}
-\captionof{table}{Comparison of experimental and theoretical energies of relevant processes - b: backscattering, c: Compton scattering, p: photo effect. The deviation is calculated from the exact results.}
+\captionof{table}{Comparison of experimental and theoretical energies of relevant processes - b: backscattering, c: Compton edge, p: photo effect. The deviation is calculated from the exact results.}
 \label{tab:EnergyComparison}
 \end{center}
 \end{multicolfloat}
@@ -278,13 +279,13 @@ We also get the expected Compton edge and backscatter peak.
 As can be seen in [Abb] the term diagram allows many possible electron transitions enabling a multitude of different peaks in the spectrum.
 Many of these however are either rather unlikely (high polarity transmission) or overlap.
 Quantitatively we can only examine three pronounced peaks (see table \ref{tab:EnergyComparison}).
-The highest energy one matches the energy of the 1/2+ -> 5/2+ transmission with 91\% probability.
+The highest energy one matches the energy of the $\nicefrac{1}{2}^{+} \rightarrow \nicefrac{5}{2}^{+}$ transmission with 91\% probability.
 Since it is the most likely transmission it also shows the highest peak.
-The second peak presumably belongs to the 3/2+ -> 5/2+ transmission (65\%), the energy here also corresponds within its margin of error.
-The lowest peak is very wide but could be caused by the 5/2+ -> 7/2+ transmission (12\%).
+The second peak presumably belongs to the $\nicefrac{3}{2}^{+} \rightarrow \nicefrac{5}{2}^{+}$ transmission (65\%), the energy here also corresponds within its margin of error.
+The lowest peak is very wide but could be caused by the $\nicefrac{5}{2}^{+} \rightarrow \nicefrac{7}{2}^{+}$ transmission (12\%).
 The energies do not differ significantly.
 At this energy we also expect the Compton continuum and backscatter peaks, explaining the width of the peak.
-At around \SI{0.062}{\mega\electronvolt} (channel 95) we can see a very faint peak, which could correspond to the 5/2+ -> 5/2+ transmission with 88\% probability.
+At around \SI{0.062}{\mega\electronvolt} (channel 95) we can see a very faint peak, which could correspond to the $\nicefrac{5}{2}^{+} \rightarrow \nicefrac{5}{2}^{+}$ transmission with 88\% probability.
 However the position and error can not be estimates due to the low count number.
 Here we could have used a higher coarse gain at the amplifier.
 We can not quantitatively observe any of the coincident events, since they are either unlikely or of to lower energy for us to register.
@@ -459,7 +460,7 @@ In total, we get a source strength of $Q = \pm $ [TODO]
 \begin{center}
 \begin{tabular}{llll}
 \toprule
-~ & Time [s] & Counts & Rate [s$^{-1}$] \\
+~ & Time [\SI{}{\second}] & Counts & Rate [\SI{}{\per\second}] \\
 \midrule
 1 & 300 & 87576 $\pm$ 5 & 818,8 $\pm$ 2,0 \\
 2 & 317 & 92712 $\pm$ 5 & 818,8 $\pm$ 2,0 \\
@@ -473,7 +474,6 @@ rand & 361 & 818,8 $\pm$ 5 & 818,8 $\pm$ 2,0 \\
 \end{multicolfloat}
 %
 The theoretical value $O_{\text{theo}}$ can be calculated from the half life $t_{\nicefrac{1}{2}}$ of the isotope and the noted source strength $Q_0$ at a time $t$ before the experiment:
-[TODO hier die zahlenwerte nochmal im text angeben?]
 \begin{align}
     \label{eq:TheoSourceStrength}
     \begin{split}
