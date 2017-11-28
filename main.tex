@@ -4,38 +4,57 @@
 
 \usepackage[T1]{fontenc}
 
-\usepackage[backend=biber, style=ieee]{biblatex}
-\addbibresource{bib/references.bib}
+\usepackage{lmodern}
+
+\usepackage{amsmath}
+
+\usepackage{siunitx}
+\sisetup{separate-uncertainty=true}
 
 \usepackage{color}
 
 \usepackage{geometry}
 \geometry{a4paper, top=10mm, left=10mm, right=10mm, bottom=20mm, headsep=10mm, footskip=10mm}
 
+\usepackage[backend=biber, style=numeric]{biblatex}
+\addbibresource{bib/references.bib}
+
 \usepackage{graphicx}
-\graphicspath{{figures/}{../figures/}}
+\graphicspath{{figures/}}
 
-\usepackage{multicol}
-\setlength{\columnsep}{5mm}
+\usepackage{units} % for \nicefrac
 
-\usepackage{framed} % Colored background for `Abstract` section
-\definecolor{shadecolor}{RGB}{230,230,230}
+\usepackage{hyperref} % automatically create clickable links
 
-\usepackage{underscore} % Allow underscore in regular text without assuming a formula
+\usepackage{multicol} % used for \begin{multicols} to create a column layout
+\setlength{\columnsep}{5mm} % set column separation gap
 
-\input{tex/python.tex} % Import commands to include highlighted Python code
+\newenvironment{multicolfloat}{\par\medskip\noindent\minipage{\linewidth}}{\endminipage\par\medskip} % for \begin{multicolfloat} to include figures or tables with multicol layout
 
-\input{tex/maketitle.tex} % Import custom \maketitle command
-\header{Fortgeschrittenen-Praktikum}
-\title{F83 Koinzidenzspektrometer}
-\author{Vorname Name, Vorname Name}
-\date{01.01.1970}
-
-\usepackage{titlesec}
+\usepackage{titlesec} % modify section title styles
 \titlespacing*{\section}{0pt}{2mm}{2mm}
 \titlespacing*{\subsection}{0pt}{2mm}{0mm}
 \titleformat*{\section}{\large\sffamily\bfseries}
 \titleformat*{\subsection}{\normalsize\sffamily\bfseries}
+
+\usepackage{caption} % for \captionsetup and \captionof
+
+\setlength{\parindent}{0pt} % disable automatic indentation for each paragraph
+
+\usepackage{underscore} % allow underscore character in text mode without having TeX assume it's a formula
+
+\usepackage{framed} % used for \begin{snugshade*}
+\definecolor{shadecolor}{RGB}{230, 230, 230} % set background color for \begin{snugshade*}
+
+\usepackage{booktabs} % used for \toprule, \midrule and \bottomrule with tables
+
+\input{tex/python.tex} % import custom commands to include highlighted Python code
+
+\input{tex/maketitle.tex} % import custom \maketitle command
+\header{Fortgeschrittenen-Praktikum}
+\title{F83 Koinzidenzspektrometer}
+\author{Vorname Name, Vorname Name}
+\date{01.01.1970}
 
 \begin{document}
 
