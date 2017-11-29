@@ -90,14 +90,12 @@ Left to right: backscatter, Compton, photo peak.
 \par
 %
 Looking directly at the spectrum of counter 2, we note, that it is slightly shifted to the right (around 100 channels), because the scintillators are different and we use the same amplification factor.
-[TODO Fragen S. 20 I und II]
 %
 \subsection{Coincidence measurement with random coincidence}
 %
 To measure the random coincidence, we remove the Delay Amplifier of signal 1 and turn the delay on the TSCA of signal to is maximum value.
 We get the result shown in figure \ref{37Cskoinz2}.
 The two lower energy peaks lose their relative height compared to the high energy photo peak.
-[TODO Fragen S. 20]
 %
 \subsection{Coincidence measurement with improvements}
 %
@@ -109,7 +107,6 @@ We vary the delay on the Delay Amplifier (\SI{20}{\nano\second}, \SI{40}{\nano\s
 [137CsTPHC20ns.txt]
 [137CsTPHC40ns.txt]
 [137CsTPHC60ns.txt]
-[TODO Fragen S. 21]
 %
 \subsection{Coincidence measurement with time window}
 %
@@ -119,9 +116,7 @@ Slowly changing lower value and window size yields: ULD set to 1.0 and LLD set t
 We get time spectrum [137CsTPHC\_geschnitten\_neu.txt] and the corresponding energy spectrum [137CsmitTPHC\_gated].
 During the experiment, there were technical dificulties with the equipment and the circuit had to be set up fresh from the start again.
 Therefore, our spectrum for this specific measurement has slightly different settings for the time window and delay time.
-However, qualitatively the observable results were the same, we just neglected to record the spectrum with our new settings.
-[TODO Warum schlafende Hunde wecken? ;-)]
-[TODO Neues Spektrum Energiespektrum-keinenergiefenster-mit-TPHC.txt sieht ganz anders aus - was bedeutet das?]
+However, qualitatively the observable results were the same, we just did not to record the spectrum with our new settings.
 %
 \subsection{Coincidence measurement with time and energy window}
 %
@@ -129,7 +124,6 @@ Now we want to use the TSCA 2 to only allow signals resulting from backscattered
 To achieve this we return to the schematic according to figure \ref{fig:Schaltung3} for scintillator 2 and close the energy window to only show the Backscatter peak (lowest of the three).
 We get the result in [signal2eneriewindow.txt] by using Lower set to 0.5, Window set to 0.4.
 Finally, we change the circuit back to figure \ref{fig:Schaltung6} and measure [comptonpeak.txt].
-[TODO 1 und 2 vertauscht erwähnen?]
 The only peak left (the middle one) belongs to the Compton edge.
 %
 \subsection{Coincidence Measurement of $^{60}\text{Co}$ cascade decay}
@@ -139,16 +133,15 @@ We insert the $^{60}\text{Co}$ sample which is labeled with an activity of $\SI{
 %
 We chose the energy window on both TSCAs to only trigger around the two photon peaks and take the respective spectra (Signal 1 Lower Level: 3.2, Window: 1.0, Signal 2 Lower Level: 2.8, Window: 1.0).
 To calculate the photon rates we also note the time and total event number
-87576 Events in 300 s => 60CoEnergiewindow1.txt
-92712 Events in 317 s => 60CoEnergiewindow2.txt
-[Buffer von 50, als Fehler für die Events, entsprechende Zeit als Fehler für die Zeit?]
+87576 Events in 300 s for 60CoEnergiewindow1.txt, 
+92712 Events in 317 s for 60CoEnergiewindow2.txt
 %
 Now we take a time measurement with figure \ref{fig:Schaltung5} using a delay of 4.3 (scale \SI{0.1}{\micro\second}) on TSCA2
 60CoZeitspektrum.txt, 3174 Events in 361 s (vgl. mit ges. Events in Daten)
 %
 For energy calibration we again use different delays in the stop signal of the TPHC.
-60CoZeitspektrum20ns.txt
-60CoZeitspektrum40ns.txt
+60CoZeitspektrum20ns.txt, 
+60CoZeitspektrum40ns.txt, 
 60CoZeitspektrum60ns.txt
 %
 To qualitatively examine the coincidence, we close the energy window on TCSA2 to only show the peak with higher energy (Lower 3.15, Window 0.45 -> 60CoEnergiewindow2-peak2.txt)
