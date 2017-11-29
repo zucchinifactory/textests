@@ -1,2 +1,29 @@
 \section{Discussion}
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+%
+This experiment toughed us the basics of working with scintillation detectors. In particular we learned to use the coincidence method to further investigate radiating matter and the reason for their decay.\\
+%
+Next to the many qualitative observations we made, we used prominent known features of spectra to calibrate the channel numbers. We detected the theoretical energies of the backscatter peak, the Compton edge and the photo peaks with significance (deviation about 1 sigma or smaller). This way we were able to verify theoretical physical processes quantitatively. Also we proofed the validity of common models because the most probable transitions in the available term diagrams where detected. The more detailed predictions however could not be reappraised for the insufficient resolution of the used equipment and methods. Longer experimentation and efforts of noise reduction could make it possible to make out more vague features.\\
+%
+To achieve this we could for example use the results of the night measurement. Not  only did we see the expected increase in background noise for lower energies, but we were also able to identify two characteristic peaks in the spectrum. The high energy one can be assigned to 40K with high significance. The lower energy peak has an energy very close to the electron resting mass leading to the assumption it was created by e+ e- annihilation. While the beta+ decay of 40K is quite improbable and we are sure we removed any radiating samples from the chamber, it is not that unlikely there actually is another isotope around with a sufficient decay.\\
+%
+Unfortunately we were not able to make some of the supposable low energy observations, because the software was not set up to record at low channels. We could have been able to detect a few peaks from secondary electron dis-excitations, especially in the 22Na spectrum.\\
+%
+The first coincident measurement was conducted with 137Cs where we wanted to correlate the detection a Compton scattered electron with the corresponding backscattered photon.
+While we were able to show this already with a very simple circuit (figure $\ref{x}$ [137Cskoinz1]) we used sophisticated methods to remove the random coincidence that occurred across the board.
+Combining methods of energy and time selection we were able to dramatically decrease the random coincidence leading to (figure $\ref{x}$ [comptonpeak.txt]). There we only see one strong peak of the Compton edge, proofing the coincidence with the detection of backscattered photons.
+In this model we however still rely on the assumption, that the detectors only detect from a single direction and are lined up perfectly at an angle of $180$ [TODO grad]. Since this is not possible in reality there always is bound to be some random coincidence.
+%
+We used the same techniques to examine the cascade decay of 60Co.
+Apart from just showing the coincidence between the two emitted photons which we did with figure $\ref{x}$ [60CoEnergiewindow1] and $\ref{x}$[60CoKaskadenEnergiewindowBeiPeak2], we could then use the detection rates from the measurements to calculate some quantitative features as the source strength and detection probability. Assuming that the photon emission rate is independent of the angle, which is the case for the 60Co decay these calculations are possible.
+However we were rather unsuccessful, with a deviation from the theoretical value of $20 \sigma$.
+At least we did find the result within one order of magnitude (of by factor of 4).
+The used detection rates could not be corrected for the dead time $\tau$ (see ($\ref{eq:DeadTime}$)) as we do not have a sufficient value for $\tau$, which would increase the measured source strength ($Q$ scales linear with rate).
+Further more the theoretical value has to be seen with a grain of salt, as the labeling of the sample box was not clear.\\
+%
+The other numerical value we were able to calculate is the theoretical random coincidence rate. It again is off by around $20 \sigma$.
+This time we do suspect that the number of random events is determined in a wrong way. Counting only events in the tolerable channel range (the software adds any counts over the tolerance level to the last channel) we get much better results. Also using longer measurements we would expect better results for statistics improve and errors are reduced ($\Delta N = \sqrt{N}$).\\
+%
+The coincidence time was calculated quantitatively, however is only compared qualitatively. We clearly see that the time resolution is much better for 60Co than for 137Cs. The use of the FWHM as a reference point does not really matter, as long as it is used for all samples.
+The observation correlates with the visible peak with in the time spectra (figure $\ref{x}$ [137CsTPHC.txt] vs $\ref{x}$ [60CoZeitspectrum.txt]). Tis is understandable considering the timescales of the coincidence (ns for the photon travel time against ps for the lifetime of the energy state).
+%
+Overall we learned about working with scintillation detectors and the coincidence methode, while at least qualitatively making some very intersting and instructive observations.
