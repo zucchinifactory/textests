@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+%\DeclareMathSizes{12}{12}{8}{6} % change math font size for a certain surrounding text size {<surrounding text size>}{<math text size>}{<math script size>}{<math scriptscript size>} default values for 12pt are {12}{12}{8}{6}
 
 \usepackage[utf8]{inputenc}
 
@@ -20,9 +21,10 @@
 \addbibresource{bib/references.bib}
 
 \usepackage{graphicx}
-\graphicspath{{figures/}}
 
-\usepackage{units} % for \nicefrac
+\usepackage{adjustbox} % used for \adjustbox
+
+\usepackage{units} % used for \nicefrac
 
 \usepackage{hyperref} % automatically create clickable links
 
@@ -31,15 +33,18 @@
 
 \newenvironment{multicolfloat}{\par\medskip\noindent\minipage{\linewidth}}{\endminipage\par\medskip} % for \begin{multicolfloat} to include figures or tables with multicol layout
 
-\usepackage{titlesec} % modify section title styles
-\titlespacing*{\section}{0pt}{2mm}{2mm}
-\titlespacing*{\subsection}{0pt}{2mm}{0mm}
-\titleformat*{\section}{\large\sffamily\bfseries}
-\titleformat*{\subsection}{\normalsize\sffamily\bfseries}
+%\usepackage{titlesec} % modify section title styles
+%\titlespacing*{\section}{0pt}{2mm}{2mm}
+%\titlespacing*{\subsection}{0pt}{2mm}{0mm}
+%\titleformat*{\section}{\large\sffamily\bfseries}
+%\titleformat*{\subsection}{\normalsize\sffamily\bfseries}
 
-\usepackage{caption} % for \captionsetup and \captionof
+\usepackage{caption} % used for \captionsetup and \captionof
 
 \setlength{\parindent}{0pt} % disable automatic indentation for each paragraph
+
+\usepackage{sectsty} % used for \allsectionsfont
+\allsectionsfont{\sffamily}
 
 \usepackage{framed} % used for \begin{snugshade*}
 \definecolor{shadecolor}{RGB}{230, 230, 230} % set background color for \begin{snugshade*}
@@ -59,25 +64,17 @@
 \maketitle
 
 \begin{multicols}{2}
-
-\begin{snugshade*}
-\input{tex/abstract.tex}
-~\newline
-\end{snugshade*}
-\input{tex/introduction.tex}
-~\newline
-\input{tex/materialsandmethods.tex}
-~\newline
-\input{tex/results.tex}
-~\newline
-\input{tex/discussion.tex}
-~\newline
-\input{tex/acknowledgments.tex}
-~\newline
-\input{tex/references.tex}
-~\newline
-\input{tex/appendices.tex}
-
+    \begin{snugshade*}
+        \input{tex/abstract.tex}
+    \end{snugshade*}
+    \input{tex/introduction.tex}
+    \input{tex/materialsandmethods.tex}
+    \input{tex/results.tex}
+    \input{tex/discussion.tex}
+    \input{tex/acknowledgments.tex}
+    \input{tex/references.tex}
 \end{multicols}
+\newpage
+%\input{tex/appendices.tex}
 
 \end{document}
