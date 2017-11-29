@@ -342,14 +342,15 @@ The rates are calculated from the measured times $t_i$ and counts $N_i$ by
     \end{split}
 \end{align}
 %
-with the statistical error for $N_i$. This leads to an error in the source strength of:
+with the statistical error for $N_i$.
+This leads to an error in the source strength of:
 %
 \begin{align}
     \label{eq:DeltaSourceStrength}
     \begin{split}
         \Delta Q &= \sqrt{ \left ( \frac{\Delta R_1}{R_1} \right ) ^2 +
-                            \left ( \frac{\Delta R_2}{R_2} \right ) ^2 +
-                            \left ( \frac{\Delta R_{\text{c}}}{R_{\text{c}}} \right ) ^2 } \cdot Q
+                           \left ( \frac{\Delta R_2}{R_2} \right ) ^2 +
+                           \left ( \frac{\Delta R_{\text{c}}}{R_{\text{c}}} \right ) ^2 } \cdot Q
     \end{split}
 \end{align}
 %
@@ -388,7 +389,7 @@ The theoretical value $Q_{\text{theo}}$ can be calculated from the half life $t_
     \end{split}
 \end{align}
 %
-This gives $Q_{\text{theo}} = \pm $.
+This gives $Q_{\text{theo}} = \SI{80.4 \pm 2.4}{\kilo\becquerel}$.
 The high deviation will be discussed later.
 %
 Now we can use the source strength to calculate the detection probabilities and compare them:
@@ -402,11 +403,11 @@ Now we can use the source strength to calculate the detection probabilities and 
     \label{eq:DeltaDetectionProb}
     \begin{split}
         \Delta \eta_i &= \sqrt{ \left ( \frac{ \Delta R_i }{ R_i } \right ) ^2 +
-                                  \left ( \frac{ \Delta Q }{ Q } \right ) ^2 } \cdot \eta_i
+                                \left ( \frac{ \Delta Q   }{ Q   } \right ) ^2 } \cdot \eta_i
     \end{split}
 \end{align}
 %
-This yields $\eta_1 = $ and $\eta_2 = $. [TODO]
+This yields $\eta_1 = \SI{1.227 \pm 0.025 e-2}{}$ and $\eta_2 = \SI{1.230 \pm 0.025 e-2}{}$.
 %
 Random coincidence\\
 %
@@ -429,7 +430,7 @@ The theoretical value can be sustained by
     \end{split}
 \end{align}
 %
-where $t_{\text{c}}$ is the time frame for coincidence depicted by the circuit, in our case (because the SCA window was fully open) $t = \SI{2}{\micro\second}$. This results in $R_{\text{r}}^{\text{theo}} = $. [TODO] The deviation of the values is $ \sigma$. [TODO]
+where $t_{\text{c}}$ is the time frame for coincidence depicted by the circuit, in our case (because the SCA window was fully open) $t = \SI{2}{\micro\second}$. This results in $R_{\text{r}}^{\text{theo}} = \SI{3.415 \pm 0.016 e-1}{}$. The deviation of the values is $19 \sigma$.
 %
 Qualitative observation of coincidence
 %
