@@ -11,7 +11,8 @@ before_install:
     {
       hub release create -m "hello [ci skip]" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
     } || {
-      echo "exists already"
+      echo "Trying to edit instead"
+      hub release edit -m "hello [ci skip]" pierrecamembert-patch-3-fromhub
     }
   - exit 0
   - sudo apt-get -qq update
