@@ -7,8 +7,7 @@ before_install:
   - |
     export GO_FILE=go1.8.5.linux-amd64.tar.gz
     wget https://redirector.gvt1.com/edgedl/go/${GO_FILE}
-    sudo tar -C $GOROOT -xzf ${GO_FILE}
-    export PATH=$PATH:/usr/local/go/bin
+    sudo tar -C $GOROOT --strip-components=1 -xzf ${GO_FILE}
     go version
   - |
     git clone https://github.com/github/hub.git
