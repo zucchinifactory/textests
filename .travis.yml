@@ -1,14 +1,7 @@
 language: generic
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -qq -y golang-1.9
-  - go version
-  - |
-    git clone https://github.com/github/hub.git
-    cd hub
-    ./script/build
-    ./bin/hub version
-  - exit 0
+  - ls /usr/local
+  - echo $PATH
   - |
     export GO_FILE=go1.8.5.linux-amd64.tar.gz
     wget https://redirector.gvt1.com/edgedl/go/${GO_FILE}
