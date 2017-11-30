@@ -9,7 +9,7 @@ before_install:
   - hub release
   - |
     {
-      hub delete pierrecamembert-patch-3-fromhub
+      hub release delete pierrecamembert-patch-3-fromhub
     }
     echo "Trying to edit instead"
     hub release create -m "hello" -m "[ci skip]" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
