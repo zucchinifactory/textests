@@ -1,22 +1,10 @@
 language: generic
 before_install:
+  - sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+  - brew install hello
+  - ~/.linuxbrew/bin/brew install hello
+  - exit 1
   - sudo apt-get -qq update
   - sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
 script:
   - make
-before_deploy:
-  - |
-    git config --global user.email "deploy@travis-ci.org"
-    git config --global user.name "Deployment Bot (from Travis CI)"
-    export TRAVIS_TAG=${TRAVIS_BRANCH}-release
-    git tag -a -m "[ci skip]" "$TRAVIS_TAG"
-deploy:
-  - provider: releases
-    skip_cleanup: true
-    api_key: $GITHUB_TOKEN
-    file_glob: true
-    file:
-      - "*.pdf"
-    overwrite: true
-    on:
-      all_branches: true
