@@ -7,7 +7,7 @@ before_install:
     sudo ./hub-linux-amd64-${HUB_VERSION}/install
   - hub version
   - hub release
-  - hub release create -m "hello" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
+  - hub release create -m "hello [ci skip]" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
   - exit 0
   - sudo apt-get -qq update
   - sudo apt-get install -qq -y golang
