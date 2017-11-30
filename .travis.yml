@@ -1,5 +1,10 @@
 language: generic
 before_install:
+  - git clone https://github.com/github/hub.git
+  - cd hub
+  - ./script/build
+  - ./bin/hub release
+  - exit 0
   - sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
   - |
     test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
