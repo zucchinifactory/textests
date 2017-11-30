@@ -3,8 +3,8 @@ before_install:
   - |
     export HUB_VERSION=2.3.0-pre10
     wget https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz
-    tar zvxvf hub-linux-amd64-2.2.9.tgz
-    sudo ./hub-linux-amd64-2.2.9/install
+    tar zvxvf hub-linux-amd64-${HUB_VERSION}.tgz
+    sudo ./hub-linux-amd64-${HUB_VERSION}/install
   - hub version
   - hub release
   - hub release create -m "hello" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
