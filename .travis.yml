@@ -9,7 +9,7 @@ before_deploy:
     git config --global user.email "deploy@travis-ci.org"
     git config --global user.name "Deployment Bot (from Travis CI)"
     export GIT_TAG=${TRAVIS_BRANCH}-release
-    git -a -m "[ci skip]" tag "$GIT_TAG"
+    git tag -a -m "[ci skip]" "$GIT_TAG"
 deploy:
   - provider: releases
     skip_cleanup: true
