@@ -1,5 +1,12 @@
 language: generic
 before_install:
+  - |
+    wget https://github.com/github/hub/releases/download/v2.2.5/hub-linux-amd64-2.2.5.tgz
+    tar zvxvf hub-linux-amd64-2.2.5.tgz
+    sudo ./hub-linux-amd64-2.2.5/install
+  - hub version
+  - hub release
+  - exit 0
   - sudo apt-get -qq update
   - sudo apt-get install -qq -y golang
   - git clone https://github.com/github/hub.git
