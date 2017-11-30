@@ -1,6 +1,16 @@
 language: generic
 before_install:
   - |
+    export GO_FILE=go1.8.5.linux-amd64.tar.gz
+    wget https://redirector.gvt1.com/edgedl/go/${GO_FILE}
+    sudo tar -C /usr/local -xzf ${GO_FILE}
+    export PATH=$PATH:/usr/local/go/bin
+  - git clone https://github.com/github/hub.git
+    cd hub
+    ./script/build
+    ./bin/hub version
+  - exit 0
+  - |
     export HUB_VERSION=2.3.0-pre10
     wget https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz
     tar zvxvf hub-linux-amd64-${HUB_VERSION}.tgz
