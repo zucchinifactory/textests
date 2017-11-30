@@ -1,7 +1,7 @@
 language: generic
 before_install:
   - |
-    if [ "$TRAVIS_EVENT_TYPE" == "push" ] && [ "$TRAVIS_TAG" == "" ] && [[ $TRAVIS_COMMIT_MESSAGE == *"[ci autotag]"* ]]; then
+    if [ "$TRAVIS_EVENT_TYPE" == "push" ] ; then
       echo "This build belongs to a git push where [ci autotag] has been detected in the commit message."
       echo "Build #$TRAVIS_BUILD_NUMBER will be canceled and a tag will be pushed to trigger a new build and the release deployment instead."
       echo "Set email and name..."
