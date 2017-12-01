@@ -1,20 +1,30 @@
 language: generic
 before_install:
   - |
-    export GO_FILE=go1.8.5.linux-amd64.tar.gz
-    rm -rf $GOROOT
-    export GOROOT=
-    echo $PATH
-    echo $GOROOT
-    wget -q https://redirector.gvt1.com/edgedl/go/${GO_FILE}
-    sudo tar -C /usr/local -xzf ${GO_FILE}
-    export PATH=$PATH:/usr/local/go/bin
+    echo "Installing Go 1.8.5"
+    export GOFILE=go1.8.5.linux-amd64.tar.gz
+    wget -q https://redirector.gvt1.com/edgedl/go/${GOFILE}
+    if [ "$GOROOT" ] ; then
+      echo "Target directory $GOROOT"
+      sudo rm -rf $GOROOT
+      sudo tar -C $GOROOT --strip-components=1 -xzf ${GOFILE}
+    else
+      echo "Target directory /usr/local/go"
+      sudo tar -C /usr/local -xzf ${GO_FILE}
+      export PATH=$PATH:/usr/local/go/bin
+    fi
     go version
   - |
+    "Cloning latest hub source files"
     git clone https://github.com/github/hub.git
     cd hub
+    "Building hub"
     ./script/build
-    ./bin/hub version
+    export PATH=$PATH:$(pwd)/bin
+    echo $PATH
+    cd ~
+    pwd
+    hub version
   - exit 0
   - ls /usr/local
   - echo $PATH
