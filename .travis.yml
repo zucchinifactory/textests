@@ -31,6 +31,10 @@ before_install:
     }
     echo "Creating new release"
     export MESSAGE=$'hello\n[ci skip]'
+    echo "$MESSAGE"
+    export MESSAGE="hello
+    [ci skip]"
+    echo "$MESSAGE"
     hub release create -m "$MESSAGE" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
   - exit 0
   - sudo apt-get -qq update
