@@ -4,6 +4,8 @@ before_install:
     echo "Installing Go 1.8.5"
     export GOFILE=go1.8.5.linux-amd64.tar.gz
     wget -q https://redirector.gvt1.com/edgedl/go/${GOFILE}
+    sudo rm -rf $GOROOT
+    export GOROOT=
     if [ "$GOROOT" ] ; then
       echo "Target directory $GOROOT"
       sudo rm -rf $GOROOT
@@ -16,15 +18,12 @@ before_install:
     fi
     go version
   - |
-    "Cloning latest hub source files"
+    echo "Cloning latest hub source files"
     git clone https://github.com/github/hub.git
-    cd hub
-    "Building hub"
-    ./script/build
-    export PATH=$PATH:$(pwd)/bin
+    echo "Building hub"
+    ./hub/script/build
+    export PATH=$PATH:$(pwd)/hub/bin
     echo $PATH
-    cd ~
-    pwd
     hub version
   - exit 0
   - ls /usr/local
