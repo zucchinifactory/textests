@@ -30,8 +30,7 @@ script:
     echo "Uploading release"
     {
       echo "Deleting former release if necessary"
-      hub release delete pierrecamembert-patch-3-fromhub
+      hub release delete "${TRAVIS_BRANCH}"
     }
     echo "Creating new release"
-    hub release create --prerelease -m $'pierrecamembert-patch-4\n\n[ci skip]' -t "pierrecamembert-patch-4" -a "main.pdf" "pierrecamembert-patch-4"
-  - exit 0
+    hub release create --prerelease -m ${TRAVIS_BRANCH}$'\n\n[ci skip]' -t "${TRAVIS_BRANCH}" -a "main.pdf" "${TRAVIS_BRANCH}"
