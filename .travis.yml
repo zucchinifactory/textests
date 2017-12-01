@@ -19,20 +19,18 @@ before_install:
     echo "Cloning latest hub source files"
     git clone https://github.com/github/hub.git
     echo "Building hub"
-    ./hub/script/build
-    export PATH=$PATH:$(pwd)/hub/bin
-    echo $PATH
+    cd hub
+    ./script/build
+    export PATH=$PATH:$(pwd)/bin
+    cd ..
     hub version
-  - exit 0
-  - hub version
-  - hub release
   - |
+    echo "Delete former release if necessary"
     {
       hub release delete pierrecamembert-patch-3-fromhub
     }
-    echo "Trying to edit instead"
+    echo "Create new release"
     hub release create -m "hello" -m "[ci skip]" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
-  - hub release
   - exit 0
   - sudo apt-get -qq update
   - sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
