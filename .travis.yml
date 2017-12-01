@@ -16,21 +16,21 @@ before_install:
     fi
     go version
   - |
-    echo "Cloning latest hub source files"
+    echo "Building GitHub CLI hub from latest source files"
     git clone https://github.com/github/hub.git
-    echo "Building hub"
     cd hub
     ./script/build
     export PATH=$PATH:$(pwd)/bin
     cd ..
     hub version
   - |
-    echo "Delete former release if necessary"
+    echo "Uploading release"
     {
+      echo "Deleting former release if necessary"
       hub release delete pierrecamembert-patch-3-fromhub
     }
-    echo "Create new release"
-    hub release create -m "hello" -m "[ci skip]" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
+    echo "Creating new release"
+    hub release create -m "hello\n[ci skip]" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
   - exit 0
   - sudo apt-get -qq update
   - sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
