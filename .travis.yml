@@ -27,7 +27,17 @@ script:
     cd ..
     hub version
   - |
+    echo "Debug branch: ${TRAVIS_BRANCH}"
+    echo "Debug tag: ${TRAVIS_TAG}"
+    echo "Debug reposlug: ${TRAVIS_REPO_SLUG}"
     echo "Uploading release"
+    {
+      echo "Creating tag to make sure it exists"
+      git config --global user.email "deploy@travis-ci.org"
+      git config --global user.name "Deployment Bot (from Travis CI)"
+      git tag -a -m "none [ci skip]" "${TRAVIS_BRANCH}"
+      git push "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_BRANCH}"
+    }
     {
       echo "Deleting former release if necessary"
       hub release delete "${TRAVIS_BRANCH}"
