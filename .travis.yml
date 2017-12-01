@@ -30,7 +30,8 @@ before_install:
       hub release delete pierrecamembert-patch-3-fromhub
     }
     echo "Creating new release"
-    hub release create -m $'hello\n[ci skip]' -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
+    export MESSAGE=$'hello\n[ci skip]'
+    hub release create -m "$MESSAGE" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
   - exit 0
   - sudo apt-get -qq update
   - sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
