@@ -4,8 +4,6 @@ before_install:
     echo "Installing Go 1.8.5"
     export GOFILE=go1.8.5.linux-amd64.tar.gz
     wget -q https://redirector.gvt1.com/edgedl/go/${GOFILE}
-    sudo rm -rf $GOROOT
-    export GOROOT=
     if [ "$GOROOT" ] ; then
       echo "Target directory $GOROOT"
       sudo rm -rf $GOROOT
@@ -26,41 +24,6 @@ before_install:
     echo $PATH
     hub version
   - exit 0
-  - ls /usr/local
-  - echo $PATH
-  - echo $GOROOT
-  - ls $GOROOT
-  - |
-    export GO_FILE=go1.8.5.linux-amd64.tar.gz
-    wget https://redirector.gvt1.com/edgedl/go/${GO_FILE}
-    sudo tar -C $GOROOT --strip-components=1 -xzf ${GO_FILE}
-    go version
-  - |
-    git clone https://github.com/github/hub.git
-    cd hub
-    ./script/build
-    ./bin/hub version
-  - exit 0
-  - ls /usr/local
-  - echo $PATH
-  - echo $GOROOT
-  - |
-    export GO_FILE=go1.8.5.linux-amd64.tar.gz
-    wget https://redirector.gvt1.com/edgedl/go/${GO_FILE}
-    sudo tar -C /usr/local -xzf ${GO_FILE}
-    export PATH=$PATH:/usr/local/go/bin
-    go version
-  - |
-    git clone https://github.com/github/hub.git
-    cd hub
-    ./script/build
-    ./bin/hub version
-  - exit 0
-  - |
-    export HUB_VERSION=2.3.0-pre10
-    wget https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz
-    tar zvxvf hub-linux-amd64-${HUB_VERSION}.tgz
-    sudo ./hub-linux-amd64-${HUB_VERSION}/install
   - hub version
   - hub release
   - |
@@ -69,21 +32,6 @@ before_install:
     }
     echo "Trying to edit instead"
     hub release create -m "hello" -m "[ci skip]" -t pierrecamembert-patch-3 pierrecamembert-patch-3-fromhub
-  - exit 0
-  - sudo apt-get -qq update
-  - sudo apt-get install -qq -y golang
-  - git clone https://github.com/github/hub.git
-  - cd hub
-  - ./script/build
-  - ./bin/hub release
-  - exit 0
-  - sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-  - |
-    test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
-    test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
-    test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
-    echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.profile
-  - brew install --devel hub
   - hub release
   - exit 0
   - sudo apt-get -qq update
