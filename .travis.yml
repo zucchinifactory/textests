@@ -7,10 +7,11 @@ before_install:
     if [ "$GOROOT" ] ; then
       echo "Target directory $GOROOT"
       sudo rm -rf $GOROOT
+      sudo mkdir -p $GOROOT
       sudo tar -C $GOROOT --strip-components=1 -xzf ${GOFILE}
     else
       echo "Target directory /usr/local/go"
-      sudo tar -C /usr/local -xzf ${GO_FILE}
+      sudo tar -C /usr/local -xzf ${GOFILE}
       export PATH=$PATH:/usr/local/go/bin
     fi
     go version
