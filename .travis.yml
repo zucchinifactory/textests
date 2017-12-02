@@ -100,9 +100,13 @@ script:
     
     else
     
+      echo "Acquire former release message"
+      export MESSAGE=$(hub release show "${TRAVIS_TAG}")
+      echo "DEBUG: $MESSAGE"
+      
       echo "Attach files to the release for tag ${TRAVIS_TAG}"
-      hub release edit --prerelease -a "main.pdf" "${TRAVIS_TAG}"
-      hub release edit --prerelease -a "main.log" "${TRAVIS_TAG}"
+      hub release edit --prerelease -m "$MESSAGE" -a "main.pdf" "${TRAVIS_TAG}"
+      hub release edit --prerelease -m "$MESSAGE" -a "main.log" "${TRAVIS_TAG}"
     
     fi
     
