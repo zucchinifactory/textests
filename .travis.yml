@@ -100,20 +100,24 @@ script:
     
     else
     
+      echo "Acquire former release message (This is allowed to fail if the tag doesn't have an associated release)"
       {
-      
-        echo "Acquire former release message"
         export MESSAGE=$(hub release show "${TRAVIS_TAG}")
+      }
+      
+      echo "DEBUG: x${MESSAGE}x"
+      if [ -z "$MESSAGE" ]
+      then
+      
+        echo "Skipping deployment, because the tag doesn't seem to have an associated release"
         
+      else
+      
         echo "Attach files to the release for tag ${TRAVIS_TAG}"
         hub release edit --prerelease -m "$MESSAGE" -a "main.pdf" "${TRAVIS_TAG}"
         hub release edit --prerelease -m "$MESSAGE" -a "main.log" "${TRAVIS_TAG}"
         
-      } || {
-      
-        echo "Skipping deployment, because the tag doesn't have an associated release"
-        
-      }
+      fi
     
     fi
     
