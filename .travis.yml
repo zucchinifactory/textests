@@ -46,6 +46,7 @@ script:
         sleep infinity
       }
       echo "No release has been found for this tag"
+    fi
     
     echo "Install dependencies for building via make"
     sudo apt-get -qq update
