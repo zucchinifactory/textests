@@ -102,10 +102,10 @@ script:
 
       echo "Acquire former release message (This is allowed to fail if the tag doesn't have an associated release)"
       {
-        export MESSAGE=$(hub release show "${TRAVIS_TAG}")
+        MESSAGE=$(hub release show "${TRAVIS_TAG}") && export MESSAGE
       }
 
-      if [ -z "$MESSAGE" ]
+      if [ $? -ne 0 ]
       then
 
         echo "Skipping deployment, because the tag doesn't seem to have an associated release"
