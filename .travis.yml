@@ -2,6 +2,8 @@ language: generic
 script:
   - |
 
+    #!/bin/bash
+
     echo "Print environment variables for debugging"
     printenv
 
@@ -15,27 +17,28 @@ script:
       echo "This build has not been triggered by a pull request"
 
       echo "Install Go 1.8.5"
-      export GOFILE=go1.8.5.linux-amd64.tar.gz
+      GOFILE=go1.8.5.linux-amd64.tar.gz
       wget -q https://redirector.gvt1.com/edgedl/go/${GOFILE}
       if [ -n "$GOROOT" ]
       then
         echo "Target directory $GOROOT"
-        sudo rm -rf $GOROOT
-        sudo mkdir -p $GOROOT
-        sudo tar -C $GOROOT --strip-components=1 -xzf ${GOFILE}
+        sudo rm -rf "$GOROOT"
+        sudo mkdir -p "$GOROOT"
+        sudo tar -C "$GOROOT" --strip-components=1 -xzf ${GOFILE}
       else
         echo "Target directory /usr/local/go"
         sudo tar -C /usr/local -xzf ${GOFILE}
-        export PATH=$PATH:/usr/local/go/bin
+        PATH=$PATH:/usr/local/go/bin
       fi
       go version
 
       echo "Install GitHub CLI tool hub"
       git clone https://github.com/github/hub.git
-      cd hub
-      ./script/build
-      export PATH=$PATH:$(pwd)/bin
-      cd ..
+      (
+        cd hub || exit
+        ./script/build
+      )
+      PATH=$PATH:$(pwd)/hub/bin
       hub version
 
       if [ -n "$TRAVIS_TAG" ]
@@ -47,11 +50,11 @@ script:
 
         echo "This build doesn't have an assigned tag yet"
         echo "Generate tag name from SHA-1 hash, because the name should be reproducible as well as different from branch name"
-        export SHA1HASH=$(echo -n "${TRAVIS_BRANCH}" | sha1sum)
-        export TRAVIS_TAG=${TRAVIS_BRANCH}-tag-${SHA1HASH:0:40}
+        SHA1HASH=$(echo -n "${TRAVIS_BRANCH}" | sha1sum)
+        TRAVIS_TAG=${TRAVIS_BRANCH}-tag-${SHA1HASH:0:40}
         echo "Tag name has been set to: $TRAVIS_TAG"
 
-        echo "Try to delete an existing former release for this tag name (This is allowed to fail if there is no former release)"
+        echo "Delete former release for this tag name (This is allowed to fail if there is no former release)"
         {
           hub release delete "${TRAVIS_TAG}"
         }
@@ -60,7 +63,7 @@ script:
         git config --global user.email "deploy@travis-ci.org"
         git config --global user.name "Deployment Bot (from Travis CI)"
 
-        echo "Try to remove existing old tag with the same tag name, because it is linked to the wrong commit (This is allowed to fail if this is the first time this tag name is being used)"
+        echo "Remove existing old tag with the same tag name, because it is linked to the wrong commit (This is allowed to fail if it's the first time the tag name is being used)"
         {
           git tag -d "${TRAVIS_TAG}"
           git push -d "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}"
@@ -71,7 +74,7 @@ script:
         git push "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}"
 
         echo "Create an empty release for tag ${TRAVIS_TAG}"
-        hub release create --prerelease -m ${TRAVIS_BRANCH}$'\n\n'"This release has been created by Travis CI build #${TRAVIS_BUILD_NUMBER}." "${TRAVIS_TAG}"
+        hub release create --prerelease -m "${TRAVIS_BRANCH}"$'\n\n'"This release has been created by Travis CI build #${TRAVIS_BUILD_NUMBER}." "${TRAVIS_TAG}"
 
         echo "Install Travis CI CLI tool travis"
         gem install travis
@@ -101,11 +104,7 @@ script:
     else
 
       echo "Acquire former release message (This is allowed to fail if the tag doesn't have an associated release)"
-      {
-        MESSAGE=$(hub release show "${TRAVIS_TAG}") && export MESSAGE
-      }
-
-      if [ $? -ne 0 ]
+      if ! MESSAGE=$(hub release show "${TRAVIS_TAG}")
       then
 
         echo "Skipping deployment, because the tag doesn't seem to have an associated release"
@@ -113,7 +112,7 @@ script:
       else
 
         echo "Modify release message"
-        export MESSAGE=$MESSAGE$'\n\n'"This release has been edited by Travis CI build #${TRAVIS_BUILD_NUMBER}."
+        MESSAGE=$MESSAGE$'\n\n'"This release has been edited by Travis CI build #${TRAVIS_BUILD_NUMBER}."
 
         echo "Attach files to the release for tag ${TRAVIS_TAG}"
         hub release edit --prerelease -m "$MESSAGE" -a "main.pdf" "${TRAVIS_TAG}"
