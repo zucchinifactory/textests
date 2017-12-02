@@ -96,17 +96,24 @@ script:
     if [ "$TRAVIS_PULL_REQUEST" != "false" ]
     then
     
-      echo "No deployment, because this build has been triggered by a pull request"
+      echo "Skipping deployment, because this build has been triggered by a pull request"
     
     else
     
-      echo "Acquire former release message"
-      export MESSAGE=$(hub release show "${TRAVIS_TAG}")
-      echo "DEBUG: $MESSAGE"
+      {
       
-      echo "Attach files to the release for tag ${TRAVIS_TAG}"
-      hub release edit --prerelease -m "$MESSAGE" -a "main.pdf" "${TRAVIS_TAG}"
-      hub release edit --prerelease -m "$MESSAGE" -a "main.log" "${TRAVIS_TAG}"
+        echo "Acquire former release message"
+        export MESSAGE=$(hub release show "${TRAVIS_TAG}")
+        
+        echo "Attach files to the release for tag ${TRAVIS_TAG}"
+        hub release edit --prerelease -m "$MESSAGE" -a "main.pdf" "${TRAVIS_TAG}"
+        hub release edit --prerelease -m "$MESSAGE" -a "main.log" "${TRAVIS_TAG}"
+        
+      } || {
+      
+        echo "Skipping deployment, because the tag doesn't have an associated release"
+        
+      }
     
     fi
     
