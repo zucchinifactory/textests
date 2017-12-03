@@ -4,6 +4,8 @@ script:
 
     #!/bin/bash
 
+    set -e
+
     echo "Print environment variables for debugging"
     printenv
 
@@ -18,7 +20,7 @@ script:
 
       echo "Install Go 1.8.5"
       GOFILE=go1.8.5.linux-amd64.tar.gz
-      wget -q https://redirector.gvt1.com/edgedl/go/${GOFILE}
+      wget -q "https://redirector.gvt1.com/edgedl/go/${GOFILE}"
       if [ -n "$GOROOT" ]
       then
         echo "Target directory $GOROOT"
@@ -35,7 +37,7 @@ script:
       echo "Install GitHub CLI tool hub"
       git clone https://github.com/github/hub.git
       (
-        cd hub || exit
+        cd hub
         ./script/build
       )
       PATH=$PATH:$(pwd)/hub/bin
@@ -54,20 +56,16 @@ script:
         TRAVIS_TAG=${TRAVIS_BRANCH}-tag-${SHA1HASH:0:40}
         echo "Tag name has been set to: $TRAVIS_TAG"
 
-        echo "Delete former release for this tag name (This is allowed to fail if there is no former release)"
-        {
-          hub release delete "${TRAVIS_TAG}"
-        }
+        echo "Delete former release for this tag name (This is allowed to fail if the tag doesn't have an associated release)"
+        hub release delete "${TRAVIS_TAG}" || :
 
         echo "Set git user email and name"
         git config --global user.email "deploy@travis-ci.org"
         git config --global user.name "Deployment Bot (from Travis CI)"
 
-        echo "Remove existing old tag with the same tag name, because it is linked to the wrong commit (This is allowed to fail if it's the first time the tag name is being used)"
-        {
-          git tag -d "${TRAVIS_TAG}"
-          git push -d "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}"
-        }
+        echo "Remove old tag with the same tag name, because it is linked to the wrong commit (This is allowed to fail if it's the first time the tag name is being used)"
+        git tag -d "${TRAVIS_TAG}" || :
+        git push -d "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}" || :
 
         echo "Create tag with the generated tag name"
         git tag -a -m "This tag has been created by Travis CI build #${TRAVIS_BUILD_NUMBER}." "${TRAVIS_TAG}"
@@ -83,7 +81,9 @@ script:
 
         echo "Cancel job, because building isn't necessary"
         travis cancel "$TRAVIS_BUILD_NUMBER"
-        sleep infinity # or wait for Travis CI timeout if cancel fails
+
+        echo "Waiting for job to be canceled"
+        sleep infinity
 
       fi
 
