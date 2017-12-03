@@ -12,7 +12,7 @@ This is more or less a test project to learn more about useful workflows when co
 
 Just edit the file you want to change and commit your changes either directly to the branch (if you have permission to do so) or create a new branch and subsequently a new pull request. Travis CI will automatically build, test and compile a new release and deploy it to GitHub.
 
-To compile a subproject locally, clone (with `git clone`) or download (and unzip) the desired branch to your computer and run `make`. Take a look at the `Makefile` for further options. However, it should absolutely be possible - and is basically intended for this project - to solely work online and let Travis CI do the compiling.
+If you want to edit and compile a subproject locally on your own computer, you will have to clone the desired branch with `git clone` (or download the archive and extract it) and then run `make`. Take a look at the `Makefile` for further options. However, it should absolutely be possible - and is basically intended for this project - to solely work online and let Travis CI do the compiling.
 
 To create a new subproject, edit this `README.md` file to modify the **About this branch** section above and push the commit for these changes to a new branch. Consequently, all future commits concerning this subproject will go there as well. Collaborators can edit the files of the particular branch for this subproject, create new branches for their commits and eventually submit and merge pull requests. Modifications to the `master` branch (like updates to the `.travis.xml` configuration) can be transferred to a subproject's branch via pull request as well.
 
