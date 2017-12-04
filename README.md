@@ -2,7 +2,7 @@
 
 ## About this branch
 
-The branch currently being viewed is the `master` branch. It contains the basic `.travis.xml` configuration and is used as a template for creating more complex subprojects with other branches.
+The branch currently being viewed is the `master` branch. It contains the basic `.travis.xml` configuration and is used as a template for creating subprojects of higher complexity with other branches.
 
 ## Project description
 
