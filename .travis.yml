@@ -117,7 +117,7 @@ script:
           [ -e "$PDFFILE" ] || continue
           [ -f "$PDFFILE" ] || continue
           echo "${PDFFILE} has been found"
-          MESSAGE=$MESSAGE$'\n\n'"`${PDFFILE}` has been built and attached to this release by Travis CI build [#${TRAVIS_BUILD_NUMBER}](https://api.travis-ci.org/jobs/${TRAVIS_JOB_ID}/log.txt)."
+          MESSAGE=$MESSAGE$'\n\n'"\`${PDFFILE}\` has been built and attached to this release by Travis CI build [#${TRAVIS_BUILD_NUMBER}](https://api.travis-ci.org/jobs/${TRAVIS_JOB_ID}/log.txt)."
           echo "Attach file to the release for tag ${TRAVIS_TAG}"
           hub release edit --prerelease -m "$MESSAGE" -a "${PDFFILE}" "${TRAVIS_TAG}"
         done
