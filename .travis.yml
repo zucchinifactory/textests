@@ -68,7 +68,7 @@ script:
         git push -d "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}" || true
 
         echo "Create tag with the generated tag name"
-        git tag -a -m "This tag has automatically been created by Travis CI build #${TRAVIS_BUILD_NUMBER} with job ID ${TRAVIS_JOB_ID}." "${TRAVIS_TAG}"
+        git tag -a -m "This tag has automatically been created by Travis CI build #${TRAVIS_BUILD_NUMBER}." "${TRAVIS_TAG}"
         git push "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}"
 
         echo "Create an empty release for tag ${TRAVIS_TAG}"
