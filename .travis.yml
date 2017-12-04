@@ -57,22 +57,22 @@ script:
         echo "Tag name has been set to: $TRAVIS_TAG"
 
         echo "Delete former release for this tag name (This is allowed to fail if the tag doesn't have an associated release)"
-        hub release delete "${TRAVIS_TAG}" || :
+        hub release delete "${TRAVIS_TAG}" || true
 
         echo "Set git user email and name"
         git config --global user.email "deploy@travis-ci.org"
         git config --global user.name "Deployment Bot (from Travis CI)"
 
         echo "Remove old tag with the same tag name, because it is linked to the wrong commit (This is allowed to fail if it's the first time the tag name is being used)"
-        git tag -d "${TRAVIS_TAG}" || :
-        git push -d "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}" || :
+        git tag -d "${TRAVIS_TAG}" || true
+        git push -d "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}" || true
 
         echo "Create tag with the generated tag name"
-        git tag -a -m "This tag has been created by Travis CI build #${TRAVIS_BUILD_NUMBER}." "${TRAVIS_TAG}"
+        git tag -a -m "This tag has automatically been created by Travis CI build #${TRAVIS_BUILD_NUMBER} with job ID ${TRAVIS_JOB_ID}." "${TRAVIS_TAG}"
         git push "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}"
 
         echo "Create an empty release for tag ${TRAVIS_TAG}"
-        hub release create --prerelease -m "${TRAVIS_BRANCH}"$'\n\n'"This release has been created by Travis CI build #${TRAVIS_BUILD_NUMBER}." "${TRAVIS_TAG}"
+        hub release create --prerelease -m "${TRAVIS_BRANCH}"$'\n\n'"This release has automatically been created by Travis CI build [#${TRAVIS_BUILD_NUMBER}](https://api.travis-ci.org/jobs/${TRAVIS_JOB_ID}/log.txt)." "${TRAVIS_TAG}"
 
         echo "Install Travis CI CLI tool travis"
         gem install travis
@@ -111,12 +111,16 @@ script:
 
       else
 
-        echo "Modify release message"
-        MESSAGE=$MESSAGE$'\n\n'"This release has been edited by Travis CI build #${TRAVIS_BUILD_NUMBER}."
-
-        echo "Attach files to the release for tag ${TRAVIS_TAG}"
-        hub release edit --prerelease -m "$MESSAGE" -a "main.pdf" "${TRAVIS_TAG}"
-        hub release edit --prerelease -m "$MESSAGE" -a "main.log" "${TRAVIS_TAG}"
+        echo "Search for PDF files to upload"
+        for PDFFILE in *.pdf
+        do
+          [ -e "$PDFFILE" ] || continue
+          [ -f "$PDFFILE" ] || continue
+          echo "${PDFFILE} has been found"
+          MESSAGE=$MESSAGE$'\n\n'"`${PDFFILE}` has been built and attached to this release by Travis CI build [#${TRAVIS_BUILD_NUMBER}](https://api.travis-ci.org/jobs/${TRAVIS_JOB_ID}/log.txt)."
+          echo "Attach file to the release for tag ${TRAVIS_TAG}"
+          hub release edit --prerelease -m "$MESSAGE" -a "${PDFFILE}" "${TRAVIS_TAG}"
+        done
 
       fi
 
