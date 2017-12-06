@@ -10,7 +10,7 @@ This is more or less a test project to learn more about useful workflows when co
 
 ## Usage instructions
 
-Just edit the file you want to change and commit your changes either directly to the branch (if you have permission to do so) or create a new branch and subsequently a new pull request. Travis CI will automatically build, test and compile a new release and deploy it to GitHub.
+Just edit the file you want to change and commit your changes either directly to the branch (if you have permission to do so) or create a new branch and subsequently a new pull request. Travis CI will automatically build a new release and deploy it to GitHub.
 
 If you want to edit and compile a subproject locally on your own computer, you will have to clone the desired branch with `git clone` (or download the archive and extract it) and then run `make`. Take a look at the `Makefile` for further options. However, it should absolutely be possible - and is basically intended for this project - to solely work online and let Travis CI do the compiling.
 
@@ -25,5 +25,5 @@ Read the following instructions if you want to use this project on your GitHub a
 3. Register with Travis CI, if you don't already have an account there.
 4. Add a new variable `GITHUB_TOKEN` to the Travis CI environment variables for the respository and set the value to the previously generated GitHub token. This is a security-critical step, so it is important that its options are set to not display the value in build logs - otherwise everyone can see it and use it to access your GitHub account.
 5. At the Travis CI dashboard, enable building for your forked respository.
-6. Make a dummy change to a `.tex` file too trigger a build.
+6. Make a dummy change to a `.tex` file to trigger a build.
 7. Take a look at the logs to make sure everything worked as intended. Also, you should see a fresh release on GitHub containing the changes you made.
