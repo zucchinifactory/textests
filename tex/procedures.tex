@@ -1,150 +1,152 @@
 \section{Procedures}
 %
-\subsection{Setup}
+\subsection{Setup and initial measurements}
 %
 In the following text, the counter on the left (labeled "1") of our setup will be called "counter 1" and the one on the right (labeled "2") "counter 2".
 %
 \par
 %
 We set the voltage for counter 1 to $\SI{540 \pm 2}{\volt}$ and for counter 2 to $\SI{490 \pm 2}{\volt}$.
-The signals from the spectroscope are plugged directly into the oscilloscope.
+The cables which carry the signals from the spectroscopes are plugged directly into the oscilloscope.
 We insert the $^{60}\text{Co}$ sample (labeled "NN258") into the detector chamber and close the sliding door.
+On the oscilloscope screen, pulses of different height and length can be seen.
+Exemplary screenshots for a quantitative analysis are listed in the appendix:
+Figure \ref{fig:OsciSignal1} shows a signal from detector 1 with a pulse height of $\SI{50 \pm 5}{\milli\volt}$ and a pulse length of $\SI{100 \pm 10}{\micro\second}$.
+Detector 2 is shown in figure \ref{fig:OsciSignal2} with two signals with a pulse height of $\SI{240 \pm 20}{\milli\volt}$ and a pulse length of $\SI{50 \pm 5}{\micro\second}$ or a pulse height of $\SI{50 \pm 5}{\milli\volt}$ and a pulse length of $\SI{30 \pm 5}{\micro\second}$, respectively.
+The uncertainties for the above measurements stem from reading the scale only.
 %
 \par
 %
-Pulses of different height and length can be seen.
-Exemplary screenshots for a quantitative analysis are listed in figures \ref{fig:osci}
+For the next step, we connect the signals of both counters to the corresponding amplifiers according to the circuit schematic in figure \ref{fig:Schaltung1}).
+Modulator "Coarse Gain" is set to $16$.
+Modulator "Fine Gain" is set to its maximal value and won't get changed in the future to minimize reproducibility errors.
+Both amplified signals are connected to the oscilloscope and produce the output as shown in figure \ref{fig:OsciSignal1and2}.
+Furthermore, the amplifier is set to "Negative Input" and "Unipolar" (because the input signal is already bipolar) which results in the bipolar signal as shown in figure \ref{fig:BipolarSignal}.
 %
 \par
 %
-tek00000.png
-Signal 1
-with pulse height $\SI{50 \pm 5}{\milli\volt}$
-pulse length $\SI{100 \pm 10}{\micro\second}$
-%
-\par
-%
-tek00001.png
-Signal 2
-pulse height $\SI{240 \pm 20}{\milli\volt}$, pulse length $\SI{50 \pm 5}{\micro\second}$
-pulse height $\SI{50 \pm 5}{\milli\volt}$, pulse length $\SI{30 \pm 5}{\micro\second}$
-(Errors only from reading the scale)
-%
-\par
-%
-Now we connect the signals of both counters to the corresponding amplifiers and set the Coarse Gain to $16$, the Fine Gain to its maximal value (see circuit schematic in figure \ref{fig:Schaltung1}).
-On the oscilloscope we look at both amplified signals at the same time:
-\ref{fig:tek00003}
-%
-\par
-%
-Figure \ref{fig:tek00004} shows the bipolar signal form of counter 1.
-To achieve this, we set the amplifier to "negative input" and "unipolar" (because the signal is already bipolar).
-%
-\par
-%
-We now use signal 1 to control the Timing Single Channel Analyzer (TSCA) as seen in figure \ref{fig:Schaltung2} and get the shape as seen in figure \ref{fig:tek00006} (Input 1: Amplifier, Input 2: TSCA positive output, window fully open).
-%
-\par
-%
+Now, signal 1 is being used to control the \textbf{Timing Single Channel Analyzer} (TSCA) as seen in the schematic in figure \ref{fig:Schaltung2}.
+We connect the amplified signal 1 to input 1 and the TSCA positive output to input 2 of the oscilloscope.
+The TSCA window is set to fully open.
+This results in a square wave as seen in figure \ref{fig:ExampleTSCA}.
 The TSCA sends a rectangular pulse of constant height when the input signal crosses the zero line.
-With the energy window knob we can control for which different input pulse heights the TSCA sends a pulse.
-The minimal energy knob respectively controls the minimal height of the signals to trigger an output.
+With the minimal energy knob we can control which input pulse height is needed to make the TSCA send a square wave pulse.
+The energy window knob then provides an upper threshold for the height of the signals to trigger an output.
 %
 \par
 %
-Using the TSCA output to control the Linear Gate as depicted in figure \ref{fig:Schaltung3}, we get the graph seen in figure \ref{fig:tek00007}.
-Here we set the delay in the Delay Amplifier to \SI{2.75}{\micro\second}, which ensures that the gate is opened right before the original amplified signal peak reaches the gate.
+Using the TSCA output to control the \textbf{Linear Gate} as depicted in the circuit schematic in figure \ref{fig:Schaltung3} results in the output seen in figure \ref{fig:TSCAplusLG}.
+The delay of the \textbf{Delay Amplifier} is set to \SI{2.75}{\micro\second}, which ensures that the gate is being opened exactly when the original amplified signal reaches the gate.
 %
-\subsection{Measurements}
+\subsection{Measurements with further samples}
 %
-To analyze further samples we connect the Linear Gate output to the Multi Channel Analyzer (MCA), which delivers its signals to the LabVIEW software.
-There we set a Threshold of 200.
-%
-\par
-%
-Now we measure the spectra of five different sources for around \SIrange{300}{400}{\second} each.
-We mark the concise peaks and edges and estimate their full width half maxima (FWHM).
+To analyze further samples we connect the Linear Gate output to the \textbf{Multi Channel Analyzer} (MCA), which delivers its signals to the LabVIEW software.
+Within the application's interface, the detection threshold is set to $200$.
 %
 \par
 %
-[TODO Grafiken referenzieren]
-Sample $^{60}\text{Co}$ ("NN258") shows two clear peaks and an continuum with multiple spikes. \\
-Sample $^{137}\text{Cs}$ ("NN256") shows one peak and Compton continuum. \\
-Sample $^{54}\text{Mn}$ ("NN260", "AC9339") shows one strong peak and Compton continuum, more jagged. \\
-Sample $^{133}\text{Ba}$ ("NN255") shows three more broad and less separated peaks. \\
-Sample $^{22}\text{Na}$ ("NN261") shows two high energy peaks and one very intense peak caused by electron-positron annihilation. \\
-For the night measurement, we remove the sample holder and close the sliding door.
+Thereupon, we measure the spectra of five different sources for approximately \SIrange{300}{400}{\second} each.
+Sample $^{60}\text{Co}$ ("NN258") shows two clear peaks and an continuum with multiple spikes as seen in figure \ref{fig:Spectrum60Co}.
+Sample $^{137}\text{Cs}$ ("NN256") shows one peak and Compton continuum as seen in figure \ref{fig:Spectrum137Cs}.
+Sample $^{54}\text{Mn}$ ("NN260", "AC9339") shows one strong peak and Compton continuum, more jagged as seen in figure \ref{fig:Spectrum54Mn}.
+Sample $^{133}\text{Ba}$ ("NN255") shows three more broad and less separated peaks as seen in figure \ref{fig:Spectrum133Ba}.
+Sample $^{22}\text{Na}$ ("NN261") shows two high energy peaks and one very intense peak caused by electron-positron annihilation as seen in figure \ref{fig:Spectrum22Na}.
+%
+\par
+%
+During the night measurement, the sample holder is removed from the detector chamber and the sliding door is closed.
 For \SI{68898}{\second}, the counters and the software are left running to detect background radiation.
+The resulting spectrum can be seen in figure \ref{fig:SpectrumNight}.
+%
+\par
+%
+The positions of the distinct peaks and edges as well as their full width half maxima (FWHM) are determined and added to the respective spectrum figure.
 %
 \subsection{Coincidence measurement setup}
 %
-We set the second scintillator up in the same way as the first (Amplifier Corse Gain set to $16$, Fine Gain to maximum value, TSCA window fully open) and use its output signal to trigger the Linear Gate (see circuit figure \ref{fig:Schaltung4}).
-Now, we will only register the signal of counter 1, if counter 2 is triggered as well.
+The second scintillation detector is set up the same way as the first with the amplifier's "Coarse Gain" at $16$ and "Fine Gain" at maximum value as well as the TSCA's window fully open.
+Its output signal is used to trigger the Linear Gate as seen in circuit schematic in figure \ref{fig:Schaltung4}.
+This way we will only register the signal of counter 1 if counter 2 is being triggered at the same time as well.
 %
 \par
 %
 We insert the $^{137}\text{Cs}$ sample and record the spectrum shown in figure \ref{fig:137Cskoinz1}, which has three distinct peaks.
-Left to right: backscatter, Compton, photo peak.
+From left to right they are backscatter peak, Compton edge and photo peak.
+[TODO Was hat es nochmal mit dem nächsten Satz auf sich?] Looking directly at the spectrum of counter 2, we note, that it is slightly shifted to the right (around 100 channels), because the scintillators are different and we use the same amplification factor.
+%
+\subsection{Random coincidence}
+%
+To measure the randomly occuring coincidence, the Delay Amplifier is removed from signal 1.
+The delay on the TSCA is set to its maximum value.
+The resulting signal is shown in figure \ref{fig:137Cskoinz2}.
+The two lower energy peaks lose relative height compared to the high energy photo peak.
+%
+\subsection{TPHC setup}
+%
+To further improve the circuit, we use a \textbf{Time to Pulse Height Converter} (TPHC) which translates the time difference between two input signals to a pulse with respective height.
+The circuit is set up as seen in the schematic in figure \ref{fig:Schaltung5}.
+[TODO Sind die 7.32 im folgenden Satz auch Mikrosekunden? Sind das bei der Skala überhaupt sicher Mikrosekunden?] The delay of the TSCA for signal 2 is set to $7.32$ on the potentiometer knob which has a scale precision of \SI{0.1}{\micro\second}.
+Additionally, we vary the delay on the Delay Amplifier with values \SI{20}{\nano\second}, \SI{40}{\nano\second} and \SI{60}{\nano\second}).
+With these additional measurements, we are able to calibrate the resulting time spectrum.
+The resulting spectra are shown in figures \ref{fig:137CsTPHC}, \ref{fig:137CsTPHC20ns}, \ref{fig:137CsTPHC40ns} and \ref{fig:137CsTPHC60ns}.
+%
+\subsection{Improved coincidence measurement with TPHC}
+%
+We use the time window settings of the TPHC to send a signal only if the time difference corresponds to a backscattered photon of the Compton scattering at the opposite scintillator.
+In turn, this signal is used to trigger the Linear Gate as seen in the schematic in figure \ref{fig:Schaltung6}.
+[TODO Haben ULD und LLD im folgenden Satz Einheiten?] Slowly adjusting the lower value and window size yields the best results when ULD is set to $1.0$ and LLD is set to $1.1$.
+We obtain the time spectrum which is depicted in figure \ref{fig:137CsTPHC_geschnitten_neu}.
+The corresponding energy spectrum is shown in figure \ref{fig:137CsmitTPHC_gated}.
 %
 \par
 %
-Looking directly at the spectrum of counter 2, we note, that it is slightly shifted to the right (around 100 channels), because the scintillators are different and we use the same amplification factor.
-%
-\subsection{Coincidence measurement with random coincidence}
-%
-To measure the random coincidence, we remove the Delay Amplifier of signal 1 and turn the delay on the TSCA of signal to is maximum value.
-We get the result shown in figure \ref{37Cskoinz2}.
-The two lower energy peaks lose their relative height compared to the high energy photo peak.
-%
-\subsection{Coincidence measurement with improvements}
-%
-To improve the circuit we use a Time to Pulse Height Converter (TPHC) which translates the time difference between two input signals to a pulse with respective height.
-We set the circuit up as seen in figure \ref{fig:Schaltung5}.
-TSCA 2 delay is set to 7.32 (potentiometer scale \SI{0.1}{\micro\second}).
-We vary the delay on the Delay Amplifier (\SI{20}{\nano\second}, \SI{40}{\nano\second}, \SI{60}{\nano\second}) to be able to calibrate the resulting time spectrum.
-[137CsTPHC.txt]
-[137CsTPHC20ns.txt]
-[137CsTPHC40ns.txt]
-[137CsTPHC60ns.txt]
-%
-\subsection{Coincidence measurement with time window}
-%
-We use the time window settings of the TPHC to only send a signal if the time difference corresponds to a backscattered photon of the Compton scattering at the oposite scintillator.
-We use this signal to trigger the Linear Gate (see figure \ref{fig:Schaltung6}).
-Slowly changing lower value and window size yields: ULD set to 1.0 and LLD set to 1.1.
-We get time spectrum [137CsTPHC\_geschnitten\_neu.txt] and the corresponding energy spectrum [137CsmitTPHC\_gated].
 During the experiment, there were technical dificulties with the equipment and the circuit had to be set up fresh from the start again.
 Therefore, our spectrum for this specific measurement has slightly different settings for the time window and delay time.
-However, the observable results were qualitatively the same, we just did not record the spectrum with our new settings.
+However, the observable results were qualitatively the same.
+We just did not record the former spectrum with our new settings for a second time.
 %
 \subsection{Coincidence measurement with time and energy window}
 %
 Now we want to use the TSCA 2 to only allow signals resulting from backscattered photons to trigger the TPHC.
-To achieve this we return to the schematic according to figure \ref{fig:Schaltung3} for scintillator 2 and close the energy window to only show the Backscatter peak (lowest of the three).
-We get the result in [signal2eneriewindow.txt] by using Lower set to 0.5, Window set to 0.4.
-Finally, we change the circuit back to figure \ref{fig:Schaltung6} and measure [comptonpeak.txt].
-The only peak left (the middle one) belongs to the Compton edge.
+To achieve this, we return to the schematic according to figure \ref{fig:Schaltung3} for scintillator 2 and adjust the energy window so as to only show the backscatter peak.
+[TODO Haben lower threshold und window im folgenden Satz Einheiten?] The lower threshold is set to $0.5$, the window is set to $0.4$.
+The resulting spectrum is shown in figure \ref{fig:signal2eneriewindow}.
+%
+\par
+%
+After changing the circuit back to the schematic shown in figure \ref{fig:Schaltung6} we measure the spectrum shown in \ref{fig:comptonpeak}.
+The only peak left belongs to the Compton edge which corresponds to the middle one of the three peaks in the former spectrum obtained without time and energy window.
 %
 \subsection{Coincidence Measurement of $^{60}\text{Co}$ cascade decay}
 %
-Using the above method we want to show, that the photons in the $^{60}\text{Co}$ cascade decay are emitted coincidentally. 
-We insert the $^{60}\text{Co}$ sample which is labeled with an activity of $\SI{404}{\kilo\becquerel} \pm 3\%$ on 01.08.2005.
+Using the above described method, we want to show that the photons in the $^{60}\text{Co}$ cascade decay are emitted coincidentally.
+The radioactive activity of the provided $^{60}\text{Co}$ sample has been determined on 01.08.2005 to $\SI{404}{\kilo\becquerel \pm 3 \percent}$.
 %
-We chose the energy window on both TSCAs to only trigger around the two photon peaks and take the respective spectra (Signal 1 Lower Level: 3.2, Window: 1.0, Signal 2 Lower Level: 2.8, Window: 1.0).
-To calculate the photon rates we also note the time and total event number
-87576 Events in 300 s for 60CoEnergiewindow1.txt, 
-92712 Events in 317 s for 60CoEnergiewindow2.txt
+\par
 %
-Now we take a time measurement with figure \ref{fig:Schaltung5} using a delay of 4.3 (scale \SI{0.1}{\micro\second}) on TSCA2
-60CoZeitspektrum.txt, 3174 Events in 361 s (vgl. mit ges. Events in Daten)
+We set the energy window on both TSCAs to only trigger around the two photon peaks.
+[TODO Haben lower threshold und window im folgenden Satz Einheiten?] This is the case for a "Lower Level" of $3.2$ and a "Window" of $1.0$ for signal 1 and a "Lower Level" of $2.8$ and a "Window" of $1.0$ for signal 2.
+Additionally, we note the time and total event number to calculate the photon rates.
+For detector 1 we get \SI{87576}{events} in \SI{300}{\second} and the spectrum as shown in figure \ref{fig:60CoEnergiewindow1}.
+For detector 2 we get \SI{92712}{events} in \SI{317}{\second} and the spectrum as shown in figure \ref{fig:60CoEnergiewindow2}.
 %
+\par
+%
+We return to the circuit schematic shown in figure \ref{fig:Schaltung5} to obtain a new time measurement.
+[TODO Das delay im folgenden Satz hat auch Einheit Mikrosekunden?] On TSCA2, the delay is set to $4.3$ with a scale precision of \SI{0.1}{\micro\second}.
+We obtain the spectrum shown in figure \ref{fig:60CoZeitspektrum} with \SI{3174}{events} in \SI{361}{\second}. [TODO vgl. mit ges. Events in Daten?]
 For energy calibration we again use different delays in the stop signal of the TPHC.
-60CoZeitspektrum20ns.txt, 
-60CoZeitspektrum40ns.txt, 
-60CoZeitspektrum60ns.txt
+The corresponding spectra are shown in figures \ref{fig:60CoZeitspektrum20ns}, \ref{fig:60CoZeitspektrum40ns} and \ref{fig:60CoZeitspektrum60ns}.
 %
-To qualitatively examine the coincidence, we close the energy window on TCSA2 to only show the peak with higher energy (Lower 3.15, Window 0.45 -> 60CoEnergiewindow2-peak2.txt)
+\par
 %
-Now, with schematic seen in figure \ref{fig:Schaltung6}, we only see the coincident lower energy peak in the spectrum.
-60CoKaskadenEnergiewindowBeiPeak2.txt mit 4796 events über 1422 s
+To examine the coincidence qualitatively, we narrow the energy window on TCSA2 to only show the peak with higher energy.
+[TODO Haben lower threshold und window im folgenden Satz Einheiten?] This means a "Lower Level" of $3.15$ and a "Window" of $0.45$.
+The adjusted spectrum is shown in figure \ref{fig:60CoEnergiewindow2-peak2}.
+%
+\par
+%
+Finally, we return to the circuit schematic shown in figure \ref{fig:Schaltung6}.
+The only peak left in the spectrum is the coincident lower energy peak.
+The spectrum is shown in figure \ref{fig:60CoKaskadenEnergiewindowBeiPeak2} with \SI{4796}{events} in \SI{1422}{\second}.
+%
