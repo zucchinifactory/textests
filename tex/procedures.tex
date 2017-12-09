@@ -71,8 +71,8 @@ This way we will only register the signal of counter 1 if counter 2 is being tri
 \par
 %
 We insert the $^{137}\text{Cs}$ sample and record the spectrum shown in figure \ref{fig:137Cskoinz1}, which has three distinct peaks.
-From left to right they are backscatter peak, Compton edge and photo peak.
-[TODO Was hat es nochmal mit dem nächsten Satz auf sich?] Looking directly at the spectrum of counter 2, we note, that it is slightly shifted to the right (around 100 channels), because the scintillators are different and we use the same amplification factor.
+From left to right they are the backscatter peak, Compton edge and photo peak.
+The spectrum of counter 2 is slightly shifted to the right (around 100 channels), because the scintillators have different 	inherent reinforcement.
 %
 \subsection{Random coincidence}
 %
@@ -85,7 +85,7 @@ The two lower energy peaks lose relative height compared to the high energy phot
 %
 To further improve the circuit, we use a \textbf{Time to Pulse Height Converter} (TPHC) which translates the time difference between two input signals to a pulse with respective height.
 The circuit is set up as seen in the schematic in figure \ref{fig:Schaltung5}.
-[TODO Sind die 7.32 im folgenden Satz auch Mikrosekunden? Sind das bei der Skala überhaupt sicher Mikrosekunden?] The delay of the TSCA for signal 2 is set to $7.32$ on the potentiometer knob which has a scale precision of \SI{0.1}{\micro\second}.
+The delay of the TSCA for signal 2 is set to $7.32$ on the potentiometer knob which has a scale precision of \SI{0.1}{\micro\second}.
 Additionally, we vary the delay on the Delay Amplifier with values \SI{20}{\nano\second}, \SI{40}{\nano\second} and \SI{60}{\nano\second}).
 With these additional measurements, we are able to calibrate the resulting time spectrum.
 The resulting spectra are shown in figures \ref{fig:137CsTPHC}, \ref{fig:137CsTPHC20ns}, \ref{fig:137CsTPHC40ns} and \ref{fig:137CsTPHC60ns}.
@@ -94,7 +94,7 @@ The resulting spectra are shown in figures \ref{fig:137CsTPHC}, \ref{fig:137CsTP
 %
 We use the time window settings of the TPHC to send a signal only if the time difference corresponds to a backscattered photon of the Compton scattering at the opposite scintillator.
 In turn, this signal is used to trigger the Linear Gate as seen in the schematic in figure \ref{fig:Schaltung6}.
-[TODO Haben ULD und LLD im folgenden Satz Einheiten?] Slowly adjusting the lower value and window size yields the best results when ULD is set to $1.0$ and LLD is set to $1.1$.
+Slowly adjusting the lower value and window size yields the best results when ULD is set to $1.0$ and LLD is set to $1.1$.
 We obtain the time spectrum which is depicted in figure \ref{fig:137CsTPHC_geschnitten_neu}.
 The corresponding energy spectrum is shown in figure \ref{fig:137CsmitTPHC_gated}.
 %
@@ -109,7 +109,7 @@ We just did not record the former spectrum with our new settings for a second ti
 %
 Now we want to use the TSCA 2 to only allow signals resulting from backscattered photons to trigger the TPHC.
 To achieve this, we return to the schematic according to figure \ref{fig:Schaltung3} for scintillator 2 and adjust the energy window so as to only show the backscatter peak.
-[TODO Haben lower threshold und window im folgenden Satz Einheiten?] The lower threshold is set to $0.5$, the window is set to $0.4$.
+The lower threshold is set to $0.5$ scale units, the window is set to $0.4$.
 The resulting spectrum is shown in figure \ref{fig:signal2eneriewindow}.
 %
 \par
@@ -125,7 +125,7 @@ The radioactive activity of the provided $^{60}\text{Co}$ sample has been determ
 \par
 %
 We set the energy window on both TSCAs to only trigger around the two photon peaks.
-[TODO Haben lower threshold und window im folgenden Satz Einheiten?] This is the case for a "Lower Level" of $3.2$ and a "Window" of $1.0$ for signal 1 and a "Lower Level" of $2.8$ and a "Window" of $1.0$ for signal 2.
+This is the case for a "Lower Level" of $3.2$ and a "Window" of $1.0$ for signal 1 and a "Lower Level" of $2.8$ and a "Window" of $1.0$ for signal 2.
 Additionally, we note the time and total event number to calculate the photon rates.
 For detector 1 we get \SI{87576}{events} in \SI{300}{\second} and the spectrum as shown in figure \ref{fig:60CoEnergiewindow1}.
 For detector 2 we get \SI{92712}{events} in \SI{317}{\second} and the spectrum as shown in figure \ref{fig:60CoEnergiewindow2}.
@@ -133,15 +133,15 @@ For detector 2 we get \SI{92712}{events} in \SI{317}{\second} and the spectrum a
 \par
 %
 We return to the circuit schematic shown in figure \ref{fig:Schaltung5} to obtain a new time measurement.
-[TODO Das delay im folgenden Satz hat auch Einheit Mikrosekunden?] On TSCA2, the delay is set to $4.3$ with a scale precision of \SI{0.1}{\micro\second}.
-We obtain the spectrum shown in figure \ref{fig:60CoZeitspektrum} with \SI{3174}{events} in \SI{361}{\second}. [TODO vgl. mit ges. Events in Daten?]
+On TSCA2, the delay is set to $4.3$ with a scale precision of \SI{0.1}{\micro\second}.
+We obtain the spectrum shown in figure \ref{fig:60CoZeitspektrum} with \SI{3174}{events} in \SI{361}{\second}.
 For energy calibration we again use different delays in the stop signal of the TPHC.
 The corresponding spectra are shown in figures \ref{fig:60CoZeitspektrum20ns}, \ref{fig:60CoZeitspektrum40ns} and \ref{fig:60CoZeitspektrum60ns}.
 %
 \par
 %
 To examine the coincidence qualitatively, we narrow the energy window on TCSA2 to only show the peak with higher energy.
-[TODO Haben lower threshold und window im folgenden Satz Einheiten?] This means a "Lower Level" of $3.15$ and a "Window" of $0.45$.
+This means a "Lower Level" of $3.15$ and a "Window" of $0.45$.
 The adjusted spectrum is shown in figure \ref{fig:60CoEnergiewindow2-peak2}.
 %
 \par
