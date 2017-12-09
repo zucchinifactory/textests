@@ -91,7 +91,6 @@ script:
 
     echo "Install dependencies for make"
     sudo apt-get -qq update
-    sudo apt-get install -qq -y texlive-full
     sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
     sudo apt-get install -qq -y biber texlive-science
 
