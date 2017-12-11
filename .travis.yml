@@ -35,7 +35,7 @@ script:
       go version
 
       echo "Install GitHub CLI tool hub"
-      git clone https://github.com/github/hub.git
+      git clone "https://github.com/github/hub.git"
       (
         cd hub
         ./script/build
@@ -89,10 +89,42 @@ script:
 
     fi
 
-    echo "Install dependencies for make"
-    sudo apt-get -qq update
-    sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
-    sudo apt-get install -qq -y biber texlive-science
+    #echo "Install possibly outdated version of TeX Live from official Ubuntu package repository"
+    #sudo apt-get -qq update
+    #sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-science latexmk biber
+
+    echo "Install most recent version of TeX Live from CTAN"
+    TEXLIVESETUP=install-tl-unx
+    wget -q "http://mirror.ctan.org/systems/texlive/tlnet/${TEXLIVESETUP}.tar.gz"
+    mkdir -p "${TEXLIVESETUP}"
+    tar -C "./install-tl-unx/" --strip-components=1 -xzf "${TEXLIVESETUP}.tar.gz"
+    echo 'selected_scheme scheme-minimal
+          TEXDIR /tmp/texlive
+          TEXMFCONFIG ~/.texlive2015/texmf-config
+          TEXMFHOME ~/texmf
+          TEXMFLOCAL /tmp/texlive/texmf-local
+          TEXMFSYSCONFIG /tmp/texlive/texmf-config
+          TEXMFSYSVAR /tmp/texlive/texmf-var
+          TEXMFVAR ~/.texlive2015/texmf-var
+          option_doc 0
+          option_src 0' >> "./${TEXLIVESETUP}/texlive.profile"
+    (
+      cd "${TEXLIVESETUP}"
+      ./install-tl --profile=./texlive.profile
+    )
+    PATH="${PATH}:/tmp/texlive/bin/x86_64-linux"
+    tlmgr install latex latex-bin latex-fonts latexconfig collection-latexrecommended collection-fontsrecommended babel babel-english latexmk biber texliveonfly
+
+    echo "Resolve dependencies with texliveonfly"
+    texliveonfly --help
+    for TEXFILE in *.tex
+    do
+      [ -e "${TEXFILE}" ] || continue
+      [ -f "${TEXFILE}" ] || continue
+      echo "${TEXFILE} has been found"
+      texliveonfly --compiler=pdflatex --arguments="-draftmode -interaction=nonstopmode" "${TEXFILE}"
+    done
+    make clean
 
     echo "Run make"
     make
