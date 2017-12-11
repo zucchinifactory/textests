@@ -115,7 +115,7 @@ script:
     PATH="${PATH}:/tmp/texlive/bin/x86_64-linux"
     tlmgr install latex latex-bin latex-fonts latexconfig collection-latexrecommended collection-fontsrecommended
     tlmgr install latexmk biber texliveonfly
-    tlmgr install babel babel-english babel-ngerman
+    tlmgr install babel babel-english babel-german babel-french babel-spanish
 
     echo "Resolve dependencies with texliveonfly"
     texliveonfly --help
