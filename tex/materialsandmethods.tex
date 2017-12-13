@@ -1,6 +1,6 @@
-\section{Materials and methods}
+\section*{Materials and methods}
 %
-\subsection{Setup and initial measurements}
+\subsection*{Setup and initial measurements}
 %
 In the following text, the counter on the left (labeled \enquote{1}) of our setup will be called \enquote{counter 1} and the one on the right (labeled \enquote{2}) \enquote{counter 2}.
 %
@@ -38,7 +38,7 @@ The energy window knob then provides an upper threshold for the height of the si
 Using the TSCA output to control the \textbf{Linear Gate} as depicted in the circuit schematic in figure \ref{fig:Schaltung3} results in the output seen in figure \ref{fig:TSCAplusLG}.
 The delay of the \textbf{Delay Amplifier} is set to \SI{2.75}{\micro\second}, which ensures that the gate is being opened exactly when the original amplified signal reaches the gate.
 %
-\subsection{Measurements with further samples}
+\subsection*{Measurements with further samples}
 %
 To analyze further samples we connect the Linear Gate output to the \textbf{Multi Channel Analyzer} (MCA), which delivers its signals to the LabVIEW software.
 Within the application's interface, the detection threshold is set to $200$.
@@ -62,7 +62,7 @@ The resulting spectrum can be seen in figure \ref{fig:SpectrumNight}.
 %
 The positions of the distinct peaks and edges as well as their full width half maxima (FWHM) are determined and added to the respective spectrum figure.
 %
-\subsection{Coincidence measurement setup}
+\subsection*{Coincidence measurement setup}
 %
 The second scintillation detector is set up the same way as the first with the amplifier's \enquote{Coarse Gain} at $16$ and \enquote{Fine Gain} at maximum value as well as the TSCA's window fully open.
 Its output signal is used to trigger the Linear Gate as seen in circuit schematic in figure \ref{fig:Schaltung4}.
@@ -74,14 +74,14 @@ We insert the $^{137}\text{Cs}$ sample and record the spectrum shown in figure \
 From left to right they are the backscatter peak, Compton edge and photo peak.
 The spectrum of counter 2 is slightly shifted to the right (around 100 channels), because the scintillators have different inherent reinforcement.
 %
-\subsection{Random coincidence}
+\subsection*{Random coincidence}
 %
 To measure the randomly occuring coincidence, the Delay Amplifier is removed from signal 1.
 The delay on the TSCA is set to its maximum value.
 The resulting signal is shown in figure \ref{fig:137Cskoinz2}.
 The two lower energy peaks lose relative height compared to the high energy photo peak.
 %
-\subsection{TPHC setup}
+\subsection*{TPHC setup}
 %
 To further improve the circuit, we use a \textbf{Time to Pulse Height Converter} (TPHC) which translates the time difference between two input signals to a pulse with respective height.
 The circuit is set up as seen in the schematic in figure \ref{fig:Schaltung5}.
@@ -90,7 +90,7 @@ Additionally, we vary the delay on the Delay Amplifier with values \SI{20}{\nano
 With these additional measurements, we are able to calibrate the resulting time spectrum.
 The resulting spectra are shown in figures \ref{fig:137CsTPHC}, \ref{fig:137CsTPHC20ns}, \ref{fig:137CsTPHC40ns} and \ref{fig:137CsTPHC60ns}.
 %
-\subsection{Improved coincidence measurement with TPHC}
+\subsection*{Improved coincidence measurement with TPHC}
 %
 We use the time window settings of the TPHC to send a signal only if the time difference corresponds to a backscattered photon of the Compton scattering at the opposite scintillator.
 In turn, this signal is used to trigger the Linear Gate as seen in the schematic in figure \ref{fig:Schaltung6}.
@@ -105,7 +105,7 @@ Therefore, our spectrum for this specific measurement has slightly different set
 However, the observable results were qualitatively the same.
 We just did not record the former spectrum with our new settings for a second time.
 %
-\subsection{Coincidence measurement with time and energy window}
+\subsection*{Coincidence measurement with time and energy window}
 %
 Now we want to use the TSCA 2 to only allow signals resulting from backscattered photons to trigger the TPHC.
 To achieve this, we return to the schematic according to figure \ref{fig:Schaltung3} for scintillator 2 and adjust the energy window so as to only show the backscatter peak.
@@ -117,7 +117,7 @@ The resulting spectrum is shown in figure \ref{fig:signal2eneriewindow}.
 After changing the circuit back to the schematic shown in figure \ref{fig:Schaltung6} we measure the spectrum shown in \ref{fig:comptonpeak}.
 The only peak left belongs to the Compton edge which corresponds to the middle one of the three peaks in the former spectrum obtained without time and energy window.
 %
-\subsection{Coincidence Measurement of $^{60}\text{Co}$ cascade decay}
+\subsection*{Coincidence Measurement of $^{60}\text{Co}$ cascade decay}
 %
 Using the above described method, we want to show that the photons in the $^{60}\text{Co}$ cascade decay are emitted coincidentally.
 The radioactive activity of the provided $^{60}\text{Co}$ sample has been determined on 01.08.2005 to $\SI{404}{\kilo\becquerel \pm 3 \percent}$.
