@@ -17,14 +17,14 @@
 \usepackage{color}
 
 \usepackage{geometry}
-\geometry{a4paper, top=15mm, left=20mm, right=20mm, bottom=30mm, headsep=10mm, footskip=20mm}
+\geometry{a4paper, top=10mm, left=10mm, right=10mm, bottom=20mm, headsep=10mm, footskip=10mm}
 
 \usepackage[backend=biber, style=numeric]{biblatex}
 \addbibresource{bib/references.bib}
 
 \usepackage{graphicx}
 
-\setlength{\columnsep}{10mm} % set length of the gap between two columns
+\setlength{\columnsep}{5mm} % set length of the gap between two columns
 \setlength{\parindent}{0mm} % set length of indentation of a paragraph
 \setlength{\parskip}{2mm} % set length of the gap between two paragraphs
 
@@ -47,7 +47,7 @@
 \usepackage{booktabs} % used for \toprule, \midrule and \bottomrule with tables
 
 \input{tex/maketitle.tex} % import custom \maketitle command
-\header{Protokoll Fortgeschrittenen-Praktikum}
+\header{Kurze besondere Ausarbeitung Fortgeschrittenen-Praktikum}
 \title{F83 Koinzidenzspektrometer}
 \author{Vorname Name, Vorname Name}
 \date{01.01.1970}
@@ -56,11 +56,17 @@
 
 \maketitle
 
-\input{tex/introduction.tex}
-\input{tex/procedures.tex}
-\input{tex/results.tex}
-\input{tex/discussion.tex}
-\input{tex/references.tex}
-\input{tex/appendices.tex}
+\begin{multicols}{2}
+    \begin{snugshade*}
+        \input{tex/abstract.tex}
+    \end{snugshade*}
+    \input{tex/introduction.tex}
+    \input{tex/materialsandmethods.tex}
+    \input{tex/results.tex}
+    \input{tex/discussion.tex}
+    \input{tex/acknowledgments.tex}
+    \input{tex/references.tex}
+    \input{tex/appendices.tex}
+\end{multicols}
 
 \end{document}
