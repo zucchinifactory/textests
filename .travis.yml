@@ -113,7 +113,7 @@ script:
       ./install-tl --profile=./texlive.profile
     )
     PATH="${PATH}:/tmp/texlive/bin/x86_64-linux"
-    tlmgr install latex latex-bin latex-fonts latexconfig collection-latexrecommended collection-fontsrecommended babel babel-contrib latexmk biber texliveonfly
+    tlmgr install latex latex-bin latex-fonts latexconfig collection-latexrecommended collection-fontsrecommended babel babel-german latexmk biber texliveonfly
 
     echo "Resolve dependencies with texliveonfly"
     texliveonfly --help
