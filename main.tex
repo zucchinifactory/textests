@@ -4,15 +4,15 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 
-\usepackage[ngerman, english]{babel} 
+\usepackage[ngerman, english]{babel}
+
+\usepackage[ngerman]{translator}
 
 \usepackage{csquotes}
 
 \usepackage{amsmath}
 
-\usepackage{siunitx}
-\sisetup{locale=US}
-\sisetup{separate-uncertainty=true}
+\usepackage[separate-uncertainty=true]{siunitx}
 
 \usepackage{color}
 
@@ -53,6 +53,11 @@
 \date{01.01.1970}
 
 \begin{document}
+
+\selectlanguage{english}
+\sisetup{locale=US}
+%\selectlanguage{ngerman}
+%\sisetup{locale=DE}
 
 \maketitle
 
