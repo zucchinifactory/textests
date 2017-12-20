@@ -1,8 +1,5 @@
 \section*{Discussion}
 %
-This experiment introduced us to the basics of working with scintillation detectors.
-In particular, we learned to use the coincidence method to further investigate the process of decay of radioactive matter.
-%
 \par
 %
 Next to the many qualitative observations we made, we used prominent, known features of spectra to calibrate the channel numbers.
@@ -12,16 +9,7 @@ This is because the marked features are edges rather than peaks so the correct c
 Still, we were able to verify the theoretical physical processes quantitatively.
 Additionally, we proved the validity of common physical models, because the most probable transitions in the available decay schemes were detected.
 The more detailed predictions, however, could not be reappraised due to the insufficient resolution of the used equipment and methods.
-Longer experimentation and efforts of noise reduction could make future attempts more successful in making out more vague features.
-%
-\par
-%
-To achieve this, we could use the results of the night measurement, for example.
-Not only did we see the expected increase in background noise for lower energies, but we were also able to identify two characteristic peaks in the spectrum.
-With high significance, the one with the higher energy can be assigned to $^{40}\text{K}$.
-The lower energy peak has a value very close to the electron resting mass - leading to the assumption that it was created by electron-positron annihilation.
-Yet, $\beta^{+}$ decay of $^{40}\text{K}$ is quite improbable \cite{WikiPotassium}.
-And since we are sure that any radioactive samples were removed from the chamber prior to the night measurement, it may actually be likely that there is another isotope around whose decay would explain the measured peak.
+Longer experimentation and efforts of noise reduction could make future attempts more successful.
 %
 \par
 %
@@ -44,14 +32,26 @@ Since, in reality, satisfying these requirements isn't possible, there always is
 %
 We used the same techniques to examine the cascade decay of $^{60}\text{Co}$.
 Apart from just showing the coincidence between the two emitted photons - which is shown in figures \ref{fig:60CoEnergiewindow1} and \ref{fig:60CoKaskadenEnergiewindowBeiPeak2} - we could use the detection rates from the measurements to calculate quantitative features such as source strength and detection probability.
-These calculations are possible because it's fine to assume, that the photon emission rate is independent of the angle concerning the decay of $^{60}\text{Co}$.
+These calculations are possible because one can assume, that the photon emission rate is independent of the angle concerning the decay of $^{60}\text{Co}$.
 However, our calculated values deviate rather much from the theoretical value with about \SI{20}{\sigma}.
-Still, the result is at least within one order of magnitude (off by a factor of $4$).
+Still, the result is at least within one order of magnitude (off by a factor of $4$). There arte multiple reasons for the large deviation.\\
 %
-\par
+We digitize and record our data with an \textbf{Analog to Digital Converter} (ADC).
+Such a device always has a finite dead time $\tau$ after detecting an incoming signal.
+If another signal follows in that time it will not be registered.
+This changes the accepted detection rate $R_{\text{acc}}$ compared to the actual rate $R_{\text{in}}$.
+Over a time corresponding to $\tau \cdot R_{\text{acc}}$ we do not record any additional photons.
+The rate of additional incoming photons in that time can be calculated by multiplying with $R_{\text{in}}$.
+We get:
+\begin{align}
+    \label{eq:DeadTime}
+    \begin{split}
+        R_{\text{in}} &= R_{\text{acc}} \cdot (1 + \tau \cdot R_{\text{in}} )
+    \end{split}
+\end{align}
 %
-The used detection rates could not be corrected for the dead time $\tau$ (see (\ref{eq:DeadTime})) as we do not have a sufficient value for $\tau$ provided.
-This would increase the measured source strength because $Q$ scales linear with the rate.
+However, as no sufficient value for $\tau$ was provided, provided the used detection rates could not be corrected.
+The correction would increase the measured source strength because $Q$ scales linear with the rate.\\
 Furthermore, the theoretical value has to be seen with a grain of salt, as the given specifications on the label of the sample box wasn't unambiguous.
 The value we used for comparison could very well belong to another sample.
 %
