@@ -38,8 +38,13 @@
 
 \usepackage{caption} % used for \captionsetup and \captionof
 
-\usepackage{sectsty} % used for \allsectionsfont
-\allsectionsfont{\sffamily}
+\usepackage[compact]{titlesec}
+\titleformat*{\section}{\normalfont\sffamily\Large\bfseries}
+\titleformat*{\subsection}{\normalfont\sffamily\large\bfseries}
+\titleformat*{\subsubsection}{\normalfont\sffamily\normalsize\bfseries}
+\titlespacing{\section}{0pt}{*0}{*0}
+\titlespacing{\subsection}{0pt}{*0}{*0}
+\titlespacing{\subsubsection}{0pt}{*0}{*0}
 
 \usepackage{framed} % used for \begin{snugshade*}
 \definecolor{shadecolor}{RGB}{230, 230, 230} % set background color for \begin{snugshade*}
