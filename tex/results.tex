@@ -226,7 +226,7 @@ As before, the spectrum seen in figure \ref{fig:137Cskoinz1} shows the three pea
 However, because the Linear Gate only allows detection on counter 1 when there is also a signal registered at counter 2.
 Therefore, the photo peak is reduced in intensity because it is only registered due to random coincidence.
 The Compton edge and backscatter peak in contrast occur coincidentally and are more prominent.
-By using the Delay Amplifier with a time $t_{\text{delay}}$, we made sure that signal 1 coming in at $t_1$ entered the Linear Gate after signal 2 at tine $t_2$ went trough the TSCA and opened the Linear Gate.
+By using the Delay Amplifier with a time $t_{\text{delay}}$, we made sure that signal 1 coming in at $t_1$ entered the Linear Gate after signal 2 at time $t_2$ went trough the TSCA and opened the Linear Gate.
 If the latter is then open for a time of $t_{\text{trigger}}$, we get the following constraint for the respective times: $t_2 < t_1 + t_{\text{trigger}} < t_2 +  t_{\text{delay}}$.
 The coincidence resolution is then given directly by $t_{\text{trigger}}$.
 %
@@ -240,9 +240,9 @@ This results in figure \ref{fig:137Cskoinz2} where only the photo peak is visibl
 The time spectra in figures \ref{fig:137CsTPHC}, \ref{fig:137CsTPHC20ns}, \ref{fig:137CsTPHC40ns} and \ref{fig:137CsTPHC60ns} all show a single peak which corresponds to the time between the detection of a Compton-scattered electron in one detector and the corresponding photon in the other.
 The noise level is caused by random coincidence which happened with no particular time difference.
 The added delay only shifts the peak along the channel axis.
-This relation between channel time allows us to calculate the time calibration of the circuit.
+This relation between channel and time allows us to calculate the time calibration of the circuit.
 In figures \ref{fig:TimeCalibrationCs} and \ref{fig:TimeCalibrationCo} we plot the peak channels of the differently delayed spectra against the delay time.
-We fit a linear function to the points to get the channel-energy relation $a$.
+We fit a linear function to the points to get the channel-time relation $a$.
 %
 \par
 %
@@ -309,7 +309,7 @@ The two photons of the $^{60}\text{Co}$ cascade decay can be considered simultan
 %
 \subsubsection{Time resolution}
 %
-As with the $^{137}\text{Cs}$ measurements, we calibrate the time spectrum in figure \ref{fig:TimeCalibrationCo} and calculate the coincidence resolution to $t = \SI{ 13.1 \pm 2.8 }{\nano\second}$ using (\ref{eq:CoincidenceResolution}) and (\ref{eq:DeltaCoincidenceResolution}).
+As with the $^{137}\text{Cs}$ measurement, we calibrate the time spectrum in figure \ref{fig:TimeCalibrationCo} and calculate the coincidence resolution to $t = \SI{ 13.1 \pm 2.8 }{\nano\second}$ using (\ref{eq:CoincidenceResolution}) and (\ref{eq:DeltaCoincidenceResolution}).
 Because the peaks in the time spectrum are much more narrow, correspondingly, the time is shorter.
 %
 \subsubsection{Source strength and detection rates}
