@@ -8,7 +8,10 @@ script:
 
     echo "Print environment variables for debugging"
     printenv
-
+    
+    #dummy error
+    exit 1
+    
     if [ "${TRAVIS_PULL_REQUEST}" != "false" ]
     then
 
