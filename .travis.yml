@@ -2,167 +2,171 @@ language: generic
 script:
   - |
 
-    #!/bin/bash
-
-    set -e
-
-    echo "Print environment variables for debugging"
-    printenv
-    
-    #dummy error
-    exit 1
-    
-    if [ "${TRAVIS_PULL_REQUEST}" != "false" ]
-    then
-
-      echo "This build has been triggered by a pull request"
-
-    else
-
-      echo "This build has not been triggered by a pull request"
-
-      echo "Install Go 1.8.5"
-      GOFILE=go1.8.5.linux-amd64.tar.gz
-      wget -q "https://redirector.gvt1.com/edgedl/go/${GOFILE}"
-      if [ -n "${GOROOT}" ]
-      then
-        echo "Target directory ${GOROOT}"
-        sudo rm -rf "${GOROOT}"
-        sudo mkdir -p "${GOROOT}"
-        sudo tar -C "${GOROOT}" --strip-components=1 -xzf "${GOFILE}"
-      else
-        echo "Target directory /usr/local/go"
-        sudo tar -C /usr/local -xzf "${GOFILE}"
-        PATH="${PATH}:/usr/local/go/bin"
-      fi
-      go version
-
-      echo "Install GitHub CLI tool hub"
-      git clone "https://github.com/github/hub.git"
-      (
-        cd hub
-        ./script/build
-      )
-      PATH="${PATH}:$(pwd)/hub/bin"
-      hub version
-
-      if [ -n "${TRAVIS_TAG}" ]
-      then
-
-        echo "A tag has already been assigned to this build: ${TRAVIS_TAG}"
-
-      else
-
-        echo "This build doesn't have an assigned tag yet"
-        echo "Generate tag name from SHA-1 hash, because the name should be reproducible as well as different from branch name"
-        SHA1HASH="$(echo -n "${TRAVIS_BRANCH}" | sha1sum)"
-        TRAVIS_TAG="${TRAVIS_BRANCH}-tag-${SHA1HASH:0:40}"
-        echo "Tag name has been set to: ${TRAVIS_TAG}"
-
-        echo "Delete former release for this tag name (This is allowed to fail if the tag doesn't have an associated release)"
-        hub release delete "${TRAVIS_TAG}" || true
-
-        echo "Set git user email and name"
-        git config --global user.email "deploy@travis-ci.org"
-        git config --global user.name "Deployment Bot (from Travis CI)"
-
-        echo "Remove old tag with the same tag name, because it is linked to the wrong commit (This is allowed to fail if it's the first time the tag name is being used)"
-        git tag -d "${TRAVIS_TAG}" || true
-        git push -d "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}" || true
-
-        echo "Create tag with the generated tag name"
-        git tag -a -m "This tag has been created by Travis CI build #${TRAVIS_BUILD_NUMBER}." "${TRAVIS_TAG}"
-        git push "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}"
-
-        echo "Create an empty release for tag ${TRAVIS_TAG}"
-        hub release create --prerelease -m "${TRAVIS_BRANCH}"$'\n\n'"This release has been created by Travis CI build [#${TRAVIS_BUILD_NUMBER}](https://api.travis-ci.org/jobs/${TRAVIS_JOB_ID}/log.txt)." "${TRAVIS_TAG}"
-
-        echo "Install Travis CI CLI tool travis"
-        gem install travis
-        travis version
-        travis login --org --github-token "${GITHUB_TOKEN}"
-
-        echo "Cancel job, because building isn't necessary"
-        travis cancel "${TRAVIS_BUILD_NUMBER}"
-
-        echo "Waiting for job to be canceled"
-        sleep infinity
-
-      fi
-
-    fi
-
-    #echo "Install possibly outdated version of TeX Live from official Ubuntu package repository"
-    #sudo apt-get -qq update
-    #sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-science latexmk biber
-
-    echo "Install most recent version of TeX Live from CTAN"
-    TEXLIVESETUP=install-tl-unx
-    wget -q "http://mirror.ctan.org/systems/texlive/tlnet/${TEXLIVESETUP}.tar.gz"
-    mkdir -p "${TEXLIVESETUP}"
-    tar -C "./install-tl-unx/" --strip-components=1 -xzf "${TEXLIVESETUP}.tar.gz"
-    echo 'selected_scheme scheme-minimal
-          TEXDIR /tmp/texlive
-          TEXMFCONFIG ~/.texlive2015/texmf-config
-          TEXMFHOME ~/texmf
-          TEXMFLOCAL /tmp/texlive/texmf-local
-          TEXMFSYSCONFIG /tmp/texlive/texmf-config
-          TEXMFSYSVAR /tmp/texlive/texmf-var
-          TEXMFVAR ~/.texlive2015/texmf-var
-          option_doc 0
-          option_src 0' >> "./${TEXLIVESETUP}/texlive.profile"
     (
-      cd "${TEXLIVESETUP}"
-      ./install-tl --profile=./texlive.profile
-    )
-    PATH="${PATH}:/tmp/texlive/bin/x86_64-linux"
-    tlmgr install latex latex-bin latex-fonts latexconfig
-    tlmgr install collection-latexrecommended collection-fontsrecommended
-    tlmgr install babel babel-english babel-german hyphen-german
-    tlmgr install latexmk biber texliveonfly
 
-    echo "Resolve dependencies with texliveonfly"
-    texliveonfly --help
-    for TEXFILE in *.tex
-    do
-      [ -e "${TEXFILE}" ] || continue
-      [ -f "${TEXFILE}" ] || continue
-      echo "${TEXFILE} has been found"
-      texliveonfly --compiler=pdflatex --arguments="-draftmode -interaction=nonstopmode" "${TEXFILE}"
-    done
-    make clean
+      #!/bin/bash
 
-    echo "Run make"
-    make
+      set -e
 
-    if [ "${TRAVIS_PULL_REQUEST}" != "false" ]
-    then
-
-      echo "Skipping deployment, because this build has been triggered by a pull request"
-
-    else
-
-      echo "Acquire former release message (This is allowed to fail if the tag doesn't have an associated release)"
-      if ! MESSAGE="$(hub release show "${TRAVIS_TAG}")"
+      echo "Print environment variables for debugging"
+      printenv
+      
+      #dummy error
+      exit 1
+      
+      if [ "${TRAVIS_PULL_REQUEST}" != "false" ]
       then
 
-        echo "Skipping deployment, because the tag doesn't seem to have an associated release"
+        echo "This build has been triggered by a pull request"
 
       else
 
-        echo "Search for PDF files to upload"
-        for PDFFILE in *.pdf
-        do
-          [ -e "${PDFFILE}" ] || continue
-          [ -f "${PDFFILE}" ] || continue
-          echo "${PDFFILE} has been found"
-          MESSAGE="${MESSAGE}"$'\n\n'"\`${PDFFILE}\` has been built and attached to this release by Travis CI build [#${TRAVIS_BUILD_NUMBER}](https://api.travis-ci.org/jobs/${TRAVIS_JOB_ID}/log.txt)."
-          echo "Attach file to the release for tag ${TRAVIS_TAG}"
-          hub release edit --prerelease -m "${MESSAGE}" -a "${PDFFILE}" "${TRAVIS_TAG}"
-        done
+        echo "This build has not been triggered by a pull request"
+
+        echo "Install Go 1.8.5"
+        GOFILE=go1.8.5.linux-amd64.tar.gz
+        wget -q "https://redirector.gvt1.com/edgedl/go/${GOFILE}"
+        if [ -n "${GOROOT}" ]
+        then
+          echo "Target directory ${GOROOT}"
+          sudo rm -rf "${GOROOT}"
+          sudo mkdir -p "${GOROOT}"
+          sudo tar -C "${GOROOT}" --strip-components=1 -xzf "${GOFILE}"
+        else
+          echo "Target directory /usr/local/go"
+          sudo tar -C /usr/local -xzf "${GOFILE}"
+          PATH="${PATH}:/usr/local/go/bin"
+        fi
+        go version
+
+        echo "Install GitHub CLI tool hub"
+        git clone "https://github.com/github/hub.git"
+        (
+          cd hub
+          ./script/build
+        )
+        PATH="${PATH}:$(pwd)/hub/bin"
+        hub version
+
+        if [ -n "${TRAVIS_TAG}" ]
+        then
+
+          echo "A tag has already been assigned to this build: ${TRAVIS_TAG}"
+
+        else
+
+          echo "This build doesn't have an assigned tag yet"
+          echo "Generate tag name from SHA-1 hash, because the name should be reproducible as well as different from branch name"
+          SHA1HASH="$(echo -n "${TRAVIS_BRANCH}" | sha1sum)"
+          TRAVIS_TAG="${TRAVIS_BRANCH}-tag-${SHA1HASH:0:40}"
+          echo "Tag name has been set to: ${TRAVIS_TAG}"
+
+          echo "Delete former release for this tag name (This is allowed to fail if the tag doesn't have an associated release)"
+          hub release delete "${TRAVIS_TAG}" || true
+
+          echo "Set git user email and name"
+          git config --global user.email "deploy@travis-ci.org"
+          git config --global user.name "Deployment Bot (from Travis CI)"
+
+          echo "Remove old tag with the same tag name, because it is linked to the wrong commit (This is allowed to fail if it's the first time the tag name is being used)"
+          git tag -d "${TRAVIS_TAG}" || true
+          git push -d "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}" || true
+
+          echo "Create tag with the generated tag name"
+          git tag -a -m "This tag has been created by Travis CI build #${TRAVIS_BUILD_NUMBER}." "${TRAVIS_TAG}"
+          git push "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" "${TRAVIS_TAG}"
+
+          echo "Create an empty release for tag ${TRAVIS_TAG}"
+          hub release create --prerelease -m "${TRAVIS_BRANCH}"$'\n\n'"This release has been created by Travis CI build [#${TRAVIS_BUILD_NUMBER}](https://api.travis-ci.org/jobs/${TRAVIS_JOB_ID}/log.txt)." "${TRAVIS_TAG}"
+
+          echo "Install Travis CI CLI tool travis"
+          gem install travis
+          travis version
+          travis login --org --github-token "${GITHUB_TOKEN}"
+
+          echo "Cancel job, because building isn't necessary"
+          travis cancel "${TRAVIS_BUILD_NUMBER}"
+
+          echo "Waiting for job to be canceled"
+          sleep infinity
+
+        fi
 
       fi
 
-    fi
+      #echo "Install possibly outdated version of TeX Live from official Ubuntu package repository"
+      #sudo apt-get -qq update
+      #sudo apt-get install -qq -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-science latexmk biber
 
-    echo "Done"
+      echo "Install most recent version of TeX Live from CTAN"
+      TEXLIVESETUP=install-tl-unx
+      wget -q "http://mirror.ctan.org/systems/texlive/tlnet/${TEXLIVESETUP}.tar.gz"
+      mkdir -p "${TEXLIVESETUP}"
+      tar -C "./install-tl-unx/" --strip-components=1 -xzf "${TEXLIVESETUP}.tar.gz"
+      echo 'selected_scheme scheme-minimal
+            TEXDIR /tmp/texlive
+            TEXMFCONFIG ~/.texlive2015/texmf-config
+            TEXMFHOME ~/texmf
+            TEXMFLOCAL /tmp/texlive/texmf-local
+            TEXMFSYSCONFIG /tmp/texlive/texmf-config
+            TEXMFSYSVAR /tmp/texlive/texmf-var
+            TEXMFVAR ~/.texlive2015/texmf-var
+            option_doc 0
+            option_src 0' >> "./${TEXLIVESETUP}/texlive.profile"
+      (
+        cd "${TEXLIVESETUP}"
+        ./install-tl --profile=./texlive.profile
+      )
+      PATH="${PATH}:/tmp/texlive/bin/x86_64-linux"
+      tlmgr install latex latex-bin latex-fonts latexconfig
+      tlmgr install collection-latexrecommended collection-fontsrecommended
+      tlmgr install babel babel-english babel-german hyphen-german
+      tlmgr install latexmk biber texliveonfly
+
+      echo "Resolve dependencies with texliveonfly"
+      texliveonfly --help
+      for TEXFILE in *.tex
+      do
+        [ -e "${TEXFILE}" ] || continue
+        [ -f "${TEXFILE}" ] || continue
+        echo "${TEXFILE} has been found"
+        texliveonfly --compiler=pdflatex --arguments="-draftmode -interaction=nonstopmode" "${TEXFILE}"
+      done
+      make clean
+
+      echo "Run make"
+      make
+
+      if [ "${TRAVIS_PULL_REQUEST}" != "false" ]
+      then
+
+        echo "Skipping deployment, because this build has been triggered by a pull request"
+
+      else
+
+        echo "Acquire former release message (This is allowed to fail if the tag doesn't have an associated release)"
+        if ! MESSAGE="$(hub release show "${TRAVIS_TAG}")"
+        then
+
+          echo "Skipping deployment, because the tag doesn't seem to have an associated release"
+
+        else
+
+          echo "Search for PDF files to upload"
+          for PDFFILE in *.pdf
+          do
+            [ -e "${PDFFILE}" ] || continue
+            [ -f "${PDFFILE}" ] || continue
+            echo "${PDFFILE} has been found"
+            MESSAGE="${MESSAGE}"$'\n\n'"\`${PDFFILE}\` has been built and attached to this release by Travis CI build [#${TRAVIS_BUILD_NUMBER}](https://api.travis-ci.org/jobs/${TRAVIS_JOB_ID}/log.txt)."
+            echo "Attach file to the release for tag ${TRAVIS_TAG}"
+            hub release edit --prerelease -m "${MESSAGE}" -a "${PDFFILE}" "${TRAVIS_TAG}"
+          done
+
+        fi
+
+      fi
+
+      echo "Done"
+
+    )
