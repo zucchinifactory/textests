@@ -41,6 +41,7 @@ script:
         ./script/build
       )
       PATH="${PATH}:$(pwd)/hub/bin"
+      export HUB_REPORT_CRASH=never
       hub version
 
       if [ -n "${TRAVIS_TAG}" ]
