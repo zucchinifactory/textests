@@ -1,0 +1,107 @@
+\section{Einleitung}
+%
+\subsection{Motivation}
+%
+Nahezu jede Messung physikalischer Größen während eines Experiments findet elektronisch statt.
+Ein Basiswissen bezüglich der Funktionsweise grundlegender elektronischer Bauteile und Schaltungen ist daher unersetzlich.
+Dieser Versuch soll uns - einerseits durch die theoretische Vorstellung von Transistor-Verstärkern und Operationsverstärkern einer Motorregelung - und andererseits durch die praktische Durchführung von Dimensionierung, Löten, Aufbau und Messen der Ergebnisse - einen Teil dieses Basiswissens vermitteln.
+%
+\subsection{Physikalische Grundlagen}
+%
+Für die grundlegende Einführung ins Thema wird an dieser Stelle auf die Versuchsanleitung \cite{Anleitung} verwiesen.
+%
+\subsection{Vorbereitung}
+%
+Wir überlegen uns für die in der Versuchsanleitung \cite{Anleitung} beschriebenen Schaltungen die folgenden Dimensionierungen.
+Die Herleitung der verwendeten Formeln ist ebenfalls in der Anleitung zu finden und wird hier nicht noch einmal gesondert angegeben.
+%
+\subsubsection*{Schaltung 1: Transistor in Emitterschaltung mit Stromgegenkopplung}
+%
+Die an die Schaltung gestellten Anforderungen sind Versorgungsspannung $U_{\text{V}} = \SI{15}{\volt}$, Spannungsverstärkung $V_U = \SI{20}{}$, statische Stromverstärkung des Transistors BC547C $B = \SI{400}{}$, Kollektorstrom $I_{\text{C}} = \SI{1}{\milli\ampere}$ und untere Grenzfrequenz $f_{\text{uG}} = \SI{100}{\hertz}$.
+%
+\par
+%
+\minipage{\linewidth}
+    \begin{center}
+        \captionsetup{type=table}
+        \begin{adjustbox}{max width=\linewidth, keepaspectratio}
+            \begin{tabular}{ll}
+            \toprule
+            Größe & Wert \\
+            \midrule
+            $U_{\text{V}}$ & \SI{15}{\volt} \\
+            $R_1$ & \SI{820}{\kilo\ohm \pm 1 \percent} \\
+            $R_2$ & \SI{68}{\kilo\ohm \pm 1 \percent} \\
+            $R_{\text{C}}$ & \SI{6,8}{\kilo\ohm \pm 1 \percent} \\
+            $R_{\text{E}}$ & \SI{330}{\ohm \pm 1 \percent} \\
+            $C_{\text{A}}$ & \SI{1}{\micro\farad \pm 5 \percent} \\
+            $C_{\text{E}}$ & \SI{100}{\nano\farad \pm 10 \percent} \\
+            \bottomrule
+            \end{tabular}
+        \end{adjustbox}
+        \captionof{table}{Dimensionierung der Emitterschaltung}
+        \label{tab:DimensionierungEmitterschaltung}
+    \end{center}
+\endminipage
+%
+\subsubsection*{Schaltung 2: Transistor in Kollektorschaltung}
+%
+Die an die Schaltung gestellten Anforderungen sind Versorgungsspannung $U_{\text{V}} = \SI{15}{\volt}$, statische Stromverstärkung des Transistors BC547C $B = \SI{400}{}$, Emitterstrom $I_{\text{E}} = \SI{15}{\milli\ampere}$ und untere Grenzfrequenz $f_{\text{uG}} = \SI{100}{\hertz}$.
+%
+\par
+%
+\minipage{\linewidth}
+    \begin{center}
+        \captionsetup{type=table}
+        \begin{adjustbox}{max width=\linewidth, keepaspectratio}
+            \begin{tabular}{ll}
+            \toprule
+            Größe & Wert \\
+            \midrule
+            $U_{\text{V}}$ & \SI{15}{\volt} \\
+            $R_1$ & \SI{33}{\kilo\ohm \pm 1 \percent} \\
+            $R_2$ & \SI{47}{\kilo\ohm \pm 1 \percent} \\
+            $R_{\text{E}}$ & \SI{470}{\ohm \pm 1 \percent} \\
+            $C_{\text{A}}$ & \SI{10}{\micro\farad \pm 20 \percent} \\
+            $C_{\text{E}}$ & \SI{220}{\nano\farad \pm 10 \percent} \\
+            \bottomrule
+            \end{tabular}
+        \end{adjustbox}
+        \captionof{table}{Dimensionierung der Kollektorschaltung}
+        \label{tab:DimensionierungKollektorschaltung}
+    \end{center}
+\endminipage
+%
+\subsubsection*{Schaltung 3: PID-Regler Motorsteuerung}
+%
+Die vorgegebenen Werte sind zusammen mit den durch die Dimensionierung berechneten Werten in Tabelle \ref{tab:DimensionierungPIDRegler} aufgelistet.
+%
+\par
+%
+\minipage{\linewidth}
+    \begin{center}
+        \captionsetup{type=table}
+        \begin{adjustbox}{max width=\linewidth, keepaspectratio}
+            \begin{tabular}{llllllll}
+            \toprule
+            Größe & Wert & ~ & Größe & Wert & ~ & Größe & Wert \\
+            \midrule
+            $R_1$ & \SI{1}{\kilo\ohm} & ~ & $R_{12}$ & \SI{100}{\kilo\ohm} & ~ & $R_{24}$ & \SI{10}{\kilo\ohm} \\
+            $R_2$ & \SI{1,5}{\kilo\ohm} & ~ & $R_{13}$ & \SI{100}{\kilo\ohm} & ~ & $R_{25}$ & \SI{10}{\kilo\ohm} \\
+            $R_3$ & \SI{10}{\kilo\ohm} & ~ & $R_{14}$ & \SI{4,7}{\kilo\ohm} & ~ & $R_{26}$ & \SI{10}{\kilo\ohm} \\
+            $R_4$ & \SI{4,7}{\kilo\ohm} & ~ & $R_{16}$ & \SI{100}{\kilo\ohm} & ~ & $C_4$ & \SI{220}{\nano\farad} \\
+            $R_5$ & \SI{1}{\kilo\ohm} & ~ & $R_{17}$ & \SI{100}{\kilo\ohm} & ~ & $C_5$ & \SI{220}{\nano\farad} \\
+            $R_6$ & \SI{1}{\kilo\ohm} & ~ & $R_{18}$ & \SI{2,2}{\kilo\ohm} & ~ & $C_6$ & \SI{1}{\micro\farad} \\
+            $R_7$ & \SI{470}{\kilo\ohm} & ~ & $R_{19}$ & \SI{15}{\kilo\ohm} & ~ & $D_1$ & ZF \SI{6,8}{\volt} \\
+            $R_8$ & \SI{12}{\kilo\ohm} & ~ & $R_{20}$ & \SI{25}{\kilo\ohm} & ~ & $P_1$ & \SI{100}{\kilo\ohm} \\
+            $R_9$ & \SI{12}{\kilo\ohm} & ~ & $R_{21}$ & \SI{10}{\kilo\ohm} & ~ & $P_2$ & \SI{100}{\kilo\ohm} \\
+            $R_{10}$ & \SI{100}{\kilo\ohm} & ~ & $R_{22}$ & \SI{10}{\kilo\ohm} & ~ & $P_3$ & \SI{100}{\kilo\ohm} \\
+            $R_{11}$ & \SI{1}{\kilo\ohm} & ~ & $R_{23}$ & \SI{10}{\kilo\ohm} & ~ & ~ & ~ \\
+            \bottomrule
+            \end{tabular}
+        \end{adjustbox}
+        \captionof{table}{Dimensionierung für PID-Regler Motorsteuerung}
+        \label{tab:DimensionierungPIDRegler}
+    \end{center}
+\endminipage
+%
