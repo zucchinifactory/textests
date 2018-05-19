@@ -14,7 +14,7 @@
 
 \usepackage[separate-uncertainty=true]{siunitx}
 
-\usepackage{color}
+\usepackage{xcolor}
 
 \usepackage{geometry}
 \geometry{a4paper, top=15mm, left=20mm, right=20mm, bottom=30mm, headsep=10mm, footskip=20mm}
@@ -27,6 +27,9 @@
 \setlength{\columnsep}{10mm} % set length of the gap between two columns
 \setlength{\parindent}{0mm} % set length of indentation of a paragraph
 \setlength{\parskip}{2mm} % set length of the gap between two paragraphs
+\setlength{\emergencystretch}{\hsize} % allow big stretch to avoid overful \hbox without using \sloppy
+
+\linespread{1.1} % set gap between lines
 
 \usepackage{adjustbox} % used for \adjustbox
 
@@ -38,8 +41,13 @@
 
 \usepackage{caption} % used for \captionsetup and \captionof
 
-\usepackage{sectsty} % used for \allsectionsfont
-\allsectionsfont{\sffamily}
+\usepackage{titlesec} % used to format section, subsection and subsubsection
+\titleformat*{\section}{\normalfont\sffamily\Large\bfseries}
+\titleformat*{\subsection}{\normalfont\sffamily\large\bfseries}
+\titleformat*{\subsubsection}{\normalfont\sffamily\normalsize\bfseries}
+\titlespacing{\section}{0pt}{*3}{*1}
+\titlespacing{\subsection}{0pt}{*3}{*1}
+\titlespacing{\subsubsection}{0pt}{*3}{*1}
 
 \usepackage{framed} % used for \begin{snugshade*}
 \definecolor{shadecolor}{RGB}{230, 230, 230} % set background color for \begin{snugshade*}
