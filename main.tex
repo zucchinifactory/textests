@@ -14,7 +14,7 @@
 
 \usepackage[separate-uncertainty=true]{siunitx}
 
-\usepackage{color}
+\usepackage{xcolor}
 
 \usepackage{geometry}
 \geometry{a4paper, top=10mm, left=10mm, right=10mm, bottom=20mm, headsep=10mm, footskip=10mm}
@@ -27,8 +27,9 @@
 \setlength{\columnsep}{5mm} % set length of the gap between two columns
 \setlength{\parindent}{0mm} % set length of indentation of a paragraph
 \setlength{\parskip}{2mm} % set length of the gap between two paragraphs
+\setlength{\emergencystretch}{\hsize} % allow big stretch to avoid overful \hbox without using \sloppy
 
-\linespread{0.9}
+\linespread{0.9} % set gap between lines
 
 \usepackage{adjustbox} % used for \adjustbox
 
@@ -40,7 +41,7 @@
 
 \usepackage{caption} % used for \captionsetup and \captionof
 
-\usepackage[compact]{titlesec}
+\usepackage{titlesec} % used to format section, subsection and subsubsection
 \titleformat*{\section}{\normalfont\sffamily\Large\bfseries}
 \titleformat*{\subsection}{\normalfont\sffamily\large\bfseries}
 \titleformat*{\subsubsection}{\normalfont\sffamily\normalsize\bfseries}
