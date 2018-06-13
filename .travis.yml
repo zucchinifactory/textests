@@ -81,7 +81,12 @@ script:
         travis login --org --github-token "${GITHUB_TOKEN}"
 
         echo "Cancel job, because building isn't necessary"
+        echo "show"
+        travis show "${TRAVIS_BUILD_NUMBER}"
+        echo "cancel"
         travis cancel "${TRAVIS_BUILD_NUMBER}"
+        echo "show"
+        travis show "${TRAVIS_BUILD_NUMBER}"
 
         echo "Waiting for job to be canceled"
         sleep infinity
