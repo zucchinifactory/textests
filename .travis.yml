@@ -78,17 +78,33 @@ script:
         echo "Install Travis CI CLI tool travis"
         gem install travis
         travis version
-        travis login --org --github-token "${GITHUB_TOKEN}"
 
         echo "Cancel job, because building isn't necessary"
-        echo "show"
-        travis show "${TRAVIS_BUILD_NUMBER}"
-        echo "cancel"
-        travis cancel "${TRAVIS_BUILD_NUMBER}"
-        echo "show"
-        travis show "${TRAVIS_BUILD_NUMBER}"
 
-        echo "Waiting for job to be canceled"
+        MAX_TRIES=10
+        TRY=0
+        while true
+        do
+          TRY=$((TRY+1))
+          echo "Try $TRY"
+          if [ $TRY -gt $MAX_TRIES ]
+          then
+            echo "Canceling via CLI doesn't seem to have worked"
+            break
+          fi
+          ERRORLEVEL=0
+          sleep 2
+          travis login --org --github-token "${GITHUB_TOKEN}"
+          sleep 2
+          travis cancel "${TRAVIS_BUILD_NUMBER}" || ERRORLEVEL=$? || true
+          if [ $ERRORLEVEL -eq 0 ]
+          then
+            echo "Canceling via CLI seems to have worked"
+            break
+          fi
+        done
+
+        echo "Going to wait until job is canceled automatically"
         sleep infinity
 
       fi
