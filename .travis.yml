@@ -35,7 +35,7 @@ script:
       go version
 
       echo "Install GitHub CLI tool hub"
-      git clone "https://github.com/github/hub.git"
+      git clone --branch "v2.3.0" "https://github.com/github/hub.git"
       (
         cd hub
         ./script/build
