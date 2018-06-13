@@ -92,10 +92,10 @@ script:
             echo "Canceling via CLI doesn't seem to have worked"
             break
           fi
-          ERRORLEVEL=0
           sleep 2
           travis login --org --github-token "${GITHUB_TOKEN}"
           sleep 2
+          ERRORLEVEL=0
           travis cancel "${TRAVIS_BUILD_NUMBER}" || ERRORLEVEL=$? || true
           if [ $ERRORLEVEL -eq 0 ]
           then
