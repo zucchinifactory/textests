@@ -2,7 +2,7 @@
 
 ## About this branch
 
-FP-E07 Protokoll Fortgeschrittenen-Praktikum Versuch E07
+FP-F78 Protokoll Fortgeschrittenen-Praktikum Versuch F78
 
 ## Project description
 
