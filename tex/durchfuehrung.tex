@@ -1,14 +1,8 @@
 \section{Durchführung}
 
-\subsubsection*{Aufbau}
+\subsubsection*{Einstellungen an den Geräten}
 
-\colorbox{yellow}{TODO Skizze oder Schema von Versuchsaufbau}
-
-\colorbox{yellow}{TODO Aufbau in Worten erklären und Schema-Grafik referenzieren}
-
-\subsubsection*{Einstellungen}
-
-Anschließend überprüfen wir die Einstellungen am Lock-In Verstärker.
+Wir überprüfen zunächst die Einstellungen am Lock-In Verstärker.
 Dabei nutzen wir hauptsächlich die vorgegebenen Werte aus der Versuchsanleitung \cite{Anleitung} sowie einzelne Modifikationen unter der Anleitung des Assistenten.
 Die endgültigen Einstellungen sind in Tabelle \ref{tab:EinstellungenVerstaerker} aufgetragen.
 
@@ -40,12 +34,28 @@ Die endgültigen Einstellungen sind in Tabelle \ref{tab:EinstellungenVerstaerker
     \end{center}
 \endminipage
 
-\subsubsection*{LabVIEW}
+\subsubsection*{Entwicklung des LabVIEW-Skripts}
 
 Der Tutor gibt zu Beginn des Versuchs eine kurze, hilfreiche Einweisung zu LabVIEW.
 Zudem stehen uns mehrere LabVIEW-Beispielskripte auf der Versuchs-Homepage zur Verfügung.
 
-\colorbox{yellow}{TODO Schritt für Schritt erklären, wie unser Skript entsteht}
+Wir beginnen mit der Erstellung eines Arrays von Werten im Bereich beginnend bei \SI{0}{\volt} bis zur maximalen Heizspannung des Peltier-Elements.
+Die darauf folgende Schleife über die Elemente dieses Arrays beginnt mit Einfügen einer Kommentarzeile zum Logging der eingestellten Heizspannung.
+Anschließend wird die Heizspannung mit Befehl \texttt{X5} gesetzt.
+Aus unseren Erfahrungen mit dem Aufheizverhalten des Peltier-Elements können wir mit großer Sicherheit ableiten, dass sich nach \SI{900000}{\milli\second}, also \SI{15}{\minute}, die neue Temperatur eingestellt hat.
+
+Es folgt die Erstellung eines weiteren Arrays.
+Dieses Array beinhaltet die einzustellenden Frequenzen für den Frequenzgenerator.
+Erneut beginnen wir eine Schleife und loggen das Einstellen der Frequenz.
+Der verwendete Befehl zum Setzen der Frequenz ist \texttt{FREQ}.
+
+Wir beginnen nun den Abschnitt der Messung von Messdaten, welcher für die oben beschriebenen Einstellungen jeweils 20 mal wiederholt wird.
+Mit \texttt{X1}, \texttt{QX} und \texttt{QY} fragen wir die Signaldaten an und schreiben diese in die Messdatei.
+Um eine Beeinflussung der Messungen untereinander auszuschließen, ist vorher eine Wartezeit von \SI{500}{\milli\second} eingebaut.
+
+Nach Abschluss aller Messungen wird die Heizspannung des Peltier-Elements auf \SI{0}{\volt} zurückgesetzt und so kann der Versuchsaufbau wieder auf Raumtemperatur abkühlen.
+
+Das endgültige LabVIEW-Skript ist in Abbildung \ref{fig:LabVIEWSkript} dargestellt.
 
 \subsubsection*{Heizspannung des Peltier-Elements}
 
@@ -56,28 +66,27 @@ Als Grenze sollen \SI{60}{\celsius} nicht überschritten werden.
 
 Wir können so für die spätere komplette Messung den Bereich der Heizspannung des Peltier-Elements auf \SIrange{0}{0.9}{\volt} bestimmen.
 
-Nachdem die Bestimmung des Bereichs der Heizspannung abgeschlossen ist, wird die Betriebsspannung des Peltier-Element wieder auf \SI{0}{\volt} gesetzt.
+Nachdem die Bestimmung des Bereichs der Heizspannung abgeschlossen ist, wird die Betriebsspannung des Peltier-Elements wieder auf \SI{0}{\volt} gesetzt.
 
 \subsubsection*{Resonanzfrequenz der ersten Mode als Anhaltspunkt}
 
 Wir wollen in einer ersten Messung die Resonanzfrequenz der ersten Mode bestimmen.
 Diese sollte im Vergleich zu den höheren Moden den Vorteil haben, dass sie eine größere Amplitude besitzt.
-\colorbox{yellow}{TODO Begründung?}
+\todo{Was ist die Begründung für die höhere Amplitude?}
 Wir erhoffen uns davon, dass sie besser auffindbar ist.
 
 Grundsätzlich tragen sowohl eine große Anzahl an Messpunkten, als auch ein großer Messbereich zu einer langen Messdauer bei.
 Um die Dauer der Messung in einem akzeptablen Rahmen zu halten, ist es daher sinnvoll die vorher gemachten Abschätzungen aus der Einleitung zu verwenden.
 Wir wissen so, in welchem Bereich die Resonanzfrequenz der ersten Mode etwa zu erwarten ist.
-\colorbox{yellow}{TODO Referenz zur Abschätzung in der Einleitung einfügen}
+Siehe entsprechenden Abschnitt \ref{eq:AbschaetzungEigenfrequenzen}.
 
 Leider lassen sich unsere zunächst aufgenommenen Daten einer detaillierteren Messung rund um den erwarteten Bereich für die Resonanzfrequenz der ersten Mode nicht verwenden.
 Es stellt sich heraus, dass statt der erwarteten Resonanzkurve eine Oberschwingung der \SI{50}{\hertz} Netzfrequenz des Stromnetzes vermessen wurde.
-\colorbox{yellow}{TODO Haben wir die Daten dazu nicht gespeichert?}
 Der Messbereich muss also für eine erfolreiche Suche nach der Resonanzfrequenz der ersten Mode noch deutlich erweitert werden.
 
 \subsubsection*{Abschließende Messung}
 
 Mit den aktualisierten Suchbereich lässt sich ein weiterer Peak auffinden.
 Er gehört zu einer Kurve von Messpunkten mit dem charakteristischem Verlauf einer Resonanzkurve.
-Mit diesem ersten Wert für die Resonanzfrequenz der ersten Mode lassen sich mithilfe von Gleichung 1.24 der Versuchsanleitung \cite{Anleitung} die Frequenzen für höhere Moden bestimmen.
+Mit diesem ersten Wert für die Resonanzfrequenz der ersten Mode lassen sich mithilfe von Gleichung \ref{eq:VerhaeltnisseEingenfrequenzen} die Frequenzen für höhere Moden bestimmen.
 Wir definieren schließlich die drei Messbereiche für die Messung der Resonanzkurven der ersten drei Moden und starten die abschließende Messung, welche die endgültigen Messdaten für unsere Auswertung liefert.
