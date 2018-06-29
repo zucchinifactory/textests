@@ -1,29 +1,93 @@
 \section{Kritische Würdigung}
 
-\subsubsection*{Vergleich der bestimmten Eigen- respektive Resonanzfrequenzen}
+\subsubsection*{Versuchsdurchführung}
 
-\colorbox{yellow}{TODO}
+\todo{Diese subsubsection verbessern, ausformulieren}
+
+Für die dritte Mode haben wir offensichtlich leider den falschen Messbereich ausgewählt.
+Für höhere Temperaturen wandert die Resonanzkurve weiter Richtung Null, sodass sie eher im Messbereich noch dargestellt wird.
+Man erkennt dies außerdem gut im Plot mit den über die Temperatur aufgetragenenen Resonanzfrequenzen:
+Was die Fehler der Messpunkte in y-Richtung (also der Fehler auf $\omega_R$) angeht, haben alle Punkte relativ kleine Fehler - die Fehlerbalken sind nahezu nicht sichtbar.
+Für die dritte Mode erkennt man für die erste Hälfte der Messwerte (im kälteren Temperaturbereich also) jedoch deutlich größere Fehler.
+Hier war der Fit einfach nicht sehr erfolgreich aufgrund der unklaren Messpunkte.
+Je wärmer, desto besser werden die Fehler.
+
+\subsubsection*{Einordnung der Fiteigenschaften}
+
+\todo{Diese subsubsection verbessern, ausformulieren}
+
+Beim Erstellen der Fits an die aufgenommenen Daten geht es uns darum, das in der Einleitung beschriebene theoretische Modell möglichst gut an die aufgenommenen Daten anzupassen.
+Daraus können wir zum einen schließen, ob das Modell die Realität tatsächlich beschreibt - und zum anderen erhalten wir so auch weitere Informationen über das System:
+Wir können etwa die Resonanzfrequenzen der Schwingung genau feststellen.
+
+Letzteres funktioniert sehr gut.
+Die Fehler auf $\omega_0$ sind winzig.
+
+Für $\omega_{0}$ passt die Lorentzkurve sehr gut an die Daten.
+Dies ist in den Plots ersichtlich und wird auch durch den guten $\chi_{red}^2$-Wert belegt.
+Dennoch liegt die Fitwahrscheinlichkeit nur bei unter 10\%.
+
+\subsubsection*{Vergleich mit den theoretischen Verhältnissen}
+
+In der Einleitung Gleichung \ref{eq:VerhaeltnisseEigenfrequenzen} wurden theoretische Verhältnisse der Eigenfrequenzen $\frac{\nu_1}{\nu_0}$ und $\frac{\nu_2}{\nu_0}$ eingeführt.
+Diese Werte lassen sich nun mit den von uns gewonnenen experimentellen Ergebnissen vergleichen.
+Die Ergebnisse sind in Tabelle \ref{tab:VergleichEigenfrequenzen} aufgetragen.
+
+\minipage{\linewidth}
+    \begin{center}
+        \captionsetup{type=table}
+        \begin{adjustbox}{max width=\linewidth, keepaspectratio}
+            \begin{tabular}{llllll}
+            \toprule
+            $\left ( \frac{\nu_1}{\nu_0} \right )_{theo}$ & $\left ( \frac{\nu_1}{\nu_0} \right )_{exp}$ & Abweichung & $\left ( \frac{\nu_2}{\nu_0} \right )_{theo}$ & $\left ( \frac{\nu_2}{\nu_0} \right )_{exp}$ & Abweichung \\
+            \midrule
+            6.267 & 6.22590 $\pm$ 0.00016 & 0.041 $\overset{\wedge}{=}$ 260 $\sigma$ & 17.548 & 17.620 $\pm$ 0.098 & 0.072 $\overset{\wedge}{=}$ 0.73 $\sigma$ \\
+            \bottomrule
+            \end{tabular}
+        \end{adjustbox}
+        \captionof{table}{Vergleich von experimentellen und theoretischen Verhältnissen zwischen den Eigenfrequenzen}
+        \label{tab:VergleichEigenfrequenzen}
+    \end{center}
+\endminipage
+
+Wir erkennen für $\frac{\nu_1}{\nu_0}$ eine große Abweichung von 260 $\sigma$.
+Diese ist allerdings damit zu begründen, dass die Fehler $\omega_0$ der einzelnen Moden so gering sind.
+Die relative Abweichung mit $\frac{0.041}{6.267} = 0.7\%$ ist nicht besonders groß und so kann davon ausgegangen werden, dass die Eigenfrequenzen tatsächlich gefunden wurden.
 
 \subsubsection*{Interpretation der Abschätzung systematischer Fehler}
 
-\colorbox{yellow}{TODO}
+\todo{Diese subsubsection verbessern, ausformulieren}
 
-\subsubsection*{Vergleich der bestimmten Werte für die Güte}
+Wir betrachten die residuals in den Abbildungen der Amplituden.
+Es wird deutlich, dass zu keiner der Resonanzfrequenzen systematische Abweichungen erheblich sichtbar wären.
 
-\colorbox{yellow}{TODO}
+\subsubsection*{Vergleich der berechneten Güte für die erste Mode}
+
+Wir haben die Daten der Amplitude $A$ verwendet und einerseits mit den aus dem Fit gewonnenen Parametern die Güte $Q_{Fit} = 59.06 \pm 0.19$ errechnet.
+Andererseits haben wir die full width (FW) auf der Höhe des $\frac{1}{\sqrt{2}}$-fachen Maximums der Lorentzkurve zu $FW = \SI{34}{\second^{-1}}$ bestimmt und anschließend die Güte
+\begin{align}
+    Q_{FW} = \frac{\omega_R}{FW} = 59.05
+\end{align}
+
+berechnet. Da nur ein qualitativer Vergleich angestellt werden soll, verzichten wir an dieser Stelle auf die Abschätzung eines Fehlers für $Q_{FW}$.
+
+Die oben genannten Werte bedeuten eine Abweichung von $Q_{FW}$ zu $Q_{Fit}$ um \SI{0.01} absolut - beziehungsweise \SI{0.05}{\sigma}.
+Wir können also davon ausgehen, dass die Bestimmung der Güte mit beiden Methoden gleich gut funktioniert - je nachdem, welche Methode sich gerade besser anbietet.
 
 \subsubsection*{Temperaturabhängigkeit der Resonanzfrequenzen}
 
-\colorbox{yellow}{TODO}
+\todo{Temperaturabhängigkeit der Resonanzfrequenzen erklären - Stichwort Schallgeschwindigkeit}
+
+\todo{Temperaturabhängigkeit unterscheidet sich für die verschiedenen Moden}
 
 \subsubsection*{Analyse möglicher Fehlerquellen}
 
-\colorbox{yellow}{TODO}
+\todo{Text zu möglichen Rauschursachen laut Versuchsanleitung?}
 
 \subsubsection*{PyVISA als Alternative zu LabVIEW}
 
-\colorbox{yellow}{TODO}
+\todo{Text fertig schreiben}
 
 \subsubsection*{Simulation des kompletten Versuchs}
 
-\colorbox{yellow}{TODO}
+\todo{Text fertig schreiben}
