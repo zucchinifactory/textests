@@ -4,11 +4,11 @@
 
 \subsubsection*{Messdaten}
 
-Zunächst müssen wie die in der Durchführung gesammelten Daten weiter verarbeiten.
+Zunächst müssen wir die in der Durchführung gesammelten Daten weiter verarbeiten.
 Unser LabVIEW-Skript speichert $U_T$, $f$, $U_X$ und $U_Y$ - jeweils in einer Spalte.
 Dabei bezeichnet $U_T$ die Spannung am Pt-1000-Widerstandsthermometer, $f$ die eingestellte Frequenz am Frequenzgenerator sowie $U_X$ beziehungsweise $U_Y$ die beiden Ausgangskanäle des Verstärkers.
 
-Zunächst mitteln wir die je 20 Messdaten für $U_X$ und $U_Y$, welche wir für jede der Frequenzen aufgenommen haben.
+Wir mitteln die je 20 Messdaten für $U_X$ und $U_Y$, welche wir für jede der Frequenzen aufgenommen haben.
 Für die Temperatur können weitaus mehr Messpunkte gemittelt werden, sodass am Ende 11 Werte insgesamt entstehen.
 Zu den Mittelwerten berechnen wir ebenso den Mittleren Fehler des Mittelwerts.
 
@@ -49,7 +49,7 @@ Die freien Argumente der Gleichungen - beispielsweise die Amplitude $f_0$, die E
 Aus dem Fit ergeben sich also Werte für diese Parameter.
 Die entsprechenden Fehler beziehungsweise fortgepflanzten Messunsicherheiten ergeben sich aus der Wurzel der Diagonaleinträge der Kovarianzmatrix.
 Den Bereich der Fits wählen wir nach Augenmaß so, dass einerseits keine offensichtlichen Messfehler beitragen, und andererseits, dass das Modell überhaupt theoretisch Gültigkeit in diesem Bereich besitzt.
-(Die Lorentzkurve beschreibt die Amplitudenverlauf beispielsweise nur in unmittelbarer Nähe der Resonanzfrequenz.)
+(Beispielsweise beschreibt die Lorentzkurve den Amplitudenverlauf nur in unmittelbarer Nähe der Resonanzfrequenz.)
 
 Für den Fit und Plot von $A$ fügen wir außerdem die normierten Abweichungen (residuals) nach $\frac{A_i - \zeta_{Fit}(\omega_i)}{\delta_i}$ in die Abbildung ein.
 Dabei beschreibt $A_i$ den Messwert, $\zeta_{Fit}(\omega_i)$ den Wert der resultierten Fitfunktion an der gleichen Stelle und $\delta_i$ die Messunsicherheit.
@@ -152,8 +152,6 @@ Ausgewählte Plots sind in Abbildung \ref{fig:RaumtempKomplett} und \ref{fig:Feh
     \end{center}
 \endminipage
 
-
-
 \subsection{Versuchsabschnitt B}
 
 \subsubsection*{Orthogonal-Distance-Regression Fit}
@@ -161,7 +159,7 @@ Ausgewählte Plots sind in Abbildung \ref{fig:RaumtempKomplett} und \ref{fig:Feh
 Die im Versuchsabschnitt A bereits berechneten Resonanzfrequenzen $\omega_R$ werden gegen die Temperatur $T$ aufgetragen.
 Wir interessieren uns für den anscheinend vorhandenen linearen Zusammenhang.
 
-Der Unterschied in der Auswertung liegt nun darin, dass sowohl $T$, als auch $omega_R$ mit einer Messunsicherheit belegt ist.
+Der Unterschied in der Auswertung liegt nun darin, dass sowohl $T$, als auch $\omega_R$ mit einer Messunsicherheit belegt ist.
 Ein Ordinary-Least-Squares Fit betrachtet jedoch nur die Abweichung der Größe auf der Ordinate.
 Stattdessen verwenden wir für diese Messdaten nun also einen Orthogonal-Distance-Regression (ODR) Fit.
 
