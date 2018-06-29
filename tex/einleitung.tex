@@ -5,10 +5,10 @@
 Bei diesem Versuch geht es darum, Methoden der computergesteuerten Datenaufnahme und -verarbeitung kennenzulernen.
 Dazu wird die Biegeschwingung eines Metallstäbchens mithilfe elektronischer Verfahren gesteuert und vermessen.
 Solche mechanischen Oszillationen werden oft zur Untersuchung der elastischen Eigenschaften von Festkörpern verwendet.
-Die näheren physikalischen Eigenschaften und Ergebnisse spielen in diesem Versuch allerdings eine untergeordnete Rolle.
+Die näheren physikalischen Eigenschaften und Ergebnisse spielen in diesem Versuch nur eine untergeordnete Rolle.
 Es handelt sich jedoch um ein gutes Anwendungsbeispiel computergesteuerter Messaufbauten.
 
-Zudem können wir das verwendete Steuerprogramm für die Messinstrumente, LabVIEW, sowie den für die Kommunikation zwischen PC und Geräten zuständigen General Purpose Interface Bus (GPIB) kennenlernen.
+Zudem lernen wir das verwendete Steuerprogramm für die Messinstrumente, LabVIEW, kennen, sowie den für die Kommunikation zwischen PC und Geräten zuständigen General Purpose Interface Bus (GPIB).
 Diese Kombination kann durchaus als ein Standard für computergesteuerte Labormessungen verstanden werden und genießt eine entsprechende Bedeutung.
 
 An die aufgenommenen Daten wird ein theoretisch motiviertes Modell angepasst und somit passende Parameter der Modellierung bestimmt.
@@ -95,11 +95,12 @@ Eine harmonische Welle die sich in $x$-Richtung ausbreitet wird beschrieben durc
     \frac{\partial^2 z}{\partial t^2} &= v_\mathrm{ph}^2 \; \frac{\partial^2 z}{\partial x^2}.
 \end{align*}
 
-Dabei ist $z$ die Auslenkung und $v_\mathrm{ph}$ Phasengeschwindigkeit der Welle.
+Dabei ist $z$ die Auslenkung und $v_\mathrm{ph}$ die Phasengeschwindigkeit der Welle.
 
 Wenn der Raum in dem sich die Welle ausbreiten kann durch Randbedingungen beschränkt ist ergibt sich eine stehende Welle.
-Die Welle wird an einer Berandung reflektiert und die ausfallende Welle überlagert sich mit der einfallenden.\\
-Ist eine eindimensional schwingendes System etwa bei $x=0$ und $x=l$ eingespannt, die Amplitude also immer Null, so gilt für die Wellenlängen der entstehenden Welle:
+Die Welle wird an einer Berandung reflektiert und die ausfallende Welle überlagert sich mit der einfallenden.
+
+Ist ein eindimensional schwingendes System, etwa bei $x=0$ und $x=l$ fixiert, die Amplitude also immer Null, so gilt für die Wellenlängen der entstehenden Welle:
 \begin{align}
     \lambda_n &= \frac{2l}{n}, \hspace{1cm} n=1,2,3,...
 \end{align}
@@ -110,7 +111,7 @@ Deren Frequenzen
     \nu_n = \frac{v_\mathrm{ph}}{\lambda_n} = \frac{v_\mathrm{ph} n}{2 l}
 \end{align}
 
-sind ganzzahlige vielfache der Grundfrequenz $\nu_0$ und werden als Oberschwingungen bezeichnet.
+sind ganzzahlige vielfache der Grundfrequenz $\nu_1$ und werden als Oberschwingungen bezeichnet.
 
 \subsubsection*{Erzwungene gedämpfte Biegeschwingung eines elastischen Reeds}
 
@@ -131,7 +132,7 @@ Auch diese Schwingung zeigt Resonanzverhalten und lässt sich um die Maxima heru
 Die diskreten Eigenfrequenzen liegen bei
 \begin{align}
     \label{eq:Eigenfrequenzen}
-    \nu_n &= \alpha_n (2n+1)^2 \frac{\pi}{16\sqrt{3}} \frac{d}{l^2} v_{\Upsilon}
+    \nu_n &= \alpha_n (2n+1)^2 \frac{\pi}{16\sqrt{3}} \frac{d}{l^2} v_{\Upsilon}, \hspace{1cm} n=0,1,2,...
     \intertext{mit den numerischen Konstanten}
     \alpha_0 = 1,424987 \hspace{0.5cm} \alpha_1 &= 0,992249 \hspace{0.5cm} \alpha_2 = 1,000198
 \end{align}
@@ -141,7 +142,7 @@ Damit ergeben sich feste Frequenzverhältnisse zwischen den verschiedenen Schwin
     \frac{\nu_1}{\nu_0} = 6.267
     \hspace{0.5cm}
     \frac{\nu_2}{\nu_0} = 17.548
-    \label{eq:VerhaeltnisseEingenfrequenzen}
+    \label{eq:VerhaeltnisseEigenfrequenzen}
 \end{align}
 
 \subsection{Messung am experimentellen Aufbau}
@@ -176,7 +177,7 @@ Mithilfe der Kapazität der Anregungselektrode
     \end{split}
 \end{align}
 
-und einer angelegten Wechselspannung $U(t) = U_0 \cos \omega t$ erhalten wir schließlich die periodische Kraft, welche unsere Schwingung anregt
+und einer angelegten Wechselspannung $U(t) = U_0 \cos \omega t$ erhalten wir die periodische Kraft, welche unsere Schwingung anregt
 \begin{align}
     \label{eq:PeriodischeKraft}
     \begin{split}
@@ -195,7 +196,7 @@ Analog lässt sich über die Kapazität der Detektionselektrode
 \end{align}
 
 eine Beziehung zwischen Schwingung und gemessener Spannung herleiten.
-Die Spannung der Detektionselektrode lässt sich schließlich schreiben als
+Die Spannung der Detektionselektrode lässt sich schreiben als
 \begin{align}
     \label{eq:Detektionselektrode}
     \begin{split}
@@ -214,7 +215,7 @@ Der Verlauf des Faktors in Abhängigkeit von $\omega$ ist in Abbildung \ref{fig:
         \begin{adjustbox}{max width=\linewidth, keepaspectratio}
             \includegraphics[]{pdf/Faktor}
         \end{adjustbox}
-        \captionof{figure}{Letzter Faktor in Gleichung \ref{eq:Detektionselektrode} (entspricht Gleichung 2.6 der Versuchsanleitung \cite{Anleitung}) kann in guter Näherung durch \SI{1}{} ersetzt werden.}
+        \captionof{figure}{Letzter Faktor in Gleichung \ref{eq:Detektionselektrode} kann in guter Näherung durch \SI{1}{} ersetzt werden.}
         \label{fig:Faktor}
     \end{center}
 \endminipage
@@ -245,12 +246,12 @@ wobei $F_0$ der Maximalwert der periodischen Anregungskraft nach Gleichung \ref{
 Damit lässt sich nun auch der Maximalwert der Spannung der Detektionselektrode $U_d$ nach Gleichung \ref{eq:DetektionselektrodeVereinfacht} bestimmen.
 Wir erhalten die beiden Werte $\zeta_0 = \SI{2.55}{\nano\meter}$ und $U_{d0} = \SI{5.76}{\micro\volt}$.
 
-\textbf{Die abgeschätzten Größenordnung unserer Messgrößen bestätigen also die Notwendigkeit des Verstärkers.}
+\textbf{Die abgeschätzten Größenordnung unserer Messgrößen bestätigen also die Notwendigkeit eines Verstärkers.}
 
 \subsection{Theoretische Werte für die erwarteten Eigenfrequenzen}
 
 Mithilfe Gleichung \ref{eq:Eigenfrequenzen} und den Angaben zum Reed in der Versuchsanleitung \cite{Anleitung} lassen sich die erwarteten Eigenfrequenzen abschätzen.
-Das erleichtert uns die spätere Suche nach den tatsächlichen Resonanzkurven während des Experiments.
+Das erleichtert uns während des Experiments die Suche nach den tatsächlichen Resonanzkurven.
 
 Wir erhalten $\nu_{0 theo} = \SI{274}{\hertz}$, $\nu_{1 theo} = \SI{1719}{\hertz}$ und $\nu_{2 theo} = \SI{4812}{\hertz}$.
 \label{eq:AbschaetzungEigenfrequenzen}
@@ -258,4 +259,4 @@ Wir erhalten $\nu_{0 theo} = \SI{274}{\hertz}$, $\nu_{1 theo} = \SI{1719}{\hertz
 \subsection{Statistische Grundlagen}
 
 Eine Einführung in die statistischen Grundlagen, die wir beispielsweise als Basis zur Erstellung der Fits an die Messdaten verwendet haben, würde den Umfang dieses Texts sprengen.
-Wir verweisen daher an dieser Stelle an die entsprechenden Kapitel der Versuchsanleitung \cite{Anleitung}.
+Wir verweisen daher an dieser Stelle auf die entsprechenden Kapitel der Versuchsanleitung \cite{Anleitung}.
