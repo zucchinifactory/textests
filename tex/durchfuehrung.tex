@@ -49,17 +49,18 @@ Dieses Array beinhaltet die einzustellenden Frequenzen für den Frequenzgenerato
 Erneut beginnen wir eine Schleife und loggen das Einstellen der Frequenz.
 Der verwendete Befehl zum Setzen der Frequenz ist \texttt{FREQ}.
 
-Wir beginnen nun den Abschnitt der Messung von Messdaten, welcher für die oben beschriebenen Einstellungen jeweils 20 mal wiederholt wird.
+Wir beginnen nun den Abschnitt der Aufnahme von Messdaten, welcher für die oben beschriebenen Einstellungen jeweils 20 mal wiederholt wird.
 Mit \texttt{X1}, \texttt{QX} und \texttt{QY} fragen wir die Signaldaten an und schreiben diese in die Messdatei.
 Um eine Beeinflussung der Messungen untereinander auszuschließen, ist vorher eine Wartezeit von \SI{500}{\milli\second} eingebaut.
 
-Nach Abschluss aller Messungen wird die Heizspannung des Peltier-Elements auf \SI{0}{\volt} zurückgesetzt und so kann der Versuchsaufbau wieder auf Raumtemperatur abkühlen.
+Nach Abschluss aller Messungen wird die Heizspannung des Peltier-Elements auf \SI{0}{\volt} zurückgesetzt.
+So kann der Versuchsaufbau wieder auf Raumtemperatur abkühlen.
 
 Das endgültige LabVIEW-Skript ist in Abbildung \ref{fig:LabVIEWSkript} dargestellt.
 
 \subsubsection*{Heizspannung des Peltier-Elements}
 
-Parallel zur Entwicklung unseres LabVIEW-Skripts für die eigentliche Messung, ändern wir die Heizspannung des Peltier-Elements.
+Parallel zur Entwicklung unseres LabVIEW-Skripts für die eigentliche Messung, untersuchen wir die Grenzen der Heizspannung des Peltier-Elements.
 Dabei erhöhen wir die Spannung immer wieder um \SI{0.1}{\volt} und warten anschließend bis sich eine neue Gleichgewichts-Temperatur eingependelt hat.
 Die Temperatur bestimmen wir in regelmäßigen Abständen manuell per Gleichung 3.1 der Versuchsanleitung \cite{Anleitung}.
 Als Grenze sollen \SI{60}{\celsius} nicht überschritten werden.
@@ -88,5 +89,5 @@ Der Messbereich muss also für eine erfolreiche Suche nach der Resonanzfrequenz 
 
 Mit den aktualisierten Suchbereich lässt sich ein weiterer Peak auffinden.
 Er gehört zu einer Kurve von Messpunkten mit dem charakteristischem Verlauf einer Resonanzkurve.
-Mit diesem ersten Wert für die Resonanzfrequenz der ersten Mode lassen sich mithilfe von Gleichung \ref{eq:VerhaeltnisseEingenfrequenzen} die Frequenzen für höhere Moden bestimmen.
-Wir definieren schließlich die drei Messbereiche für die Messung der Resonanzkurven der ersten drei Moden und starten die abschließende Messung, welche die endgültigen Messdaten für unsere Auswertung liefert.
+Mit diesem ersten Wert für die Resonanzfrequenz der ersten Mode lassen sich mithilfe von Gleichung \ref{eq:VerhaeltnisseEigenfrequenzen} die Frequenzen für höhere Moden bestimmen.
+Wir definieren schließlich die drei Messbereiche \SIrange{143}{173}{\hertz}, \SIrange{975}{1005}{\hertz} und \SIrange{2757}{2787}{\hertz} für die Messung der Resonanzkurven der ersten drei Moden und starten die abschließende Messung, welche die endgültigen Messdaten für unsere Auswertung liefert.
