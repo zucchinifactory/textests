@@ -178,7 +178,7 @@ Da - wie bereits erwähnt - keine \enquote{echte} GPIB-Verbindung besteht, könn
 Wir definieren die beim Versuch verwendeten Geräte Funktionsgenerator und Lock-In-Verstärker in \texttt{devices.yml}.
 Dabei geht es vor allem um die simulierten GPIB-Adressen und die unterstützten Befehle zum Setzen beziehungsweise Lesen der relevanten Werte.
 Der Code von \texttt{simulate.py} läuft parallel zur Messung und speist die Geräte mit den passenden simulierten Daten.
-Dabei haben wir uns an unseren experimentell bestimmten Werten für die erste Mode orientiert.
+Dabei haben wir uns an unseren experimentell bestimmten Werten für die erste Mode orientiert - diese sind aber selbstverändlich vollkommen frei wählbar.
 
 Mit \texttt{plot.py} werden die simulierten Daten direkt einer ersten Auswertung unterzogen, indem Amplitude, Phase sowie X- und Y-Signal an die entsprechende Fitfunktion modelliert wird.
 Ein beispielhaftes Ergebnis ist in Abbildung \ref{fig:PlotSimulation} zu sehen.
