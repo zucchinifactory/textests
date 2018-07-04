@@ -2,19 +2,17 @@
 
 \subsubsection*{Versuchsdurchführung}
 
-\todo{Diese subsubsection verbessern, ausformulieren}
-
 Für die dritte Mode haben wir offensichtlich leider den falschen Messbereich ausgewählt.
-Für höhere Temperaturen wandert die Resonanzkurve weiter Richtung Null, sodass sie eher im Messbereich noch dargestellt wird.
-Man erkennt dies außerdem gut im Plot mit den über die Temperatur aufgetragenenen Resonanzfrequenzen:
+Was wir als Resonanzkurve vermuteten, stellt sich als Artefakt heraus.
+Für höhere Temperaturen \enquote{wandert} die tatsächliche Resonanzkurve in Richtung Null, sodass sie teilweise im Messbereich noch dargestellt wird.
+
+Man erkennt dies außerdem gut im Plot der über die Temperatur aufgetragenenen Resonanzfrequenzen:
 Was die Fehler der Messpunkte in y-Richtung (also der Fehler auf $\omega_R$) angeht, haben alle Punkte relativ kleine Fehler - die Fehlerbalken sind nahezu nicht sichtbar.
 Für die dritte Mode erkennt man für die erste Hälfte der Messwerte (im kälteren Temperaturbereich also) jedoch deutlich größere Fehler.
 Hier war der Fit einfach nicht sehr erfolgreich aufgrund der unklaren Messpunkte.
-Je wärmer, desto besser werden die Fehler: die Kurve \enquote{wandert} wieder in den Messbereich.
+Je wärmer, desto besser werden die Fehler: die Kurve \enquote{wandert} in den Messbereich und sorgt für bessere Fits.
 
 \subsubsection*{Einordnung der Fiteigenschaften}
-
-\todo{Diese subsubsection verbessern, ausformulieren}
 
 Beim Erstellen der Fits an die aufgenommenen Daten geht es uns darum, das in der Einleitung beschriebene theoretische Modell möglichst gut an die aufgenommenen Daten anzupassen.
 Daraus können wir zum einen schließen, ob das Modell die Realität tatsächlich beschreibt - und zum anderen erhalten wir so auch weitere Informationen über das System:
@@ -22,6 +20,8 @@ Wir können etwa die Resonanzfrequenzen der Schwingung genau feststellen.
 
 Letzteres funktioniert sehr gut.
 Die Fehler auf $\omega_0$ sind winzig.
+Dies liegt allerdings zu großen Teilen am verwendeten Mittleren Fehler auf den Mittelwert der Messungen.
+Die große Anzahl an Einzelmessungen lässt den Fehler auf die Messpunkte verschwindend gering werden.
 
 Für $\omega_{0}$ passt die Lorentzkurve sehr gut an die Daten.
 Dies ist in den Plots ersichtlich und wird auch durch den guten $\chi_{red}^2$-Wert belegt.
@@ -56,10 +56,8 @@ Die relative Abweichung mit $\frac{0.041}{6.267} = 0.7\%$ ist nicht besonders gr
 
 \subsubsection*{Interpretation der Abschätzung systematischer Fehler}
 
-\todo{Diese subsubsection verbessern, ausformulieren}
-
 Wir betrachten die residuals in den Abbildungen der Amplituden.
-Es wird deutlich, dass zu keiner der Resonanzfrequenzen systematische Abweichungen erheblich sichtbar wären.
+Es wird deutlich, dass zu keiner der Resonanzfrequenzen erhebliche Trends von systematischen Abweichungen im Messbereich sichtbar sind.
 
 \subsubsection*{Vergleich der berechneten Güte für die erste Mode}
 
@@ -83,31 +81,32 @@ Mit Gleichung \ref{eq:TransversaleAuslenkung} sehen wir, dass sich dieses Verhal
 Je höher die Temperatur im Festkörper, desto geringer wird die Schallgeschwindigkeit.
 Dies ist anders als zum Beispiel bei idealen Gasen.
 
-\todo{Temperaturabhängigkeit der Resonanzfrequenzen - Probelesen und ausreichend?}
-
 Dabei stellen wir zudem fest, dass sich die Temperaturabhängigkeit für die verschiedenen Moden unterscheidet.
 
 \subsubsection*{Analyse möglicher Fehlerquellen}
 
-\todo{Text zu möglichen Rauschursachen laut Versuchsanleitung?}
+In dem verwendeten Versuchsaufbau gibt es eine Vielzahl von möglichen systematischen Fehlerquellen.
+Einige intuitive Störungen wie beispielsweise Luftreibung der Schwingung haben nur eine vernachlässigbare Auswirkung auf das Resonanzverhalten des Reeds.
+Hingegen beeinflussen Faktoren wie schräges Einspannen oder Mitschwingen der Einspannungen das Schwingverhalten des Systems stark.
+Als Folge lässt sich die Schwingung des Reeds nicht mehr durch die verwendete Theorie beschreiben.
+Die Größte solcher Fehler lässt sich nur schwer abschätzen.
+Wie wir allerdings festgestellt haben, sind die absoluten Abweichungen der Frequenzverhältnisse im Bereich weniger Prozent.
 
 \subsubsection*{Python/PyVISA als Alternative zu LabVIEW}
 
-Es stellt sich während der Durchführung dieses Versuchs heraus, dass die meiste Zeit nicht dafür verwendet wird, einen passenden Algorithmus für die Messung zu finden - sondern damit, LabVIEW überhaupt bedienen zu können.
+Es stellt sich während der Durchführung dieses Versuchs heraus, dass die meiste Zeit nicht dafür verwendet wird, einen passenden Algorithmus für die Messung zu finden - sondern damit, das passende LabVIEW Modul zu finden.
 Da der Titel dieses Versuchs nicht \enquote{Computeransteuerung und Datenverarbeitung mit LabVIEW} lautet, sind wir darüber doch ein Stück weit enttäuscht.
 Auf der einen Seite haben wir LabVIEW kennengelernt - auf der anderen Seite war der Lerneffekt dieses Versuchs während der Durchführung fast ausschließlich darauf beschränkt.
-(Die Auswertung mit der statistischen Analyse beziehungsweise den Fits sei unabhängig davon zu betrachten.)
+(Die spätere Auswertung des Versuchs durch die statistische Analyse beziehungsweise den Fits sei unabhängig davon zu betrachten - dabei haben wir zusätzlich neue Methoden kennengelernt.)
 
-Aus diesem Grund plädieren wir für umfangreichere Messmethoden, um dem Aspekt \enquote{Computeransteuerung} des Versuchs gerecht zu werden.
-Dabei können durchaus zum Kennenlernen erste, einführende Messungen mit LabVIEW durchgeführt werden - das grundlegende Prinzip und die Vorteile von LabVIEW sind schnell verstanden.
-Die anschließenden, ausführlicheren Messungen sollen dann allerdings nicht in Kleinstarbeit mit LabVIEW geskriptet werden, sondern können in Python implementiert werden.
+Aus diesem Grund wäre es schön, umfangreichere Messmethoden zu verwenden, um dem Aspekt \enquote{Computeransteuerung} des Versuchs gerecht zu werden.
+Dabei schließt es sich selbstverständlich nicht aus, dass zum Kennenlernen erste, einführende Messungen mit LabVIEW durchgeführt werden - das grundlegende Prinzip und die Vorteile von LabVIEW sind schnell verstanden.
+Es wäre allerdings möglich, dass die anschließenden, ausführlicheren Messalgorithmen dann nicht in Kleinstarbeit mit LabVIEW geskriptet werden, sondern in Python implementiert werden können.
 Das PyVISA Modul für Python stellt eine Schnittstelle zu VISA beziehungsweise schließlich zum GPIB dar.
 Es können also alle Geräte dieses Versuchs mit Python-Code angesprochen und gesteuert werden.
 Python wird bereits im Anfänger-Praktikum für viele Versuchsauswertungen verwendet und ist daher in Grundlagen allen Studierenden bekannt.
 
-Unser gesamtes LabVIEW-Skript der Messung, wie in Abbildung \ref{fig:LabVIEWSkript} dargestellt, lässt sich auf weniger als 20 Zeilen Python-Code verkürzen.
-
-\todo{Übertrieben mit weniger als 20 Zeilen?}
+Unser gesamtes LabVIEW-Skript der Messung, wie in Abbildung \ref{fig:LabVIEWSkript} dargestellt, lässt sich auf weniger als 30 Zeilen Python-Code verkürzen.
 
 Leider ließ sich während unserer Durchführung des Versuchs auf den Praktikumsrechnern aufgrund veralteter Software das PyVISA Modul nicht installieren.
 Als beispielhafte Alternative haben wir stattdessen Teile des Versuchs mit PyVISA simuliert.
