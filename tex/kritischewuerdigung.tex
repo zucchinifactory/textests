@@ -194,3 +194,12 @@ Der komplette Ablauf aus Messung, Simulation und Fit/Plot wird gestartet mit \te
         \label{fig:PlotSimulation}
     \end{center}
 \endminipage
+
+Das Skript dient damit als Proof of concept. Um das Experiment tatsächlich durchzuführen muss lediglich in Zeile
+\begin{small}
+\begin{lstlisting}[xleftmargin=10mm,numbers=none]
+rm = visa.ResourceManager("devices.yml@sim")
+\end{lstlisting}
+\end{small}
+
+die Umleitung zur Simulation entfernt werden, sodass PyVISA nicht mehr den simulierten GPIB benutzt sondern die VISA-Schnittstelle.
