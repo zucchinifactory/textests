@@ -56,6 +56,35 @@
 
 \usepackage[colorinlistoftodos, prependcaption, textsize=tiny]{todonotes}
 
+\usepackage{listings}
+\lstset{
+    language=Python,
+    aboveskip=5mm,
+    belowskip=5mm,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    breaklines=true,
+    frame=none,
+    tabsize=4,
+    basicstyle=\ttfamily,
+    commentstyle=\color[rgb]{0.10,0.50,0.00}\ttfamily,
+    keywordstyle=\color[rgb]{0.00,0.13,0.98}\ttfamily\bfseries,
+    identifierstyle=,
+    numberstyle=\ttfamily,
+    stringstyle=\color[rgb]{0.50,0.50,0.50}\ttfamily,
+    backgroundcolor=,
+}
+\lstset{literate=%
+    {Ä}{{\"A}}1
+    {Ö}{{\"O}}1
+    {Ü}{{\"U}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+    {ü}{{\"u}}1
+    {ß}{{\ss}}1
+}
+
 \input{tex/maketitle.tex} % import custom \maketitle command
 \header{Lange besondere Ausarbeitung Fortgeschrittenen-Praktikum}
 \title{F78 Computeransteuerung und Datenverarbeitung}
