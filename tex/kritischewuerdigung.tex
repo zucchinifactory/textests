@@ -10,7 +10,7 @@ Man erkennt dies außerdem gut im Plot mit den über die Temperatur aufgetragene
 Was die Fehler der Messpunkte in y-Richtung (also der Fehler auf $\omega_R$) angeht, haben alle Punkte relativ kleine Fehler - die Fehlerbalken sind nahezu nicht sichtbar.
 Für die dritte Mode erkennt man für die erste Hälfte der Messwerte (im kälteren Temperaturbereich also) jedoch deutlich größere Fehler.
 Hier war der Fit einfach nicht sehr erfolgreich aufgrund der unklaren Messpunkte.
-Je wärmer, desto besser werden die Fehler.
+Je wärmer, desto besser werden die Fehler: die Kurve \enquote{wandert} wieder in den Messbereich.
 
 \subsubsection*{Einordnung der Fiteigenschaften}
 
@@ -76,18 +76,122 @@ Wir können also davon ausgehen, dass die Bestimmung der Güte mit beiden Method
 
 \subsubsection*{Temperaturabhängigkeit der Resonanzfrequenzen}
 
-\todo{Temperaturabhängigkeit der Resonanzfrequenzen erklären - Stichwort Schallgeschwindigkeit}
+In den Abbildungen \ref{fig:Temperaturabhaengigkeit0}, \ref{fig:Temperaturabhaengigkeit1} und \ref{fig:Temperaturabhaengigkeit2} erkennen wir eine negative Steigung der Temperaturabhängigkeit der Resonanzfrequenzen.
+Das bedeutet, dass bei höheren Temperaturen die Resonanzfrequenz abnimmt.
 
-\todo{Temperaturabhängigkeit unterscheidet sich für die verschiedenen Moden}
+Mit Gleichung \ref{eq:TransversaleAuslenkung} sehen wir, dass sich dieses Verhalten auf die Temperaturabhängigkeit der Schallgeschwindigkeit im Reed zurückführen lässt.
+Je höher die Temperatur im Festkörper, desto geringer wird die Schallgeschwindigkeit.
+Dies ist anders als zum Beispiel bei idealen Gasen.
+
+\todo{Temperaturabhängigkeit der Resonanzfrequenzen - Probelesen und ausreichend?}
+
+Dabei stellen wir zudem fest, dass sich die Temperaturabhängigkeit für die verschiedenen Moden unterscheidet.
 
 \subsubsection*{Analyse möglicher Fehlerquellen}
 
 \todo{Text zu möglichen Rauschursachen laut Versuchsanleitung?}
 
-\subsubsection*{PyVISA als Alternative zu LabVIEW}
+\subsubsection*{Python/PyVISA als Alternative zu LabVIEW}
 
-\todo{Text fertig schreiben}
+Es stellt sich während der Durchführung dieses Versuchs heraus, dass die meiste Zeit nicht dafür verwendet wird, einen passenden Algorithmus für die Messung zu finden - sondern damit, LabVIEW überhaupt bedienen zu können.
+Da der Titel dieses Versuchs nicht \enquote{Computeransteuerung und Datenverarbeitung mit LabVIEW} lautet, sind wir darüber doch ein Stück weit enttäuscht.
+Auf der einen Seite haben wir LabVIEW kennengelernt - auf der anderen Seite war der Lerneffekt dieses Versuchs während der Durchführung fast ausschließlich darauf beschränkt.
+(Die Auswertung mit der statistischen Analyse beziehungsweise den Fits sei unabhängig davon zu betrachten.)
 
-\subsubsection*{Simulation des kompletten Versuchs}
+Aus diesem Grund plädieren wir für umfangreichere Messmethoden, um dem Aspekt \enquote{Computeransteuerung} des Versuchs gerecht zu werden.
+Dabei können durchaus zum Kennenlernen erste, einführende Messungen mit LabVIEW durchgeführt werden - das grundlegende Prinzip und die Vorteile von LabVIEW sind schnell verstanden.
+Die anschließenden, ausführlicheren Messungen sollen dann allerdings nicht in Kleinstarbeit mit LabVIEW geskriptet werden, sondern können in Python implementiert werden.
+Das PyVISA Modul für Python stellt eine Schnittstelle zu VISA beziehungsweise schließlich zum GPIB dar.
+Es können also alle Geräte dieses Versuchs mit Python-Code angesprochen und gesteuert werden.
+Python wird bereits im Anfänger-Praktikum für viele Versuchsauswertungen verwendet und ist daher in Grundlagen allen Studierenden bekannt.
 
-\todo{Text fertig schreiben}
+Unser gesamtes LabVIEW-Skript der Messung, wie in Abbildung \ref{fig:LabVIEWSkript} dargestellt, lässt sich auf weniger als 20 Zeilen Python-Code verkürzen.
+
+\todo{Übertrieben mit weniger als 20 Zeilen?}
+
+Leider ließ sich während unserer Durchführung des Versuchs auf den Praktikumsrechnern aufgrund veralteter Software das PyVISA Modul nicht installieren.
+Als beispielhafte Alternative haben wir stattdessen Teile des Versuchs mit PyVISA simuliert.
+
+\subsubsection*{Simulation des Versuchs}
+
+In \texttt{measure.py} steht der Python-Code für eine beispielhafte Messung im Frequenzbereich rund um die erste Mode.
+Zunächst bauen wir eine GPIB-Verbindung zum Frequenzgenerator unter Adresse 19 beziehungsweise zum Lock-In-Verstärker unter Adresse 7 auf:
+\begin{small}
+\begin{lstlisting}[xleftmargin=10mm,numbers=none]
+self.frequency_generator = rm.open_resource("GPIB::19")
+self.lock_in_amplifier = rm.open_resource("GPIB::7")
+\end{lstlisting}
+\end{small}
+
+Mit
+\begin{small}
+\begin{lstlisting}[xleftmargin=10mm,numbers=none]
+frequencies = np.linspace(158, 162, 200)
+\end{lstlisting}
+\end{small}
+
+bestimmen wir 200 Messpunkte mit Frequenzen am Generator von \SIrange{158}{162}{\hertz}. Wir setzen die Frequenz am Generator
+\begin{small}
+\begin{lstlisting}[xleftmargin=10mm,numbers=none]
+self.frequency_generator.query("FREQ {:f}".format(f))
+\end{lstlisting}
+\end{small}
+
+und lesen die Werte für X- beziehungsweise Y-Kanal des Lock-In-Verstärkers aus
+\begin{small}
+\begin{lstlisting}[xleftmargin=10mm,numbers=none]
+X = self.lock_in_amplifier.query("QX")
+Y = self.lock_in_amplifier.query("QY")
+\end{lstlisting}
+\end{small}
+
+Die dabei verwendeten GPIB-Befehle entsprechen den bereits aus der Versuchsanleitung \cite{Anleitung} bekannten Befehlen \texttt{FREQ}, \texttt{QX} und \texttt{QY}.
+Die Wartezeit
+\begin{small}
+\begin{lstlisting}[xleftmargin=10mm,numbers=none]
+idle_time = 50 / 1000
+\end{lstlisting}
+\end{small}
+
+zwischen den Messungen ist für die Zwecke der Simulation ausreichend gering gewählt um keine unnötigen Verzögerungen zu produzieren.
+Für tatsächliche Messungen kann (und sollte) dieser Wert entsprechend erhöht werden.
+
+Anschließend werden die Messdaten in eine Datei geschrieben. Am Vergleich eines beispielhaften Auszugs dieser Datei
+\begin{small}
+\begin{lstlisting}[xleftmargin=10mm,numbers=none]
+158.24120603015075 3.510229e-07 -3.856987e-08
+\end{lstlisting}
+\end{small}
+
+mit einem Auszug aus der tatsächlichen Messdatei
+\begin{small}
+\begin{lstlisting}[xleftmargin=10mm,numbers=none]
+1.110 158.900000 20.83E-6 44.08E-6
+\end{lstlisting}
+\end{small}
+
+wird die Analogie im Aufbau zwischen simulierten und experimentell bestimmten Daten der beiden Messdateien deutlich.
+Allein die erste Spalte der eingestellten Heizspannung am Peltier-Element fehlt.
+(Der Aspekt der Temperaturabhängigkeit der Resonanzfrequenzen wird zur Zeit nicht untersucht, da diese Funktionalität der Simulation bisher von uns nicht implementiert wurde.)
+
+Da - wie bereits erwähnt - keine \enquote{echte} GPIB-Verbindung besteht, können wir stattdessen mit PyVISA beziehungsweise PyVISA-sim die gesamte Kommunikation simulieren.
+Wir definieren die beim Versuch verwendeten Geräte Funktionsgenerator und Lock-In-Verstärker in \texttt{devices.yml}.
+Dabei geht es vor allem um die simulierten GPIB-Adressen und die unterstützten Befehle zum Setzen beziehungsweise Lesen der relevanten Werte.
+Der Code von \texttt{simulate.py} läuft parallel zur Messung und speist die Geräte mit den passenden simulierten Daten.
+Dabei haben wir uns an unseren experimentell bestimmten Werten für die erste Mode orientiert.
+
+Mit \texttt{plot.py} werden die simulierten Daten direkt einer ersten Auswertung unterzogen, indem Amplitude, Phase sowie X- und Y-Signal an die entsprechende Fitfunktion modelliert wird.
+Ein beispielhaftes Ergebnis ist in Abbildung \ref{fig:PlotSimulation} zu sehen.
+
+Der komplette Ablauf aus Messung, Simulation und Fit/Plot wird gestartet mit \texttt{main.py}.
+
+\minipage{\linewidth}
+    \begin{center}
+        \captionsetup{type=figure}
+        \begin{adjustbox}{max width=\linewidth, keepaspectratio}
+            \includegraphics[]{pdf/Simulation}
+        \end{adjustbox}
+        \captionof{figure}{Beispielhafte Fit- und Plot-Ergebnisse für einen zufälligen Simulationsaufruf. Man erkennt die simulierten Messwerte inklusive ihrer Streuung, den \enquote{Guess} der Funktionsparameter und den, auf den ersten Blick, erfolgreichen Fit des Modells für Amplitude, Phase sowie X- und Y-Signal.}
+        \label{fig:PlotSimulation}
+    \end{center}
+\endminipage
